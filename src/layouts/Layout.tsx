@@ -9,7 +9,7 @@ export const Layout = () => {
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh", position: "relative" }}>
       <CssBaseline />
       {/* Fondo animado */}
-      <Box
+      {/* <Box
         sx={{
           position: "fixed",
           inset: 0,
@@ -26,7 +26,7 @@ export const Layout = () => {
           speed={1.0}
         />
 
-      </Box>
+      </Box> */}
       {/* Navbar y contenido */}
       <Navbar />
       <Box

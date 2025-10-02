@@ -1,3 +1,5 @@
+//Herramientas
+
 import React from 'react'
 
 interface SlideProps {
@@ -32,19 +34,10 @@ export const Herramientas = () => {
     react: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg',
     typescript: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg',
     postgres: 'https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg',
-    neolo: 'https://www.neolo.com/blog/wp-content/uploads/2019/05/neolo-04-768x404.png'
+    neolo: 'https://www.neolo.com/blog/wp-content/uploads/2019/05/neolo-04-768x404.png',
+    s3: 'data:image/jpeg;base64,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'
   };
 
-  const LogoComponent = (name: string, logoKey: string) => (
-    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-      <img 
-        src={logos[logoKey as keyof typeof logos]} 
-        alt={`${name} logo`} 
-        style={{ width: '50px', height: '50px', marginRight: '15px', borderRadius: 8, background: '#fff', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }} 
-      />
-      <strong style={{ fontSize: 22, color: '#3a3a3a' }}>{name}</strong>
-    </div>
-  );
 
   return (
     <div className="presentation">
@@ -132,7 +125,7 @@ export const Herramientas = () => {
       <Slide 
         title="Tecnologías"
         content={
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+          <div style={{  flexDirection: 'column', gap: 24 }}>
             <div style={cardStyle}>
               <img 
                 src={logos.react}
@@ -182,6 +175,20 @@ export const Herramientas = () => {
                 <strong style={{ fontSize: 22, color: '#3a3a3a' }}>Neolo</strong>
                 <div style={{ color: '#444', fontSize: 16, marginTop: 8 }}>
                   Hosting boliviano con soporte para alto tráfico, disponibilidad mínima del 99.9% y políticas de backup diarias.
+                </div>
+              </div>
+            </div>
+            
+            <div style={cardStyle}>
+              <img 
+                src={logos.s3}
+                alt="s3 logo"
+                style={{ width: 64, height: 64, borderRadius: 8, background: '#fff', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}
+              />
+              <div>
+                <strong style={{ fontSize: 22, color: '#3a3a3a' }}>S3 AWS Bucket</strong>
+                <div style={{ color: '#444', fontSize: 16, marginTop: 8 }}>
+                  Servicio de almacenamiento en la nube para guardar y servir archivos multimedia de manera segura y escalable.
                 </div>
               </div>
             </div>
