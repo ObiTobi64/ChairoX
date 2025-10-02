@@ -6,514 +6,369 @@ interface SlideProps {
 }
 
 const Slide: React.FC<SlideProps> = ({ title, content }) => (
-  <div className="slide">
-    <h1>{title}</h1>
+  <div className="slide flex flex-col items-center justify-center p-6">
+    <h1 className="text-2xl font-bold text-center mb-6">{title}</h1>
     <div className="slide-content">{content}</div>
   </div>
 );
 
 export const Diagrama = () => {
   return (
-    <div className="presentation">
-      <Slide
-        title="Diagrama del Sistema Web E-learning"
-        content={
-          <svg width="1200" height="600" viewBox="0 0 1200 600">
-            <defs>
-              <marker
-              id="arrow"
-              markerWidth="10"
-              markerHeight="10"
-              refX="9"
-              refY="3"
-              orient="auto"
-              markerUnits="strokeWidth"
-            >
-              <path d="M0,0 L0,6 L9,3 z" fill="#0e0d0dff" /> {/* Cambiado a blanco */}
-            </marker>
-            </defs>
+    <div className="presentation flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-100 via-pink-100 to-cyan-100">
+      <div className="flex flex-col items-center justify-center">
+        <Slide
+          title="Diagrama del Sistema Web E-learning"
+          content={
+            <div className="flex items-center justify-center">
+              <svg width="1400" height="800" viewBox="0 0 1400 800">
+                <defs>
+                  <marker
+                    id="arrow"
+                    markerWidth="10"
+                    markerHeight="10"
+                    refX="9"
+                    refY="3"
+                    orient="auto"
+                    markerUnits="strokeWidth"
+                  >
+                    <path d="M0,0 L0,6 L9,3 z" fill="black" />
+                  </marker>
+                </defs>
 
-            {/* Nodes */}
-            <rect
-              x="10"
-              y="250"
-              width="140"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text x="80" y="270" textAnchor="middle" alignmentBaseline="middle">
-              Página de Inicio
-            </text>
+                {/* Marco */}
+                <rect
+                  x="20"
+                  y="20"
+                  width="1360"
+                  height="760"
+                  rx="20"
+                  stroke="#2563eb"
+                  strokeWidth="2"
+                  fill="white"
+                  fillOpacity="0.2"
+                />
 
-            <rect
-              x="10"
-              y="50"
-              width="140"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text x="80" y="70" textAnchor="middle" alignmentBaseline="middle">
-              Quiénes Somos
-            </text>
+                {/* Función para nodos */}
+                {[
+                  {
+                    x: 50,
+                    y: 350,
+                    w: 160,
+                    h: 50,
+                    stroke: "#2563eb",
+                    text: "Página de Inicio",
+                  },
+                  {
+                    x: 300,
+                    y: 100,
+                    w: 160,
+                    h: 50,
+                    stroke: "#dc2626",
+                    text: "Quiénes Somos",
+                  },
+                  {
+                    x: 300,
+                    y: 300,
+                    w: 220,
+                    h: 50,
+                    stroke: "#2563eb",
+                    text: "Catálogo de Cursos y Servicios",
+                  },
+                  {
+                    x: 600,
+                    y: 200,
+                    w: 160,
+                    h: 50,
+                    stroke: "#dc2626",
+                    text: "Servicios CEC",
+                  },
+                  {
+                    x: 600,
+                    y: 280,
+                    w: 160,
+                    h: 50,
+                    stroke: "#dc2626",
+                    text: "Servicios SERLIS",
+                  },
+                  {
+                    x: 600,
+                    y: 360,
+                    w: 200,
+                    h: 50,
+                    stroke: "#dc2626",
+                    text: "Cursos / Talleres CCC",
+                  },
+                  {
+                    x: 900,
+                    y: 300,
+                    w: 160,
+                    h: 50,
+                    stroke: "#dc2626",
+                    text: "Aula Virtual",
+                  },
+                  {
+                    x: 1150,
+                    y: 300,
+                    w: 200,
+                    h: 50,
+                    stroke: "#2563eb",
+                    text: "Certificación Automática",
+                  },
+                  {
+                    x: 300,
+                    y: 500,
+                    w: 220,
+                    h: 50,
+                    stroke: "#dc2626",
+                    text: "Registro/Login de Usuario",
+                  },
+                  {
+                    x: 600,
+                    y: 500,
+                    w: 160,
+                    h: 50,
+                    stroke: "#2563eb",
+                    text: "Autenticación",
+                  },
+                  {
+                    x: 850,
+                    y: 200,
+                    w: 160,
+                    h: 50,
+                    stroke: "#dc2626",
+                    text: "Perfil de Usuario",
+                  },
+                  {
+                    x: 850,
+                    y: 500,
+                    w: 200,
+                    h: 50,
+                    stroke: "#2563eb",
+                    text: "Panel Administrativo",
+                  },
+                  {
+                    x: 1150,
+                    y: 400,
+                    w: 160,
+                    h: 50,
+                    stroke: "#2563eb",
+                    text: "CRUD Cursos",
+                  },
+                  {
+                    x: 1150,
+                    y: 460,
+                    w: 200,
+                    h: 50,
+                    stroke: "#dc2626",
+                    text: "Gestión de Usuarios",
+                  },
+                  {
+                    x: 1150,
+                    y: 520,
+                    w: 220,
+                    h: 50,
+                    stroke: "#dc2626",
+                    text: "Gestión de Inscripciones",
+                  },
+                  {
+                    x: 1150,
+                    y: 580,
+                    w: 220,
+                    h: 50,
+                    stroke: "#dc2626",
+                    text: "Reportes y Analíticas",
+                  },
+                  {
+                    x: 1150,
+                    y: 640,
+                    w: 260,
+                    h: 50,
+                    stroke: "#2563eb",
+                    text: "Gestión de Consultoría/Auditoría",
+                  },
+                  {
+                    x: 900,
+                    y: 100,
+                    w: 240,
+                    h: 50,
+                    stroke: "#dc2626",
+                    text: "Formulario de Contacto / Cotización",
+                  },
+                ].map((node, i) => (
+                  <g key={i}>
+                    <rect
+                      x={node.x}
+                      y={node.y}
+                      width={node.w}
+                      height={node.h}
+                      rx="6"
+                      stroke={node.stroke}
+                      strokeWidth="2"
+                      fill="white"
+                    />
+                    <text
+                      x={node.x + node.w / 2}
+                      y={node.y + node.h / 2 + 5}
+                      textAnchor="middle"
+                      fontSize="14"
+                      fontFamily="Arial, sans-serif"
+                      fill="black"
+                    >
+                      {node.text}
+                    </text>
+                  </g>
+                ))}
 
-            <rect
-              x="200"
-              y="100"
-              width="180"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text
-              x="290"
-              y="120"
-              textAnchor="middle"
-              alignmentBaseline="middle"
-            >
-              Registro/Login de Usuario
-            </text>
-
-            <rect
-              x="410"
-              y="100"
-              width="140"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text
-              x="480"
-              y="120"
-              textAnchor="middle"
-              alignmentBaseline="middle"
-            >
-              Autenticación
-            </text>
-
-            <rect
-              x="580"
-              y="100"
-              width="140"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text
-              x="650"
-              y="120"
-              textAnchor="middle"
-              alignmentBaseline="middle"
-            >
-              Perfil de Usuario
-            </text>
-
-            <rect
-              x="750"
-              y="100"
-              width="120"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text
-              x="810"
-              y="120"
-              textAnchor="middle"
-              alignmentBaseline="middle"
-            >
-              Aula Virtual
-            </text>
-
-            <rect
-              x="900"
-              y="100"
-              width="180"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text
-              x="990"
-              y="120"
-              textAnchor="middle"
-              alignmentBaseline="middle"
-            >
-              Certificación Automática
-            </text>
-
-            <rect
-              x="200"
-              y="250"
-              width="200"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text
-              x="300"
-              y="270"
-              textAnchor="middle"
-              alignmentBaseline="middle"
-            >
-              Catálogo de Cursos y Servicios
-            </text>
-
-            <rect
-              x="430"
-              y="180"
-              width="140"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text
-              x="500"
-              y="200"
-              textAnchor="middle"
-              alignmentBaseline="middle"
-            >
-              Servicios CEC
-            </text>
-
-            <rect
-              x="430"
-              y="250"
-              width="140"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text
-              x="500"
-              y="270"
-              textAnchor="middle"
-              alignmentBaseline="middle"
-            >
-              Servicios SERLIS
-            </text>
-
-            <rect
-              x="430"
-              y="320"
-              width="180"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text
-              x="520"
-              y="340"
-              textAnchor="middle"
-              alignmentBaseline="middle"
-            >
-              Cursos / Talleres CCC
-            </text>
-
-            <rect
-              x="640"
-              y="270"
-              width="180"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text
-              x="730"
-              y="290"
-              textAnchor="middle"
-              alignmentBaseline="middle"
-            >
-              Repositorio de Documentos
-            </text>
-
-            <rect
-              x="200"
-              y="450"
-              width="200"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text
-              x="300"
-              y="470"
-              textAnchor="middle"
-              alignmentBaseline="middle"
-            >
-              Formulario de Contacto / Cotización
-            </text>
-
-            <rect
-              x="430"
-              y="450"
-              width="160"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text
-              x="510"
-              y="470"
-              textAnchor="middle"
-              alignmentBaseline="middle"
-            >
-              Panel Administrativo
-            </text>
-
-            <rect
-              x="620"
-              y="350"
-              width="140"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text
-              x="690"
-              y="370"
-              textAnchor="middle"
-              alignmentBaseline="middle"
-            >
-              CRUD Cursos
-            </text>
-
-            <rect
-              x="620"
-              y="400"
-              width="160"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text
-              x="700"
-              y="420"
-              textAnchor="middle"
-              alignmentBaseline="middle"
-            >
-              Gestión de Usuarios
-            </text>
-
-            <rect
-              x="620"
-              y="450"
-              width="180"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text
-              x="710"
-              y="470"
-              textAnchor="middle"
-              alignmentBaseline="middle"
-            >
-              Gestión de Inscripciones
-            </text>
-
-            <rect
-              x="620"
-              y="500"
-              width="160"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text
-              x="700"
-              y="520"
-              textAnchor="middle"
-              alignmentBaseline="middle"
-            >
-              Reportes y Analíticas
-            </text>
-
-            <rect
-              x="620"
-              y="550"
-              width="220"
-              height="40"
-              rx="5"
-              stroke="black"
-              fill="white"
-            />
-            <text
-              x="730"
-              y="570"
-              textAnchor="middle"
-              alignmentBaseline="middle"
-            >
-              Gestión de Consultoría/Auditoría
-            </text>
-
-            {/* Arrows */}
-            <line
-              x1="150"
-              y1="270"
-              x2="10"
-              y2="70"
-              stroke="black"
-              markerEnd="url(#arrow)"
-            />
-            <line
-              x1="150"
-              y1="270"
-              x2="200"
-              y2="120"
-              stroke="black"
-              markerEnd="url(#arrow)"
-            />
-            <line
-              x1="380"
-              y1="120"
-              x2="410"
-              y2="120"
-              stroke="black"
-              markerEnd="url(#arrow)"
-            />
-            <line
-              x1="550"
-              y1="120"
-              x2="580"
-              y2="120"
-              stroke="black"
-              markerEnd="url(#arrow)"
-            />
-            <line
-              x1="720"
-              y1="120"
-              x2="750"
-              y2="120"
-              stroke="black"
-              markerEnd="url(#arrow)"
-            />
-            <line
-              x1="870"
-              y1="120"
-              x2="900"
-              y2="120"
-              stroke="black"
-              markerEnd="url(#arrow)"
-            />
-            <line
-              x1="150"
-              y1="270"
-              x2="200"
-              y2="270"
-              stroke="black"
-              markerEnd="url(#arrow)"
-            />
-            <line
-              x1="400"
-              y1="270"
-              x2="430"
-              y2="200"
-              stroke="black"
-              markerEnd="url(#arrow)"
-            />
-            <line
-              x1="400"
-              y1="270"
-              x2="430"
-              y2="270"
-              stroke="black"
-              markerEnd="url(#arrow)"
-            />
-            <line
-              x1="400"
-              y1="270"
-              x2="430"
-              y2="340"
-              stroke="black"
-              markerEnd="url(#arrow)"
-            />
-            <line
-              x1="400"
-              y1="270"
-              x2="640"
-              y2="290"
-              stroke="black"
-              markerEnd="url(#arrow)"
-            />
-            <line
-              x1="150"
-              y1="270"
-              x2="200"
-              y2="470"
-              stroke="black"
-              markerEnd="url(#arrow)"
-            />
-            <line
-              x1="400"
-              y1="470"
-              x2="430"
-              y2="470"
-              stroke="black"
-              markerEnd="url(#arrow)"
-            />
-            <line
-              x1="590"
-              y1="470"
-              x2="620"
-              y2="370"
-              stroke="black"
-              markerEnd="url(#arrow)"
-            />
-            <line
-              x1="590"
-              y1="470"
-              x2="620"
-              y2="420"
-              stroke="black"
-              markerEnd="url(#arrow)"
-            />
-            <line
-              x1="590"
-              y1="470"
-              x2="620"
-              y2="470"
-              stroke="black"
-              markerEnd="url(#arrow)"
-            />
-            <line
-              x1="590"
-              y1="470"
-              x2="620"
-              y2="520"
-              stroke="black"
-              markerEnd="url(#arrow)"
-            />
-            <line
-              x1="590"
-              y1="470"
-              x2="620"
-              y2="570"
-              stroke="black"
-              markerEnd="url(#arrow)"
-            />
-          </svg>
-        }
-      />
+                {/* Flechas principales */}
+                <line
+                  x1="210"
+                  y1="375"
+                  x2="300"
+                  y2="125"
+                  stroke="black"
+                  markerEnd="url(#arrow)"
+                />
+                <line
+                  x1="210"
+                  y1="375"
+                  x2="300"
+                  y2="325"
+                  stroke="black"
+                  markerEnd="url(#arrow)"
+                />
+                <line
+                  x1="210"
+                  y1="375"
+                  x2="300"
+                  y2="525"
+                  stroke="black"
+                  markerEnd="url(#arrow)"
+                />
+                <line
+                  x1="520"
+                  y1="325"
+                  x2="600"
+                  y2="225"
+                  stroke="black"
+                  markerEnd="url(#arrow)"
+                />
+                <line
+                  x1="520"
+                  y1="325"
+                  x2="600"
+                  y2="305"
+                  stroke="black"
+                  markerEnd="url(#arrow)"
+                />
+                <line
+                  x1="520"
+                  y1="325"
+                  x2="600"
+                  y2="385"
+                  stroke="black"
+                  markerEnd="url(#arrow)"
+                />
+                <line
+                  x1="760"
+                  y1="225"
+                  x2="900"
+                  y2="125"
+                  stroke="black"
+                  markerEnd="url(#arrow)"
+                />
+                <line
+                  x1="800"
+                  y1="385"
+                  x2="900"
+                  y2="325"
+                  stroke="black"
+                  markerEnd="url(#arrow)"
+                />
+                <line
+                  x1="1010"
+                  y1="225"
+                  x2="980"
+                  y2="300"
+                  stroke="black"
+                  markerEnd="url(#arrow)"
+                />
+                <line
+                  x1="1060"
+                  y1="325"
+                  x2="1150"
+                  y2="325"
+                  stroke="black"
+                  markerEnd="url(#arrow)"
+                />
+                <line
+                  x1="520"
+                  y1="525"
+                  x2="600"
+                  y2="525"
+                  stroke="black"
+                  markerEnd="url(#arrow)"
+                />
+                <line
+                  x1="760"
+                  y1="525"
+                  x2="850"
+                  y2="525"
+                  stroke="black"
+                  markerEnd="url(#arrow)"
+                />
+                <line
+                  x1="760"
+                  y1="525"
+                  x2="850"
+                  y2="225"
+                  stroke="black"
+                  markerEnd="url(#arrow)"
+                />
+                <line
+                  x1="1050"
+                  y1="525"
+                  x2="1150"
+                  y2="425"
+                  stroke="black"
+                  markerEnd="url(#arrow)"
+                />
+                <line
+                  x1="1050"
+                  y1="525"
+                  x2="1150"
+                  y2="485"
+                  stroke="black"
+                  markerEnd="url(#arrow)"
+                />
+                <line
+                  x1="1050"
+                  y1="525"
+                  x2="1150"
+                  y2="545"
+                  stroke="black"
+                  markerEnd="url(#arrow)"
+                />
+                <line
+                  x1="1050"
+                  y1="525"
+                  x2="1150"
+                  y2="605"
+                  stroke="black"
+                  markerEnd="url(#arrow)"
+                />
+                <line
+                  x1="1050"
+                  y1="525"
+                  x2="1150"
+                  y2="665"
+                  stroke="black"
+                  markerEnd="url(#arrow)"
+                />
+              </svg>
+            </div>
+          }
+        />
+      </div>
     </div>
   );
 };

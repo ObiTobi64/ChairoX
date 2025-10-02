@@ -33,7 +33,7 @@ export const Entrevistas = () => {
       />
 
       <Slide
-        title="1. ¿La plataforma cumple con los objetivos de visibilidad establecidos?"
+        title="1. ¿Es posible administrar los contenidos de manera sencilla con pocos pasos en la plataforma?"
         content={
           <div>
             <p></p>
@@ -42,7 +42,7 @@ export const Entrevistas = () => {
       />
 
       <Slide
-        title="2. ¿Es posible administrar los contenidos de manera sencilla con pocos pasos en la plataforma?"
+        title="2. ¿Los cursos se presentan y gestionan correctamente según los requisitos?"
         content={
           <div>
             <p></p>
@@ -51,7 +51,7 @@ export const Entrevistas = () => {
       />
 
       <Slide
-        title="3. ¿Los cursos se presentan y gestionan correctamente según los requisitos?"
+        title="3. ¿Se han identificado errores o problemas durante las pruebas de aceptación?"
         content={
           <div>
             <p></p>
@@ -60,7 +60,7 @@ export const Entrevistas = () => {
       />
 
       <Slide
-        title="4. ¿El entorno de pre-producción refleja adecuadamente las condiciones del sistema final?"
+        title="4. ¿La plataforma satisface las necesidades básicas basadas en su campo (E-Learning)?"
         content={
           <div>
             <p></p>
@@ -69,7 +69,7 @@ export const Entrevistas = () => {
       />
 
       <Slide
-        title="5. ¿Se han identificado errores o problemas durante las pruebas de aceptación?"
+        title="5. ¿El panel de administración permite gestionar un curso sin afectar otros contenidos?"
         content={
           <div>
             <p></p>
@@ -78,7 +78,7 @@ export const Entrevistas = () => {
       />
 
       <Slide
-        title="6. ¿La plataforma está lista para su despliegue definitivo tras las pruebas?"
+        title="6. ¿El sistema que genera reportes automáticos es representativo con la información que usted necesita?"
         content={
           <div>
             <p></p>
@@ -87,7 +87,7 @@ export const Entrevistas = () => {
       />
 
       <Slide
-        title="7. ¿El panel de administración permite editar o eliminar un curso sin afectar otros contenidos?"
+        title="7. ¿Los elementos visuales (botones, menús, enlaces) de la plataforma son consistentes en tamaño, color y ubicación en todas las páginas?"
         content={
           <div>
             <p></p>
@@ -96,25 +96,7 @@ export const Entrevistas = () => {
       />
 
       <Slide
-        title="8. ¿El sistema genera reportes automáticos sobre el progreso de los usuarios en los cursos en un formato descargable?"
-        content={
-          <div>
-            <p></p>
-          </div>
-        }
-      />
-
-      <Slide
-        title="9. ¿Los elementos visuales (botones, menús, enlaces) de la plataforma son consistentes en tamaño, color y ubicación en todas las páginas?"
-        content={
-          <div>
-            <p></p>
-          </div>
-        }
-      />
-
-      <Slide
-        title="10. ¿La plataforma es compatible con los navegadores más comunes (Chrome, Firefox, Safari) sin errores de visualización?"
+        title="8. ¿Cuál es su navegador que usa con frecuencia?"
         content={
           <div>
             <p></p>
