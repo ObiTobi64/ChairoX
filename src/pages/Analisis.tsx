@@ -76,7 +76,7 @@ export default function Analisis() {
         label: (
           <Box sx={{ textAlign: 'center', p: 2 }}>
             <Typography variant="h6" sx={{ fontWeight: 700 }}>
-              Sistema CRM
+              Gestionar campaña de marketing
             </Typography>
             <Typography variant="h4" sx={{ fontWeight: 700, color: 'primary.main' }}>
               Typica Café
@@ -111,7 +111,7 @@ export default function Analisis() {
       type: 'smoothstep',
       animated: true,
       style: { stroke: '#2196F3', strokeWidth: 2 },
-      label: 'Datos de Clientes',
+      label: 'Datos comerciales',
       labelStyle: { fill: '#2196F3', fontWeight: 600 },
     },
     {
@@ -121,7 +121,17 @@ export default function Analisis() {
       type: 'smoothstep',
       animated: true,
       style: { stroke: '#2196F3', strokeWidth: 2 },
-      label: 'Transacciones',
+      label: 'Recursos disponibles',
+      labelStyle: { fill: '#2196F3', fontWeight: 600 },
+    },
+    {
+      id: 'e1-input3',
+      source: 'input3',
+      target: '1',
+      type: 'smoothstep',
+      animated: true,
+      style: { stroke: '#2196F3', strokeWidth: 2 },
+      label: 'Brief de marca ',
       labelStyle: { fill: '#2196F3', fontWeight: 600 },
     },
     // Controles (Control - Arriba)
@@ -131,7 +141,7 @@ export default function Analisis() {
       target: '1',
       type: 'smoothstep',
       style: { stroke: '#FF9800', strokeWidth: 2 },
-      label: 'Políticas CRM',
+      label: 'Objetivos estrategicos',
       labelStyle: { fill: '#FF9800', fontWeight: 600 },
     },
     {
@@ -140,7 +150,16 @@ export default function Analisis() {
       target: '1',
       type: 'smoothstep',
       style: { stroke: '#FF9800', strokeWidth: 2 },
-      label: 'Normativas',
+      label: 'Normativas Locales',
+      labelStyle: { fill: '#FF9800', fontWeight: 600 },
+    },
+    {
+      id: 'e1-control3',
+      source: 'control3',
+      target: '1',
+      type: 'smoothstep',
+      style: { stroke: '#FF9800', strokeWidth: 2 },
+      label: 'Presupuesto aprobado',
       labelStyle: { fill: '#FF9800', fontWeight: 600 },
     },
     // Salidas (Output - Derecha)
@@ -151,7 +170,7 @@ export default function Analisis() {
       type: 'smoothstep',
       animated: true,
       style: { stroke: '#4CAF50', strokeWidth: 2 },
-      label: 'Reportes',
+      label: 'Reportes KPI',
       labelStyle: { fill: '#4CAF50', fontWeight: 600 },
     },
     {
@@ -161,7 +180,7 @@ export default function Analisis() {
       type: 'smoothstep',
       animated: true,
       style: { stroke: '#4CAF50', strokeWidth: 2 },
-      label: 'Análisis',
+      label: 'Campaña',
       labelStyle: { fill: '#4CAF50', fontWeight: 600 },
     },
     // Mecanismos (Mechanism - Abajo)
@@ -171,7 +190,7 @@ export default function Analisis() {
       target: '1',
       type: 'smoothstep',
       style: { stroke: '#9C27B0', strokeWidth: 2 },
-      label: 'Personal',
+      label: 'Herramientas Digitales',
       labelStyle: { fill: '#9C27B0', fontWeight: 600 },
     },
     {
@@ -180,7 +199,16 @@ export default function Analisis() {
       target: '1',
       type: 'smoothstep',
       style: { stroke: '#9C27B0', strokeWidth: 2 },
-      label: 'Tecnología',
+      label: 'Agencia Creativa',
+      labelStyle: { fill: '#9C27B0', fontWeight: 600 },
+    },
+    {
+      id: 'e1-mech3',
+      source: 'mech3',
+      target: '1',
+      type: 'smoothstep',
+      style: { stroke: '#9C27B0', strokeWidth: 2 },
+      label: 'Equipo de Marketing',
       labelStyle: { fill: '#9C27B0', fontWeight: 600 },
     },
   ];
@@ -190,15 +218,18 @@ export default function Analisis() {
     // Inputs (Izquierda)
     { id: 'input1', data: { label: '' }, position: { x: 100, y: 280 }, style: { opacity: 0 } },
     { id: 'input2', data: { label: '' }, position: { x: 100, y: 360 }, style: { opacity: 0 } },
+    { id: 'input3', data: { label: '' }, position: { x: 100, y: 440 }, style: { opacity: 0 } },
     // Controls (Arriba)
     { id: 'control1', data: { label: '' }, position: { x: 480, y: 80 }, style: { opacity: 0 } },
     { id: 'control2', data: { label: '' }, position: { x: 600, y: 80 }, style: { opacity: 0 } },
+    { id: 'control3', data: { label: '' }, position: { x: 720, y: 80 }, style: { opacity: 0 } },
     // Outputs (Derecha)
     { id: 'output1', data: { label: '' }, position: { x: 900, y: 280 }, style: { opacity: 0 } },
     { id: 'output2', data: { label: '' }, position: { x: 900, y: 360 }, style: { opacity: 0 } },
     // Mechanisms (Abajo)
     { id: 'mech1', data: { label: '' }, position: { x: 480, y: 550 }, style: { opacity: 0 } },
     { id: 'mech2', data: { label: '' }, position: { x: 600, y: 550 }, style: { opacity: 0 } },
+    { id: 'mech3', data: { label: '' }, position: { x: 720, y: 550 }, style: { opacity: 0 } },
   ];
 
   // IDEF0 Desglose (A0) - COMPLETO con 8 procesos

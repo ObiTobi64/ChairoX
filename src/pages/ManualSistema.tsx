@@ -1,824 +1,1132 @@
-// Manual Sistema
-
-import React from 'react'
-
-interface SlideProps {
-  title: string;
-  content: React.ReactNode;
-}
-
-const Slide: React.FC<SlideProps> = ({ title, content }) => (
-  <div className="slide">
-    <h1>{title}</h1>
-    <div className="slide-content">{content}</div>
-  </div>
-);
+import { useState } from 'react';
+import {
+  Container,
+  Paper,
+  Box,
+  Typography,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Grid,
+  Card,
+  CardContent,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Chip,
+  Alert,
+  Divider,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Stack,
+} from '@mui/material';
+import {
+  ExpandMore,
+  MenuBook,
+  Architecture,
+  Code,
+  Storage,
+  Build,
+  Security,
+  CloudDownload,
+  Settings,
+  AccountTree,
+  People,
+  Description,
+  CheckCircle,
+  Warning,
+  BugReport,
+  Support,
+  Folder,
+  Terminal,
+  Dashboard,
+  IntegrationInstructions,
+  VerifiedUser,
+  Assessment,
+  Backup,
+  Update,
+  ContactSupport,
+  Schedule,
+} from '@mui/icons-material';
 
 export const ManualSistema = () => {
+  const [expanded, setExpanded] = useState<string | false>('panel1');
 
-  const treeStructure = `/ (root)
-    ├─ README.md
-    ├─ package.json
-    ├─ .env.example
-    ├─ /src
-    │  ├─ /controllers
-    │  ├─ /services
-    │  ├─ /models
-    │  ├─ /routes
-    │  └─ index.js
-    ├─ /config
-    ├─ /db
-    │  ├─ migrations/
-    │  └─ seeds/
-    ├─ /docs
-    ├─ docker-compose.yml
-    └─ Dockerfile`;
+  const handleChange = (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
+  const tecnologias = [
+    { nombre: 'Frontend', valor: 'Next.js (React + TypeScript) v14+', color: '#2196F3', icon: <Code /> },
+    { nombre: 'Backend', valor: 'Node.js + Express (TypeScript) ≥ v20', color: '#4CAF50', icon: <Terminal /> },
+    { nombre: 'BD Transaccional', valor: 'PostgreSQL v16+', color: '#FF9800', icon: <Storage /> },
+    { nombre: 'BD Logs/Mensajería', valor: 'MongoDB v7+', color: '#9C27B0', icon: <Storage /> },
+    { nombre: 'ORM/ODM', valor: 'Prisma (Postgres) + Mongoose (MongoDB)', color: '#00BCD4', icon: <IntegrationInstructions /> },
+    { nombre: 'Autenticación', valor: 'JWT + Passport', color: '#F44336', icon: <Security /> },
+    { nombre: 'Contenedores', valor: 'Docker / docker-compose', color: '#3F51B5', icon: <Build /> },
+    { nombre: 'Monitoreo', valor: 'Prometheus + Grafana + Sentry', color: '#607D8B', icon: <Assessment /> },
+  ];
+
+  const roles = [
+    {
+      nombre: 'Administrador',
+      codigo: 'admin',
+      descripcion: 'Acceso total al sistema, gestión de usuarios y configuración crítica',
+      color: '#F44336',
+      permisos: ['Ver todo', 'Crear todo', 'Editar todo', 'Eliminar todo', 'Configuración avanzada'],
+    },
+    {
+      nombre: 'Editor',
+      codigo: 'editor',
+      descripcion: 'Gestión de contenido y campañas, sin acceso a configuración crítica',
+      color: '#FF9800',
+      permisos: ['Ver contenido', 'Crear campañas', 'Editar contenido', 'Gestión de clientes'],
+    },
+    {
+      nombre: 'Agente / Operador',
+      codigo: 'agent',
+      descripcion: 'Atención al cliente, gestión de bandeja multicanal y reservas',
+      color: '#2196F3',
+      permisos: ['Ver clientes', 'Bandeja unificada', 'Gestionar reservas', 'Ver historial'],
+    },
+    {
+      nombre: 'Usuario Registrado',
+      codigo: 'user',
+      descripcion: 'Acceso a perfil propio y programas de fidelización',
+      color: '#4CAF50',
+      permisos: ['Ver perfil', 'Ver puntos', 'Canjear recompensas', 'Feedback'],
+    },
+  ];
+
+  const estructuraCarpetas = `/ (root)
+├─ README.md
+├─ package.json
+├─ .env.example
+├─ /apps
+│  ├─ /frontend-next (Next.js)
+│  └─ /api (Express)
+├─ /services
+│  ├─ /worker (jobs, procesadores)
+│  └─ /integrations (WhatsApp, POS connectors)
+├─ /infra
+│  ├─ docker-compose.yml
+│  ├─ Dockerfile.api
+│  └─ Dockerfile.frontend
+├─ /db
+│  ├─ migrations/
+│  └─ seeds/
+├─ /docs
+└─ /scripts`;
+
+  const comandosInstalacion = [
+    { paso: 1, comando: 'git clone [URL_REPO]', descripcion: 'Clonar repositorio' },
+    { paso: 2, comando: 'cd crm-typica', descripcion: 'Navegar al directorio' },
+    { paso: 3, comando: 'cp .env.example .env', descripcion: 'Copiar variables de entorno' },
+    { paso: 4, comando: 'docker-compose up --build -d', descripcion: 'Levantar contenedores' },
+    { paso: 5, comando: 'npx prisma migrate deploy', descripcion: 'Ejecutar migraciones' },
+    { paso: 6, comando: 'npx prisma db seed', descripcion: 'Poblar datos iniciales' },
+  ];
 
   return (
-    <div className="presentation">
-      <Slide 
-        title="Manual de Sistema - ÍNDICE"
-        content={
-          <div>
-            <ol>
-              <li><strong>Introducción</strong>
-                <ol>
-                  <li>Objetivo del Manual</li>
-                  <li>Alcance del Sistema</li>
-                </ol>
-              </li>
-              <li><strong>Arquitectura del Sistema</strong>
-                <ol>
-                  <li>Tecnologías Utilizadas</li>
-                  <li>Estructura de Carpetas y Archivos</li>
-                  <li>Base de Datos</li>
-                </ol>
-              </li>
-              <li><strong>Instalación y Configuración</strong>
-                <ol>
-                  <li>Requisitos del Sistema</li>
-                  <li>Proceso de Instalación</li>
-                  <li>Configuración Inicial</li>
-                </ol>
-              </li>
-              <li><strong>Funcionalidades del Sistema</strong>
-                <ol>
-                  <li>Página de Inicio</li>
-                  <li>Menú de Navegación</li>
-                  <li>Registro de Usuarios</li>
-                  <li>Inicio de Sesión</li>
-                  <li>Gestión de Contenido</li>
-                  <li>Funcionalidad Específica (ej. Carrito de Compras)</li>
-                </ol>
-              </li>
-              <li><strong>Roles y Permisos</strong>
-                <ol>
-                  <li>Roles de Usuario</li>
-                  <li>Permisos Asociados a Cada Rol</li>
-                </ol>
-              </li>
-              <li><strong>Seguridad del Sistema</strong>
-                <ol>
-                  <li>Protección contra Ataques</li>
-                  <li>Políticas de Contraseñas</li>
-                  <li>Copias de Seguridad (Backups)</li>
-                </ol>
-              </li>
-              <li><strong>Mantenimiento y Actualización</strong>
-                <ol>
-                  <li>Actualización de Contenido</li>
-                  <li>Mantenimiento del Sistema</li>
-                  <li>Resolución de Problemas Comunes</li>
-                </ol>
-              </li>
-              <li><strong>Soporte Técnico</strong>
-                <ol>
-                  <li>Procedimiento para Reportar Problemas</li>
-                  <li>Contacto de Soporte</li>
-                  <li>Horarios de Atención</li>
-                </ol>
-              </li>
-              <li><strong>Anexos</strong>
-                <ol>
-                  <li>Diagramas y Esquemas</li>
-                  <li>Plantillas útiles</li>
-                </ol>
-              </li>
-            </ol>
-          </div>
-        }
-      />
-      
-      <Slide 
-        title="1. Introducción"
-        content={
-          <div>
-            <h3>1.1 Objetivo del Manual</h3>
-            <p>El objetivo de este manual es proporcionar una guía completa para administradores, desarrolladores y personal de soporte que deban instalar, configurar, operar y mantener el [Nombre del Sistema]. Incluye instrucciones técnicas, procedimientos de seguridad, prácticas de mantenimiento y un flujo claro para reportar problemas.</p>
-            
-            <h3>1.2 Alcance del Sistema</h3>
-            <p>Este documento cubre:</p>
-            <ul>
-              <li>Arquitectura general y componentes principales.</li>
-              <li>Requisitos y pasos para instalación y configuración.</li>
-              <li>Descripción funcional de las principales características del sistema.</li>
-              <li>Roles y permisos disponibles.</li>
-              <li>Políticas de seguridad y respaldo.</li>
-              <li>Procedimientos de mantenimiento, actualización y soporte.</li>
-            </ul>
-            <p>No cubre: diseño detallado de la UI (mockups), código fuente exhaustivo o documentación de APIs externas; dichos elementos pueden referenciarse mediante enlaces a repositorios o documentación técnica complementaria.</p>
-          </div>
-        }
-      />
-      
-      <Slide 
-        title="2. Arquitectura del Sistema"
-        content={
-          <div>
-            <h3>2.1 Tecnologías Utilizadas</h3>
-            <ul>
-              <li><strong>Backend:</strong> Node.js Express</li>
-              <li><strong>Base de datos:</strong> PostgreSQL.</li>
-              <li><strong>ORM / Query Builder:</strong> Knex.js.</li>
-              <li><strong>Frontend:</strong> React</li>
-              <li><strong>Autenticación:</strong> JWT.</li>
-              <li><strong>Contenedores:</strong> Docker.</li>
-              <li><strong>Almacenamiento de archivos:</strong> S3-compatible (MinIO / AWS S3).</li>
-              <li><strong>CI/CD:</strong> GitHub Actions.</li>
-              <li><strong>Monitorización:</strong> Prometheus + Grafana.</li>
-            </ul>
-          </div>
-        }
-      />
-      
-      <Slide 
-        title="2.2 Estructura de Carpetas y Archivos"
-        content={
-          <div>
-            <p>Estructura típica del repositorio:</p>
-            <pre className="tree-structure">
-              <code>{treeStructure}</code>
-            </pre>
-            <p>Archivos importantes:</p>
-            <ul>
-              <li><code>.env</code> — variables de entorno (no commitear en VCS).</li>
-              <li><code>README.md</code> — guía rápida del proyecto.</li>
-              <li><code>Dockerfile</code> / <code>docker-compose.yml</code> — para contenerización.</li>
-              <li><code>/db/migrations</code> — scripts de migración de la base de datos.</li>
-            </ul>
-          </div>
-        }
-      />
-      
-      <Slide 
-        title="2.3 Base de Datos"
-        content={
-          <div>
-            <h3>2.3.1 Modelo de Datos</h3>
-            <p>A continuación se presentan las entidades principales. Para cada una indico: qué información almacena, por qué se diseñó así y la ventaja práctica de esa estructura.</p>
-            <ul>
-              <li><strong>permission_category:</strong> identificador, nombre técnico y nombre legible de la categoría. Por qué así: separar categorías permite agrupar permisos similares y simplificar la asignación y el mantenimiento de reglas. Beneficio: facilita exportes, filtros administrativos y la escalabilidad del modelo de permisos.</li>
-              <li><strong>permission:</strong> descripción del permiso y enlace a su categoría. Por qué así: la entidad se centra en la intención del permiso, dejando la granularidad a action. Beneficio: separación clara entre concepto y operaciones concretas para control de acceso más flexible.</li>
-              <li><strong>action:</strong> nombre y etiqueta de la acción concreta y la relación con un permiso. Por qué así: modelar acciones como filas facilita la extensión sin alterar el esquema. Beneficio: permite construir matrices de permisos dinámicas en la aplicación.</li>
-              <li><strong>roles:</strong> identificador y nombre del rol. Por qué así: los roles agrupan permisos para asignarlos a usuarios de forma práctica. Beneficio: administración simple de grupos de privilegios.</li>
-              <li><strong>role_permissions (tabla puente):</strong> pares role-permission. Por qué así: relación N:M explícita permite asignar muchos permisos a muchos roles sin repetir datos. Beneficio: mantiene integridad y facilita auditoría de permisos.</li>
-              <li><strong>organization:</strong> información básica de la organización (nombre, nit, teléfono). Por qué así: las organizaciones actúan como contenedores de usuarios y servicios. Beneficio: diseño ligero y suficiente para facturación o segmentación.</li>
-              <li><strong>user_account:</strong> credenciales mínimas (username, email, password hasheada), referencia a organización y marca temporal de creación. Por qué así: separar identidad del contexto facilita multi-tenancy y autenticación. Beneficio: soporte claro para login, recuperación de cuenta e integración con políticas de seguridad.</li>
-              <li><strong>user_roles (tabla puente):</strong> asociaciones usuario ↔ rol. Por qué así: modelo N:M para un control de acceso flexible a nivel de usuario. Beneficio: permite asignar roles múltiples sin duplicar datos de usuario.</li>
-              <li><strong>services:</strong> catálogo de servicios con precio y descripción. Por qué así: centralizar servicios facilita presentación y facturación. Beneficio: reutilizable por distintas organizaciones si se añade tabla asociativa.</li>
-              <li><strong>course:</strong> título y descripción del curso. Por qué así: entidad concisa que actúa como contenedor lógico de clases. Beneficio: sencillo de gestionar y expandir con metadatos cuando sea necesario.</li>
-              <li><strong>class:</strong> referencia al curso, URL de recurso, contenido y descripción. Por qué así: separar clase de curso permite versionar y controlar accesos por lección. Beneficio: facilita reproducción independiente y análisis granular del consumo de contenido.</li>
-              <li><strong>user_courses (inscripciones):</strong> vínculo entre usuario y curso, fecha de inscripción y estado. Por qué así: registrar inscripción como entidad permite mantener historial de progreso y estados. Beneficio: soporte para análisis de progreso y reglas de negocio (reinscripción, certificación).</li>
-              <li><strong>course_comments / class_comments:</strong> autor, referencia al recurso y texto del comentario con marca temporal. Por qué así: comentarios como entidades separadas preservan historial y permiten moderación/filtrado. Beneficio: fácil auditoría, moderación y búsqueda por contenido.</li>
-              <li><strong>class_reproductions:</strong> historial de visualizaciones con tiempos y progreso. Por qué así: almacenar reproducciones como filas separadas permite medir engagement y reanudar sesiones. Beneficio: base para recomendaciones, métricas y detección de abandono.</li>
-            </ul>
-          </div>
-        }
-      />
-      
-      <Slide 
-        title="2.3.2 Indexes y Constraints"
-        content={
-          <div>
-            <p>Índices en campos usados frecuentemente en filtros (pensando en consultas habituales como login, listados por curso, etc.):</p>
-            <ul>
-              <li>user_account(email) — índice único para login y validación de unicidad.</li>
-              <li>user_account(username) — índice único para búsquedas por nombre.</li>
-              <li>class(course_id) — para listar rápidamente las clases de un curso.</li>
-              <li>course_comments(course_id) y class_comments(class_id) — para paginar y ordenar comentarios por recurso.</li>
-              <li>class_reproductions(user_id, class_id) — para recuperar historial y progreso de un usuario en una clase.</li>
-            </ul>
-            <p>Índices en tablas puente (user_roles(user_id), user_roles(role_id), role_permissions(role_id), role_permissions(permission_id), user_courses(user_id), user_courses(course_id)) para acelerar joins frecuentes.</p>
-            <p>Comentario práctico: estos índices se eligieron por patrones típicos de uso. En producción conviene realizar un análisis EXPLAIN y ajustar según las consultas reales.</p>
-            <p>Restricciones de integridad referencial (FOREIGN KEYS) con políticas ON DELETE y ON UPDATE según semántica:</p>
-            <ul>
-              <li>permission.permission_category_id → permission_category(id): ON DELETE SET NULL o RESTRICT.</li>
-              <li>action.permission_id → permission(id): ON DELETE CASCADE.</li>
-              <li>role_permissions (FKs hacia roles y permission): ON DELETE CASCADE.</li>
-              <li>user_account.organization_id → organization(id): ON DELETE SET NULL.</li>
-              <li>user_roles (FKs hacia user_account y roles): ON DELETE CASCADE.</li>
-              <li>class.course_id → course(id): ON DELETE CASCADE.</li>
-              <li>user_courses (FKs hacia user_account y course): ON DELETE CASCADE.</li>
-              <li>course_comments.user_id y class_comments.user_id → user_account(id): ON DELETE SET NULL; course_id / class_id: ON DELETE CASCADE.</li>
-              <li>class_reproductions (FKs hacia user_account y class): ON DELETE CASCADE.</li>
-            </ul>
-            <p>Constraints adicionales y checks:</p>
-            <ul>
-              <li>UNIQUE: user_account(email), user_account(username), roles(name), permission_category(name).</li>
-              <li>CHECK: price := 0 en services, progress BETWEEN 0 AND 100 en class_reproductions.</li>
-              <li>NOT NULL en campos requeridos (ej.: user_account.password, class.course_id).</li>
-            </ul>
-          </div>
-        }
-      />
-      
-      <Slide 
-        title="2.3.3 Migraciones y Seeds"
-        content={
-          <div>
-            <p>Usar herramienta de migraciones Knex.js. Mantener seeds para datos iniciales.</p>
-          </div>
-        }
-      />
-      
-      <Slide 
-        title="3. Instalación y Configuración"
-        content={
-          <div>
-            <h3>3.1 Requisitos del Sistema</h3>
-            <ul>
-              <li><strong>Hardware recomendado:</strong> 2 vCPU, 4 GB RAM (desarrollo) — 4+ vCPU, 8+ GB RAM (producción)</li>
-              <li><strong>Sistemas operativos soportados:</strong> Ubuntu 20.04+, Debian, macOS (desarrollo local), Windows (WSL recomendado)</li>
-              <li><strong>Software:</strong> Node.js v20+, PostgreSQL 12+, Docker</li>
-            </ul>
-            
-            <h3>3.2 Proceso de Instalación</h3>
-            <p><strong>Instalación rápida (desarrollo con Docker):</strong></p>
-            <ol>
-              <li>git clone [URL_DEL_REPOSITORIO]; cd [NOMBRE_REPO]</li>
-              <li>cp .env.example .env (# Editar .env con las credenciales locales)</li>
-              <li>docker-compose up --build -d</li>
-              <li>npm run migrate:latest; npm run seed:run</li>
-              <li>npm install; npm run dev</li>
-            </ol>
-            <p><strong>Instalación manual (servidor Linux):</strong></p>
-            <ol>
-              <li>sudo apt update; sudo apt install -y build-essential curl git</li>
-              <li>Instalar Node.js y PostgreSQL según las guías oficiales.</li>
-              <li>CREATE USER app_user WITH PASSWORD '...'; CREATE DATABASE app_db OWNER app_user;</li>
-              <li>Configurar .env con los valores de conexión.</li>
-              <li>Ejecutar migraciones y arrancar la aplicación.</li>
-            </ol>
-          </div>
-        }
-      />
-      
-      <Slide 
-        title="3.3 Configuración Inicial"
-        content={
-          <div>
-            <ul>
-              <li>Crear usuario administrador inicial via migración.</li>
-              <li>Ajustar variables en .env.</li>
-              <li>Configurar el proveedor de almacenamiento (S3 o local) y las credenciales.</li>
-            </ul>
-          </div>
-        }
-      />
-      
-      <Slide 
-        title="4. Funcionalidades del Sistema"
-        content={
-          <div>
-            <h3>4.1 Página de Inicio</h3>
-            <p>Resumen de la filosofía institucional (visión, misión, objetivos, estrategias y valores). Presentación de los servicios principales. Llamadas a la acción para contactar o registrarse en cursos.</p>
-            
-            <h3>4.2 Sección “Quiénes Somos”</h3>
-            <p>Información sobre la empresa y el equipo multidisciplinario. Presentación de misión, visión, objetivos y estrategias. Elementos visuales e infografías que refuercen la identidad corporativa.</p>
-            
-            <h3>4.3 Catálogo de Cursos y Servicios</h3>
-            <p>Listado de cursos presenciales, semipresenciales y talleres (RRHH, contabilidad, administración, marketing, ofimática). Sub-secciones detalladas por área: CEC (Outsourcing, reingeniería, etc.), SERLIS (Derecho civil y comercial, etc.), CCC (Cursos presenciales, etc.). Enlaces de contacto en cada subsección (“Le interesa nuestro servicio… contáctenos”). Registro en línea para cursos y talleres.</p>
-            
-            <h3>4.4 Registro de Usuarios</h3>
-            <p>Creación de perfiles personalizados. Historial de cursos, inscripciones y certificaciones.</p>
-            
-            <h3>4.5 Aula Virtual</h3>
-            <p>Videos, materiales descargables y quizzes. Foros de discusión para interacción entre usuarios.</p>
-            
-            <h3>4.6 Certificación Automática</h3>
-            <p>Emisión de certificados digitales según competencias y progreso del curso.</p>
-            
-            <h3>4.7 Formularios de Contacto y Gestión</h3>
-            <p>Consultas generales, solicitudes de cotización y negociaciones. Formularios de inscripción y descarga de documentos. Almacenamiento de datos en base de datos para seguimiento. API REST para integración con sistemas externos o CRM.</p>
-            
-            <h3>4.8 Panel Administrativo</h3>
-            <p>Gestión de contenidos (páginas, noticias, servicios). Administración de usuarios, cursos e inscripciones. Visualización de analíticas web.</p>
-            
-            <h3>4.9 Integración con Mapas y Redes Sociales</h3>
-            <p>Ubicación de la empresa en Google Maps. Enlaces a redes sociales corporativas. Botones para compartir cursos y noticias.</p>
-            
-            <h3>4.10 Repositorio de Documentos</h3>
-            <p>Descarga de PDFs y materiales de referencia para usuarios.</p>
-          </div>
-        }
-      />
-      
-      <Slide 
-        title="5. Roles y Permisos"
-        content={
-          <div>
-            <h3>5.1 Roles de Usuario</h3>
-            <ul>
-              <li><strong>Administrador (admin):</strong> acceso completo, gestión de usuarios, configuración del sistema.</li>
-              <li><strong>Editor (editor):</strong> creación y edición de contenido, no accede a configuraciones críticas.</li>
-              <li><strong>Usuario registrado (user):</strong> funcionalidades estándar, gestionar su perfil.</li>
-              <li><strong>Invitado (guest):</strong> acceso público a contenido no restringido.</li>
-            </ul>
-            
-            <h3>5.2 Permisos Asociados a Cada Rol</h3>
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ borderCollapse: 'collapse', width: '100%', minWidth: '800px' }}>
-                <thead>
-                  <tr>
-                    <th style={{ border: '1px solid #ddd', padding: '8px' }}>Recurso / Acción</th>
-                    <th style={{ border: '1px solid #ddd', padding: '8px' }}>Admin</th>
-                    <th style={{ border: '1px solid #ddd', padding: '8px' }}>Editor</th>
-                    <th style={{ border: '1px solid #ddd', padding: '8px' }}>User</th>
-                    <th style={{ border: '1px solid #ddd', padding: '8px' }}>Guest</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Ver Página de Inicio</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Editar Página de Inicio (contenido/CTA)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Ver "Quiénes Somos"</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Editar "Quiénes Somos"</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Ver Catálogo de Cursos y Servicios</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Crear/Editar/Eliminar Cursos</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Ver detalle de un curso</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Registro de usuario / Crear cuenta</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Verificar email (enlace/token)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Iniciar sesión (email/password & OAuth)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Gestión y revocación de sesiones / Tokens (JWT)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Ver / Editar perfil propio</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Ver historial de cursos / inscripciones (perfil)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Inscribirse en curso (registro en línea)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Realizar pago / Usar pasarela (Stripe/PayPal/local)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Gestionar pasarelas de pago (configuración)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Acceder al Aula Virtual (contenido protegido)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Subir/Administrar materiales del curso (videos, PDFs)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Descargar materiales (cuando esté permitido)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Participar en foros / discusiones</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Crear / moderar hilos en foros</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Realizar quizzes / evaluaciones</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Corregir / moderar evaluaciones (si aplica)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Emisión de certificado automático</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Generar/Administrar certificados (emitir/revocar)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Enviar formulario de contacto / inscripción / cotización</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Recepción y seguimiento de formularios (BD)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Exportar / Integrar formularios vía API REST (CRM)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Acceso API REST pública (endpoints protegidos)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Gestión de contenidos (CRUD páginas, noticias, blog)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Subir/Administrar repositorio de documentos (PDFs)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓ (descarga)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓ (descarga pública)</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Subir documentos al repositorio</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Descargar documentos restringidos</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Acceso al Panel Administrativo (dashboard)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓ (limitado)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Gestionar usuarios (crear/editar/eliminar)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Gestionar roles y permisos</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Visualizar analíticas web / métricas</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓ (parc.)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Configurar hosting, backups y SSL</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Reportar incidente de seguridad (formulario)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Responder solicitudes de cotización</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Integración con Mapas (configuración)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Enlaces y botones para redes sociales</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Compartir cursos / noticias en redes (botón)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Acceso a área privada / membresía (clientes)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>APIs para integración con CRM / sistemas externos</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                  <tr>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>Generar reportes (inscripciones, ventas, uso)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>✓ (limitado)</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>-</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        }
-      />
-      
-      <Slide 
-        title="6. Seguridad del Sistema"
-        content={
-          <div>
-            <h3>6.1 Protección contra Ataques</h3>
-            <ul>
-              <li>HTTPS obligatorio: forzar TLS en todo el tráfico.</li>
-              <li>Protección contra CSRF: tokens CSRF en formularios o usar cabeceras seguras.</li>
-              <li>Protección contra XSS: sanitizar/escapar contenido HTML en entradas de usuarios.</li>
-              <li>Rate limiting: limitar intentos de login y endpoints sensibles.</li>
-              <li>WAF / reglas de firewall: bloquear patrones maliciosos y tráfico sospechoso.</li>
-              <li>Validación de entrada: validar y sanitizar todos los datos entrantes.</li>
-            </ul>
-            
-            <h3>6.2 Políticas de Contraseñas</h3>
-            <ul>
-              <li>Longitud mínima: 8–12 caracteres (recomendado 12+).</li>
-              <li>Requerir mezcla: mayúsculas, minúsculas, números y símbolos (según riesgo).</li>
-              <li>Hashing: almacenar contraseñas con algoritmos resistentes usando bcrypt con costo adecuado.</li>
-              <li>Requerir verificación por email para nuevos registros.</li>
-              <li>Implementar bloqueo temporal o captcha tras varios intentos fallidos.</li>
-              <li>Política de expiración de contraseñas: opcional; preferir MFA sobre expiración forzada.</li>
-            </ul>
-            
-            <h3>6.3 Copias de Seguridad (Backups)</h3>
-            <p><strong>Requisitos:</strong></p>
-            <ul>
-              <li>Frecuencia: backups semanales en entorno de producción.</li>
-              <li>Retención: conservar al menos 30 días de backups.</li>
-              <li>Pruebas de recuperación: realizar pruebas de restauración al menos cada mes.</li>
-            </ul>
-          </div>
-        }
-      />
-      
-      <Slide 
-        title="7. Mantenimiento y Actualización"
-        content={
-          <div>
-            <h3>7.1 Actualización de Contenido</h3>
-            <p>Flujo para publicar contenido nuevo: creación en staging -: revisión QA -: despliegue a producción. Mantener registros de cambios y versiones de contenido.</p>
-            
-            <h3>7.2 Mantenimiento del Sistema</h3>
-            <p>Tareas periódicas:</p>
-            <ul>
-              <li>Actualización de dependencias y parches de seguridad: anual.</li>
-              <li>Limpieza de logs y archivos temporales: semanal.</li>
-              <li>Verificación del uso de disco y estado de la base de datos: semanal.</li>
-              <li>Comprobación de backups y pruebas de restauración: mensual.</li>
-            </ul>
-            <p>Checklist para actualizaciones menores:</p>
-            <ol>
-              <li>Revisar changelogs de dependencias.</li>
-              <li>Probar en entorno de staging.</li>
-              <li>Ejecutar migraciones en staging.</li>
-              <li>Planificar el mantenimiento para producción.</li>
-              <li>Ejecutar migraciones y tests posteriores.</li>
-            </ol>
-            
-            <h3>7.3 Resolución de Problemas Comunes</h3>
-            <ul>
-              <li>La app no inicia: revisar logs (journalctl, docker logs, o logs de la app). Verificar variables de entorno y conexión a DB.</li>
-              <li>Conexión a DB fallida: comprobar credenciales, que el servicio DB esté corriendo y puertos/firewall.</li>
-              <li>Errores 500 en producción: revisar stack trace en logs, reproducir en staging.</li>
-              <li>Problemas de performance: identificar queries lentas (EXPLAIN), revisar índices, escalar recursos o cachear respuestas.</li>
-            </ul>
-            <p>Formato para reportar incidencias internas:</p>
-            <ul>
-              <li>Fecha / Hora</li>
-              <li>Descripción del problema</li>
-              <li>Pasos para reproducir</li>
-              <li>Logs relevantes (extractos)</li>
-              <li>Impacto (usuario/servicio afectado)</li>
-              <li>Acciones tomadas</li>
-            </ul>
-          </div>
-        }
-      />
-      
-      <Slide 
-        title="8. Soporte Técnico"
-        content={
-          <div>
-            <h3>8.1 Procedimiento para Reportar Problemas</h3>
-            <ol>
-              <li>Verificar si existe un incidente conocido en la página de estado.</li>
-              <li>Recolectar información básica: URL afectada, usuario, timestamp, capturas o logs.</li>
-              <li>Abrir ticket en sistema de gestión con prioridad adecuada.</li>
-              <li>Etiquetar el ticket con severity (Alta/Media/Baja) y component.</li>
-              <li>Asignar al responsable según la rotación de on-call.</li>
-            </ol>
-            
-            <h3>8.2 Contacto de Soporte</h3>
-            <ul>
-              <li>Correo de soporte: soporte@[dominio].com (ejemplo)</li>
-              <li>Slack: canal #soporte-app</li>
-              <li>Teléfono de emergencia (solo para incidencias críticas): [+591] XXXXXXXX</li>
-            </ul>
-            
-            <h3>8.3 Horarios de Atención</h3>
-            <ul>
-              <li>Soporte estándar: Lunes a Viernes, 09:00 — 18:00 (hora local)</li>
-              <li>Soporte crítico / on-call: 24/7 para incidencias de producción</li>
-            </ul>
-          </div>
-        }
-      />
-      
-      <Slide 
-        title="Anexos"
-        content={
-          <div>
-            <h3>A. Diagramas y Esquemas</h3>
-            <p>A.1 Diagramas de Flujo del Sistema</p>
-            <p>A.2 Esquema de la Base de Datos</p>
-            {/* Placeholder for ER Diagram */}
-            <div style={{ textAlign: 'center', margin: '20px 0' }}>
-              <p>[Diagrama ER: permission_category → permission → action, roles → role_permissions, user_account → user_roles, organization, services, course → class, user_courses, comments, class_reproductions]</p>
-              {/* Add actual image if available */}
-            </div>
-            
-            <h3>B. Plantillas útiles</h3>
-            <p>B.1 Plantilla para cambiar configuración en producción:</p>
-            <ul>
-              <li>Crear branch hotfix/config-YYYYMMDD</li>
-              <li>Probar cambios en staging</li>
-              <li>Ejecutar scripts de migración en mantenimiento programado</li>
-              <li>Hacer rollback plan y pruebas post-deploy</li>
-            </ul>
-            <p>B.2 Plantilla de ticket de incidente:</p>
-            <ul>
-              <li>Título: [Breve resumen]</li>
-              <li>Descripción: [Descripción detallada]</li>
-              <li>Prioridad: [Alta/Media/Baja]</li>
-              <li>Pasos para reproducir: 1. ... 2. ...</li>
-              <li>Logs adjuntos: [ruta o extracto]</li>
-              <li>Contacto: [nombre y teléfono]</li>
-            </ul>
-          </div>
-        }
-      />
-    </div>
-  )
-}
+    <Box sx={{ minHeight: '100vh', bgcolor: '#f5f7fa', py: 4 }}>
+      <Container maxWidth="lg">
+        <Paper elevation={3} sx={{ borderRadius: 3, overflow: 'hidden' }}>
+          {/* Header */}
+          <Box
+            sx={{
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              color: 'white',
+              p: 4,
+              textAlign: 'center',
+            }}
+          >
+            <MenuBook sx={{ fontSize: 60, mb: 2 }} />
+            <Typography variant="h3" sx={{ fontWeight: 700, mb: 1 }}>
+              Manual de Sistema
+            </Typography>
+            <Typography variant="h5" sx={{ fontWeight: 400, opacity: 0.9 }}>
+              CRM Typica – Café & Tostaduría Especializada
+            </Typography>
+            <Chip
+              label="Versión 1.0 - Documentación Técnica"
+              sx={{ mt: 2, bgcolor: 'rgba(255,255,255,0.2)', color: 'white', fontWeight: 600 }}
+            />
+          </Box>
 
+          <Box sx={{ p: 4 }}>
+            {/* 1. Introducción */}
+            <Accordion
+              expanded={expanded === 'panel1'}
+              onChange={handleChange('panel1')}
+              sx={{ mb: 2, boxShadow: 2 }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                sx={{ bgcolor: '#2196F3', color: 'white', '&:hover': { bgcolor: '#1976D2' } }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <MenuBook />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    1. Introducción
+                  </Typography>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 3 }}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12} md={6}>
+                    <Card sx={{ height: '100%', borderLeft: '4px solid #2196F3' }}>
+                      <CardContent>
+                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#2196F3' }}>
+                          1.1 Objetivo del Manual
+                        </Typography>
+                        <Typography variant="h6" sx={{ textAlign: 'justify' }}>
+                          Este manual tiene por objetivo ofrecer una <strong>guía práctica y técnica</strong> para 
+                          administradores, desarrolladores y personal de soporte de CRM Typica: instalación, configuración, 
+                          operación, mantenimiento y resolución de incidentes.
+                        </Typography>
+                        <Alert severity="info" sx={{ mt: 2 }}>
+                          <Typography variant="body2">
+                            Contiene <strong>instrucciones paso a paso</strong>, criterios técnicos y procedimientos que 
+                            permiten operar el CRM en entornos de desarrollo y producción.
+                          </Typography>
+                        </Alert>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                  <Grid item xs={12} md={6}>
+                    <Card sx={{ height: '100%', borderLeft: '4px solid #4CAF50' }}>
+                      <CardContent>
+                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#4CAF50' }}>
+                          1.2 Alcance del Sistema
+                        </Typography>
+                        <Typography variant="body1" sx={{ textAlign: 'justify', mb: 2 }}>
+                          Cubre los <strong>módulos centrales del CRM</strong> y las decisiones tecnológicas recomendadas:
+                        </Typography>
+                        <List dense>
+                          <ListItem>
+                            <ListItemIcon><CheckCircle sx={{ fontSize: 18, color: '#4CAF50' }} /></ListItemIcon>
+                            <ListItemText primary="Gestión de clientes y fidelización" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemIcon><CheckCircle sx={{ fontSize: 18, color: '#4CAF50' }} /></ListItemIcon>
+                            <ListItemText primary="Comunicación multicanal" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemIcon><CheckCircle sx={{ fontSize: 18, color: '#4CAF50' }} /></ListItemIcon>
+                            <ListItemText primary="Integración POS y análisis" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemIcon><CheckCircle sx={{ fontSize: 18, color: '#4CAF50' }} /></ListItemIcon>
+                            <ListItemText primary="Procesos de despliegue y soporte" />
+                          </ListItem>
+                        </List>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+
+            {/* 2. Arquitectura del Sistema */}
+            <Accordion
+              expanded={expanded === 'panel2'}
+              onChange={handleChange('panel2')}
+              sx={{ mb: 2, boxShadow: 2 }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                sx={{ bgcolor: '#4CAF50', color: 'white', '&:hover': { bgcolor: '#388E3C' } }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Architecture />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    2. Arquitectura del Sistema
+                  </Typography>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 3 }}>
+                {/* 2.1 Tecnologías */}
+                <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#4CAF50' }}>
+                  2.1 Tecnologías Utilizadas
+                </Typography>
+                <Grid container spacing={2} sx={{ mb: 3 }}>
+                  {tecnologias.map((tech, index) => (
+                    <Grid item xs={12} sm={6} md={3} key={index}>
+                      <Card sx={{ borderTop: `4px solid ${tech.color}`, height: '100%' }}>
+                        <CardContent>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                            <Box sx={{ color: tech.color }}>{tech.icon}</Box>
+                            <Typography variant="subtitle2" sx={{ fontWeight: 600, fontSize: '0.85rem' }}>
+                              {tech.nombre}
+                            </Typography>
+                          </Box>
+                          <Typography variant="body2" sx={{ fontSize: '0.8rem' }}>
+                            {tech.valor}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  ))}
+                </Grid>
+
+                <Alert severity="success" sx={{ mb: 3 }}>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                    🎯 Motivo de Elección Técnica
+                  </Typography>
+                  <Typography variant="body2">
+                    Combinar <strong>consistencia transaccional (Postgres)</strong> con <strong>flexibilidad para 
+                    eventos/mensajería (MongoDB)</strong> y usar stacks (Next + Express) que facilitan integración y 
+                    desarrollo ágil.
+                  </Typography>
+                </Alert>
+
+                {/* 2.2 Estructura de Carpetas */}
+                <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#4CAF50' }}>
+                  2.2 Estructura de Carpetas y Archivos
+                </Typography>
+                <Paper sx={{ bgcolor: '#263238', color: '#00E676', p: 2, mb: 3, fontFamily: 'monospace', overflow: 'auto' }}>
+                  <pre style={{ margin: 0, fontSize: '0.85rem' }}>{estructuraCarpetas}</pre>
+                </Paper>
+
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={6}>
+                    <Card sx={{ bgcolor: '#fff3e0' }}>
+                      <CardContent>
+                        <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#FF9800' }}>
+                          📁 Archivos Críticos
+                        </Typography>
+                        <List dense>
+                          <ListItem>
+                            <ListItemIcon><Folder sx={{ fontSize: 18 }} /></ListItemIcon>
+                            <ListItemText 
+                              primary=".env" 
+                              secondary="Variables sensibles (no versionar)"
+                              primaryTypographyProps={{ fontWeight: 600 }}
+                            />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemIcon><Folder sx={{ fontSize: 18 }} /></ListItemIcon>
+                            <ListItemText 
+                              primary="docker-compose.yml" 
+                              secondary="Despliegue local y staging"
+                              primaryTypographyProps={{ fontWeight: 600 }}
+                            />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemIcon><Folder sx={{ fontSize: 18 }} /></ListItemIcon>
+                            <ListItemText 
+                              primary="/db/migrations" 
+                              secondary="Migraciones Prisma/SQL"
+                              primaryTypographyProps={{ fontWeight: 600 }}
+                            />
+                          </ListItem>
+                        </List>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                  <Grid item xs={12} md={6}>
+                    <Card sx={{ bgcolor: '#e3f2fd' }}>
+                      <CardContent>
+                        <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#2196F3' }}>
+                          🗄️ Base de Datos - Entidades Principales
+                        </Typography>
+                        <List dense>
+                          <ListItem>
+                            <ListItemText primary="• organization - Datos de Typica/sucursales" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemText primary="• user_account - Credenciales y metadata" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemText primary="• client_profile - Datos del cliente" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemText primary="• purchase / pos_ticket - Registro de ventas" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemText primary="• rewards - Saldo y reglas de fidelización" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemText primary="• campaign - Gestión de campañas" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemText primary="• message - Bandeja multicanal" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemText primary="• reservation / event - Reservas" />
+                          </ListItem>
+                        </List>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+
+            {/* 3. Instalación y Configuración */}
+            <Accordion
+              expanded={expanded === 'panel3'}
+              onChange={handleChange('panel3')}
+              sx={{ mb: 2, boxShadow: 2 }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                sx={{ bgcolor: '#FF9800', color: 'white', '&:hover': { bgcolor: '#F57C00' } }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <CloudDownload />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    3. Instalación y Configuración
+                  </Typography>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 3 }}>
+                {/* 3.1 Requisitos */}
+                <Card sx={{ mb: 3, bgcolor: '#f3e5f5', border: '2px solid #9C27B0' }}>
+                  <CardContent>
+                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#9C27B0' }}>
+                      3.1 Requisitos del Sistema
+                    </Typography>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} md={6}>
+                        <Box sx={{ bgcolor: 'white', p: 2, borderRadius: 1 }}>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                            🖥️ Hardware (Desarrollo)
+                          </Typography>
+                          <Typography variant="body2">• 2 vCPU / 4 GB RAM mínimo</Typography>
+                        </Box>
+                      </Grid>
+                      <Grid item xs={12} md={6}>
+                        <Box sx={{ bgcolor: 'white', p: 2, borderRadius: 1 }}>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                            🚀 Hardware (Producción)
+                          </Typography>
+                          <Typography variant="body2">• 4+ vCPU / 8+ GB RAM (ajustar según carga)</Typography>
+                        </Box>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Box sx={{ bgcolor: 'white', p: 2, borderRadius: 1 }}>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                            💿 Software Requerido
+                          </Typography>
+                          <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
+                            <Chip label="Node.js v20+" color="success" size="small" />
+                            <Chip label="Docker" color="primary" size="small" />
+                            <Chip label="PostgreSQL v16+" color="info" size="small" />
+                            <Chip label="MongoDB v7+" color="secondary" size="small" />
+                            <Chip label="Ubuntu 20.04+" color="default" size="small" />
+                          </Stack>
+                        </Box>
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                </Card>
+
+                {/* 3.2 Proceso de Instalación */}
+                <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#FF9800' }}>
+                  3.2 Proceso de Instalación (Desarrollo con Docker)
+                </Typography>
+                <TableContainer component={Paper} sx={{ mb: 3 }}>
+                  <Table size="small">
+                    <TableHead>
+                      <TableRow sx={{ bgcolor: '#FF9800' }}>
+                        <TableCell sx={{ color: 'white', fontWeight: 600 }}>Paso</TableCell>
+                        <TableCell sx={{ color: 'white', fontWeight: 600 }}>Comando</TableCell>
+                        <TableCell sx={{ color: 'white', fontWeight: 600 }}>Descripción</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {comandosInstalacion.map((cmd) => (
+                        <TableRow key={cmd.paso}>
+                          <TableCell>
+                            <Chip label={cmd.paso} color="warning" size="small" />
+                          </TableCell>
+                          <TableCell>
+                            <Box sx={{ bgcolor: '#263238', color: '#00E676', p: 1, borderRadius: 1, fontFamily: 'monospace', fontSize: '0.85rem' }}>
+                              {cmd.comando}
+                            </Box>
+                          </TableCell>
+                          <TableCell>{cmd.descripcion}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+
+                <Alert severity="success">
+                  <Typography variant="body2">
+                    <strong>URLs de Acceso:</strong><br />
+                    • Frontend: <code>http://localhost:3000</code><br />
+                    • API: <code>http://localhost:4000</code>
+                  </Typography>
+                </Alert>
+
+                {/* 3.3 Configuración Inicial */}
+                <Card sx={{ mt: 3, bgcolor: '#e8f5e9' }}>
+                  <CardContent>
+                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#4CAF50' }}>
+                      3.3 Configuración Inicial
+                    </Typography>
+                    <List>
+                      <ListItem>
+                        <ListItemIcon><CheckCircle sx={{ color: '#4CAF50' }} /></ListItemIcon>
+                        <ListItemText 
+                          primary="Crear cuenta de administrador"
+                          secondary="Mediante seed/migration o CLI admin-create"
+                        />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemIcon><CheckCircle sx={{ color: '#4CAF50' }} /></ListItemIcon>
+                        <ListItemText 
+                          primary="Configurar proveedores externos"
+                          secondary="WhatsApp Business, SendGrid/Mailgun, proveedor SMS"
+                        />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemIcon><CheckCircle sx={{ color: '#4CAF50' }} /></ListItemIcon>
+                        <ListItemText 
+                          primary="Configurar almacenamiento"
+                          secondary="S3 / MinIO para materiales y multimedia"
+                        />
+                      </ListItem>
+                    </List>
+                  </CardContent>
+                </Card>
+              </AccordionDetails>
+            </Accordion>
+
+            {/* 4. Funcionalidades */}
+            <Accordion
+              expanded={expanded === 'panel4'}
+              onChange={handleChange('panel4')}
+              sx={{ mb: 2, boxShadow: 2 }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                sx={{ bgcolor: '#9C27B0', color: 'white', '&:hover': { bgcolor: '#7B1FA2' } }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Dashboard />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    4. Funcionalidades del Sistema
+                  </Typography>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 3 }}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={6}>
+                    <Card sx={{ borderLeft: '4px solid #2196F3', height: '100%' }}>
+                      <CardContent>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1, color: '#2196F3' }}>
+                          4.1 Gestión de Clientes y Contactos
+                        </Typography>
+                        <Typography variant="body2">
+                          • Registro, edición, eliminación y búsqueda<br />
+                          • Historial de interacciones y compras asociado
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                  <Grid item xs={12} md={6}>
+                    <Card sx={{ borderLeft: '4px solid #4CAF50', height: '100%' }}>
+                      <CardContent>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1, color: '#4CAF50' }}>
+                          4.2 Fidelización y Recompensas
+                        </Typography>
+                        <Typography variant="body2">
+                          • Acumulación automática de puntos<br />
+                          • Niveles (Bronce/Plata/Oro) y canje de bonos
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                  <Grid item xs={12} md={6}>
+                    <Card sx={{ borderLeft: '4px solid #FF9800', height: '100%' }}>
+                      <CardContent>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1, color: '#FF9800' }}>
+                          4.3 Comunicación Multicanal
+                        </Typography>
+                        <Typography variant="body2">
+                          • Bandeja unificada (WhatsApp, Instagram, Email, SMS)<br />
+                          • Chatbots y transferencia a agente humano
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                  <Grid item xs={12} md={6}>
+                    <Card sx={{ borderLeft: '4px solid #F44336', height: '100%' }}>
+                      <CardContent>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1, color: '#F44336' }}>
+                          4.4 Integración con POS
+                        </Typography>
+                        <Typography variant="body2">
+                          • Sincronización en tiempo real<br />
+                          • Actualización automática de puntos
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                  <Grid item xs={12} md={6}>
+                    <Card sx={{ borderLeft: '4px solid #00BCD4', height: '100%' }}>
+                      <CardContent>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1, color: '#00BCD4' }}>
+                          4.5 Dashboard y Reportes
+                        </Typography>
+                        <Typography variant="body2">
+                          • KPIs en tiempo real<br />
+                          • Segmentación avanzada y exportación CSV/XLSX
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                  <Grid item xs={12} md={6}>
+                    <Card sx={{ borderLeft: '4px solid #673AB7', height: '100%' }}>
+                      <CardContent>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1, color: '#673AB7' }}>
+                          4.6 Reservas, Eventos y Feedback
+                        </Typography>
+                        <Typography variant="body2">
+                          • Gestión de reservas y catas<br />
+                          • Formularios de satisfacción y NPS
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+
+            {/* 5. Roles y Permisos */}
+            <Accordion
+              expanded={expanded === 'panel5'}
+              onChange={handleChange('panel5')}
+              sx={{ mb: 2, boxShadow: 2 }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                sx={{ bgcolor: '#F44336', color: 'white', '&:hover': { bgcolor: '#D32F2F' } }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <People />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    5. Roles y Permisos
+                  </Typography>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 3 }}>
+                <Grid container spacing={3}>
+                  {roles.map((rol, index) => (
+                    <Grid item xs={12} md={6} key={index}>
+                      <Card sx={{ borderTop: `4px solid ${rol.color}`, height: '100%' }}>
+                        <CardContent>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                            <Chip 
+                              label={rol.codigo} 
+                              sx={{ bgcolor: rol.color, color: 'white', fontWeight: 600 }} 
+                              size="small" 
+                            />
+                            <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                              {rol.nombre}
+                            </Typography>
+                          </Box>
+                          <Typography variant="body2" color="text.secondary" paragraph>
+                            {rol.descripcion}
+                          </Typography>
+                          <Divider sx={{ my: 1 }} />
+                          <Typography variant="caption" sx={{ fontWeight: 600, display: 'block', mb: 1 }}>
+                            Permisos:
+                          </Typography>
+                          <List dense>
+                            {rol.permisos.map((permiso, idx) => (
+                              <ListItem key={idx} sx={{ py: 0 }}>
+                                <ListItemIcon sx={{ minWidth: 24 }}>
+                                  <CheckCircle sx={{ fontSize: 16, color: rol.color }} />
+                                </ListItemIcon>
+                                <ListItemText 
+                                  primary={permiso} 
+                                  primaryTypographyProps={{ variant: 'body2' }}
+                                />
+                              </ListItem>
+                            ))}
+                          </List>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  ))}
+                </Grid>
+
+                <Alert severity="info" sx={{ mt: 3 }}>
+                  <Typography variant="body2">
+                    <strong>Implementación:</strong> Matriz de permisos con tablas <code>roles</code>, 
+                    <code>permissions</code>, <code>role_permissions</code> y <code>user_roles</code>. 
+                    Mapear permisos por recurso (ver/crear/editar/eliminar).
+                  </Typography>
+                </Alert>
+              </AccordionDetails>
+            </Accordion>
+
+            {/* 6. Seguridad */}
+            <Accordion
+              expanded={expanded === 'panel6'}
+              onChange={handleChange('panel6')}
+              sx={{ mb: 2, boxShadow: 2 }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                sx={{ bgcolor: '#F44336', color: 'white', '&:hover': { bgcolor: '#D32F2F' } }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Security />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    6. Seguridad del Sistema
+                  </Typography>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 3 }}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12} md={4}>
+                    <Card sx={{ bgcolor: '#ffebee', height: '100%' }}>
+                      <CardContent>
+                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#F44336' }}>
+                          6.1 Protección contra Ataques
+                        </Typography>
+                        <List dense>
+                          <ListItem>
+                            <ListItemIcon><VerifiedUser sx={{ fontSize: 18, color: '#F44336' }} /></ListItemIcon>
+                            <ListItemText primary="HTTPS/TLS obligatorio" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemIcon><VerifiedUser sx={{ fontSize: 18, color: '#F44336' }} /></ListItemIcon>
+                            <ListItemText primary="Rate limiting endpoints" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemIcon><VerifiedUser sx={{ fontSize: 18, color: '#F44336' }} /></ListItemIcon>
+                            <ListItemText primary="Protección CSRF y XSS" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemIcon><VerifiedUser sx={{ fontSize: 18, color: '#F44336' }} /></ListItemIcon>
+                            <ListItemText primary="WAF / Firewall rules" />
+                          </ListItem>
+                        </List>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                  <Grid item xs={12} md={4}>
+                    <Card sx={{ bgcolor: '#fff3e0', height: '100%' }}>
+                      <CardContent>
+                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#FF9800' }}>
+                          6.2 Autenticación
+                        </Typography>
+                        <List dense>
+                          <ListItem>
+                            <ListItemIcon><CheckCircle sx={{ fontSize: 18, color: '#FF9800' }} /></ListItemIcon>
+                            <ListItemText primary="Contraseñas 12+ caracteres" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemIcon><CheckCircle sx={{ fontSize: 18, color: '#FF9800' }} /></ListItemIcon>
+                            <ListItemText primary="Hashing: bcrypt o Argon2" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemIcon><CheckCircle sx={{ fontSize: 18, color: '#FF9800' }} /></ListItemIcon>
+                            <ListItemText primary="Verificación por email" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemIcon><CheckCircle sx={{ fontSize: 18, color: '#FF9800' }} /></ListItemIcon>
+                            <ListItemText primary="MFA para administradores" />
+                          </ListItem>
+                        </List>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                  <Grid item xs={12} md={4}>
+                    <Card sx={{ bgcolor: '#e8f5e9', height: '100%' }}>
+                      <CardContent>
+                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#4CAF50' }}>
+                          6.3 Backups
+                        </Typography>
+                        <List dense>
+                          <ListItem>
+                            <ListItemIcon><Backup sx={{ fontSize: 18, color: '#4CAF50' }} /></ListItemIcon>
+                            <ListItemText primary="Backups automáticos diarios" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemIcon><Backup sx={{ fontSize: 18, color: '#4CAF50' }} /></ListItemIcon>
+                            <ListItemText primary="Retención mínima 30 días" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemIcon><Backup sx={{ fontSize: 18, color: '#4CAF50' }} /></ListItemIcon>
+                            <ListItemText primary="Pruebas de restauración mensuales" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemIcon><Backup sx={{ fontSize: 18, color: '#4CAF50' }} /></ListItemIcon>
+                            <ListItemText primary="Documentación de procedimientos" />
+                          </ListItem>
+                        </List>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+
+            {/* 7. Mantenimiento */}
+            <Accordion
+              expanded={expanded === 'panel7'}
+              onChange={handleChange('panel7')}
+              sx={{ mb: 2, boxShadow: 2 }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                sx={{ bgcolor: '#00BCD4', color: 'white', '&:hover': { bgcolor: '#0097A7' } }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Build />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    7. Mantenimiento y Actualización
+                  </Typography>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 3 }}>
+                <Stack spacing={3}>
+                  <Card sx={{ borderLeft: '4px solid #2196F3' }}>
+                    <CardContent>
+                      <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#2196F3' }}>
+                        7.1 Actualización de Contenido
+                      </Typography>
+                      <Alert severity="info">
+                        <Typography variant="body2">
+                          <strong>Flujo:</strong> Crear en staging → QA → Aprobar → Deploy a production. 
+                          Mantener control de cambios documentado.
+                        </Typography>
+                      </Alert>
+                    </CardContent>
+                  </Card>
+
+                  <Card sx={{ borderLeft: '4px solid #4CAF50' }}>
+                    <CardContent>
+                      <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#4CAF50' }}>
+                        7.2 Tareas Periódicas de Mantenimiento
+                      </Typography>
+                      <List>
+                        <ListItem>
+                          <ListItemIcon><Update sx={{ color: '#4CAF50' }} /></ListItemIcon>
+                          <ListItemText 
+                            primary="Actualización de dependencias y parches de seguridad"
+                            secondary="Revisión semanal de CVEs y actualizaciones"
+                          />
+                        </ListItem>
+                        <ListItem>
+                          <ListItemIcon><Settings sx={{ color: '#4CAF50' }} /></ListItemIcon>
+                          <ListItemText 
+                            primary="Limpieza de logs y mantenimiento de disco"
+                            secondary="Automatizar rotación de logs cada 7 días"
+                          />
+                        </ListItem>
+                        <ListItem>
+                          <ListItemIcon><Backup sx={{ color: '#4CAF50' }} /></ListItemIcon>
+                          <ListItemText 
+                            primary="Verificación y pruebas de backups"
+                            secondary="Restauración de prueba mensual"
+                          />
+                        </ListItem>
+                      </List>
+                    </CardContent>
+                  </Card>
+
+                  <Card sx={{ borderLeft: '4px solid #FF9800' }}>
+                    <CardContent>
+                      <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#FF9800' }}>
+                        7.3 Resolución de Problemas Comunes
+                      </Typography>
+                      <TableContainer component={Paper} sx={{ bgcolor: '#fff3e0' }}>
+                        <Table size="small">
+                          <TableHead>
+                            <TableRow>
+                              <TableCell sx={{ fontWeight: 600 }}>Problema</TableCell>
+                              <TableCell sx={{ fontWeight: 600 }}>Solución</TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            <TableRow>
+                              <TableCell><BugReport sx={{ fontSize: 18, mr: 1 }} />App no inicia</TableCell>
+                              <TableCell>Revisar logs de contenedor (<code>docker logs</code>), env vars y conexión a DB</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell><Warning sx={{ fontSize: 18, mr: 1 }} />Conexión DB fallida</TableCell>
+                              <TableCell>Comprobar credenciales, servicio y puertos</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell><BugReport sx={{ fontSize: 18, mr: 1 }} />Incidentes de mensajería</TableCell>
+                              <TableCell>Revisar integración con proveedor y límites/SLA</TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                    </CardContent>
+                  </Card>
+                </Stack>
+              </AccordionDetails>
+            </Accordion>
+
+            {/* 8. Soporte Técnico */}
+            <Accordion
+              expanded={expanded === 'panel8'}
+              onChange={handleChange('panel8')}
+              sx={{ mb: 2, boxShadow: 2 }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                sx={{ bgcolor: '#673AB7', color: 'white', '&:hover': { bgcolor: '#5E35B1' } }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Support />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    8. Soporte Técnico
+                  </Typography>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 3 }}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12} md={4}>
+                    <Card sx={{ bgcolor: '#f3e5f5', height: '100%' }}>
+                      <CardContent>
+                        <ContactSupport sx={{ fontSize: 40, color: '#673AB7', mb: 2 }} />
+                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#673AB7' }}>
+                          8.2 Contacto de Soporte
+                        </Typography>
+                        <List dense>
+                          <ListItem>
+                            <ListItemText 
+                              primary="📧 Email" 
+                              secondary="soporte@typica.example"
+                              primaryTypographyProps={{ fontWeight: 600 }}
+                            />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemText 
+                              primary="💬 Canal interno" 
+                              secondary="Slack/Teams: #soporte-crm"
+                              primaryTypographyProps={{ fontWeight: 600 }}
+                            />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemText 
+                              primary="📞 Emergencias" 
+                              secondary="Número definido por Typica"
+                              primaryTypographyProps={{ fontWeight: 600 }}
+                            />
+                          </ListItem>
+                        </List>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                  <Grid item xs={12} md={4}>
+                    <Card sx={{ bgcolor: '#e8f5e9', height: '100%' }}>
+                      <CardContent>
+                        <Schedule sx={{ fontSize: 40, color: '#4CAF50', mb: 2 }} />
+                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#4CAF50' }}>
+                          8.3 Horarios de Atención
+                        </Typography>
+                        <List dense>
+                          <ListItem>
+                            <ListItemText 
+                              primary="Soporte Estándar" 
+                              secondary="Lunes–Viernes 09:00–18:00"
+                              primaryTypographyProps={{ fontWeight: 600 }}
+                            />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemText 
+                              primary="Soporte Crítico" 
+                              secondary="24/7 para incidencias de producción"
+                              primaryTypographyProps={{ fontWeight: 600 }}
+                            />
+                          </ListItem>
+                        </List>
+                        <Alert severity="warning" sx={{ mt: 2 }}>
+                          <Typography variant="body2">
+                            Según contrato SLA establecido
+                          </Typography>
+                        </Alert>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                  <Grid item xs={12} md={4}>
+                    <Card sx={{ bgcolor: '#fff3e0', height: '100%' }}>
+                      <CardContent>
+                        <Description sx={{ fontSize: 40, color: '#FF9800', mb: 2 }} />
+                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#FF9800' }}>
+                          8.1 Reportar Problemas
+                        </Typography>
+                        <List dense>
+                          <ListItem>
+                            <ListItemText 
+                              primary="1. Verificar estado del sistema"
+                              primaryTypographyProps={{ variant: 'body2' }}
+                            />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemText 
+                              primary="2. Recolectar evidencia (logs, capturas)"
+                              primaryTypographyProps={{ variant: 'body2' }}
+                            />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemText 
+                              primary="3. Abrir ticket con prioridad"
+                              primaryTypographyProps={{ variant: 'body2' }}
+                            />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemText 
+                              primary="4. Asignar componente y responsable"
+                              primaryTypographyProps={{ variant: 'body2' }}
+                            />
+                          </ListItem>
+                        </List>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Grid>
+
+                {/* Plantilla de Ticket */}
+                <Card sx={{ mt: 3, bgcolor: '#fce4ec' }}>
+                  <CardContent>
+                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#E91E63' }}>
+                      📋 Plantilla de Ticket de Incidente
+                    </Typography>
+                    <Paper sx={{ bgcolor: '#fff', p: 2 }}>
+                      <List dense>
+                        <ListItem>
+                          <ListItemText primary="• Título: [Breve resumen]" />
+                        </ListItem>
+                        <ListItem>
+                          <ListItemText primary="• Descripción: [Detalles + pasos para reproducir]" />
+                        </ListItem>
+                        <ListItem>
+                          <ListItemText primary="• Prioridad: [Alta/Media/Baja]" />
+                        </ListItem>
+                        <ListItem>
+                          <ListItemText primary="• Impacto: [Usuarios / Servicios afectados]" />
+                        </ListItem>
+                        <ListItem>
+                          <ListItemText primary="• Logs adjuntos: [ruta / extracto]" />
+                        </ListItem>
+                        <ListItem>
+                          <ListItemText primary="• Contacto: [nombre y teléfono]" />
+                        </ListItem>
+                        <ListItem>
+                          <ListItemText primary="• Acciones tomadas:" />
+                        </ListItem>
+                      </List>
+                    </Paper>
+                  </CardContent>
+                </Card>
+              </AccordionDetails>
+            </Accordion>
+
+            {/* 9. Anexos */}
+            <Accordion
+              expanded={expanded === 'panel9'}
+              onChange={handleChange('panel9')}
+              sx={{ mb: 2, boxShadow: 2 }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                sx={{ bgcolor: '#607D8B', color: 'white', '&:hover': { bgcolor: '#546E7A' } }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Folder />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    9. Anexos
+                  </Typography>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 3 }}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12} md={6}>
+                    <Card sx={{ borderLeft: '4px solid #2196F3' }}>
+                      <CardContent>
+                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#2196F3' }}>
+                          A. Diagramas y Esquemas
+                        </Typography>
+                        <Typography variant="body2" paragraph>
+                          Los diagramas C4, diagramas de flujo y esquema de BD se generan durante la fase de diseño.
+                        </Typography>
+                        <Alert severity="info">
+                          <Typography variant="body2">
+                            📁 Ubicación: <code>/docs/diagrams</code>
+                          </Typography>
+                        </Alert>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                  <Grid item xs={12} md={6}>
+                    <Card sx={{ borderLeft: '4px solid #4CAF50' }}>
+                      <CardContent>
+                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#4CAF50' }}>
+                          B. Plantillas Útiles
+                        </Typography>
+                        <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                          B.1 Plantilla rápida para deploy
+                        </Typography>
+                        <List dense>
+                          <ListItem>
+                            <ListItemText primary="• Crear branch hotfix/config-YYYYMMDD" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemText primary="• Probar en staging" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemText primary="• Ejecutar migraciones con rollback plan" />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemText primary="• Desplegar en mantenimiento programado" />
+                          </ListItem>
+                        </List>
+                        <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, mt: 2 }}>
+                          B.2 Ver Plantilla de ticket (Sección 8.1)
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+
+            <Divider sx={{ my: 4 }} />
+
+            {/* Footer */}
+            <Alert severity="success" icon={<CheckCircle />}>
+              <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+                ✅ Manual de Sistema Completo
+              </Typography>
+              <Typography variant="body2">
+                Este manual cubre todos los aspectos técnicos necesarios para la instalación, configuración, 
+                operación y mantenimiento del CRM Typica. Para soporte adicional, contactar al equipo de 
+                desarrollo de ChairuX.
+              </Typography>
+            </Alert>
+          </Box>
+        </Paper>
+      </Container>
+    </Box>
+  );
+};

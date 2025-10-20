@@ -26,45 +26,47 @@ import {
 } from 'recharts';
 
 export default function Dashboard() {
-  // Datos de simulación Monte Carlo (basados en el análisis)
+  // Datos de simulación Monte Carlo corregidos
+  // Cálculo: (1 mes × 1 dev) + (3 meses × 5 devs) + (2 meses × 1 dev) = 18 dev-meses
+  // Costo base: 18 dev-meses × $1,500/mes = $27,000 + costos fijos (~$24)
   const costoEstimado = {
-    media: 45678,
-    mediana: 45500,
-    percentil5: 38200,
-    percentil95: 53100,
-    desviacion: 4250,
+    media: 27024,
+    mediana: 27000,
+    percentil5: 23160,
+    percentil95: 30888,
+    desviacion: 2200,
   };
 
   const fasesProyecto = [
-    { fase: 'Análisis', devs: 1, meses: 1, color: '#2196F3' },
-    { fase: 'Desarrollo', devs: 5, meses: 3, color: '#4CAF50' },
-    { fase: 'Revisión', devs: 1, meses: 2, color: '#FF9800' },
+    { fase: 'Análisis', devs: 1, meses: 1, costo: 1500, color: '#2196F3' },
+    { fase: 'Desarrollo', devs: 5, meses: 3, costo: 22500, color: '#4CAF50' },
+    { fase: 'Revisión', devs: 1, meses: 2, costo: 3000, color: '#FF9800' },
   ];
 
   const distribucionCostos = [
-    { rango: '35k-40k', frecuencia: 850, probabilidad: 8.5 },
-    { rango: '40k-45k', frecuencia: 3200, probabilidad: 32 },
-    { rango: '45k-50k', frecuencia: 3850, probabilidad: 38.5 },
-    { rango: '50k-55k', frecuencia: 1650, probabilidad: 16.5 },
-    { rango: '55k+', frecuencia: 450, probabilidad: 4.5 },
+    { rango: '21k-24k', frecuencia: 950, probabilidad: 9.5 },
+    { rango: '24k-27k', frecuencia: 3800, probabilidad: 38 },
+    { rango: '27k-30k', frecuencia: 3900, probabilidad: 39 },
+    { rango: '30k-33k', frecuencia: 1200, probabilidad: 12 },
+    { rango: '33k+', frecuencia: 150, probabilidad: 1.5 },
   ];
 
   const desgloseCostos = [
-    { categoria: 'Mano de Obra', valor: 43500, porcentaje: 95.2 },
-    { categoria: 'Hosting & Infra', valor: 1200, porcentaje: 2.6 },
-    { categoria: 'Licencias', valor: 500, porcentaje: 1.1 },
-    { categoria: 'Contingencia', valor: 478, porcentaje: 1.1 },
+    { categoria: 'Mano de Obra', valor: 27000, porcentaje: 99.9 },
+    { categoria: 'Hosting & Infra', valor: 15, porcentaje: 0.06 },
+    { categoria: 'Licencias', valor: 8, porcentaje: 0.03 },
+    { categoria: 'Contingencia', valor: 1, porcentaje: 0.01 },
   ];
 
   const COLORS = ['#2196F3', '#4CAF50', '#FF9800', '#9C27B0'];
 
   const evolucionMCMC = [
-    { iter: 0, costo: 50000 },
-    { iter: 2000, costo: 48000 },
-    { iter: 4000, costo: 46500 },
-    { iter: 6000, costo: 45800 },
-    { iter: 8000, costo: 45600 },
-    { iter: 10000, costo: 45678 },
+    { iter: 0, costo: 30000 },
+    { iter: 2000, costo: 28500 },
+    { iter: 4000, costo: 27800 },
+    { iter: 6000, costo: 27200 },
+    { iter: 8000, costo: 27050 },
+    { iter: 10000, costo: 27024 },
   ];
 
   return (
@@ -119,7 +121,7 @@ export default function Dashboard() {
                 Duración del Proyecto
               </Typography>
               <Chip 
-                label="3 Fases"
+                label="18 dev-meses"
                 size="small"
                 sx={{ mt: 1, bgcolor: 'rgba(255,255,255,0.2)', color: 'white' }}
               />
@@ -191,7 +193,7 @@ export default function Dashboard() {
               <Typography variant="body2">
                 <strong>Media:</strong> ${costoEstimado.media.toLocaleString()} USD | 
                 <strong> Mediana:</strong> ${costoEstimado.mediana.toLocaleString()} USD | 
-                <strong> Moda:</strong> $45k-50k (38.5% de casos)
+                <strong> Moda:</strong> $27k-30k (39% de casos)
               </Typography>
             </Alert>
           </Paper>
@@ -287,7 +289,7 @@ export default function Dashboard() {
                   <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
                     {fase.fase}
                   </Typography>
-                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 1 }}>
                     <Chip 
                       icon={<Engineering />}
                       label={`${fase.devs} dev${fase.devs > 1 ? 's' : ''}`}
@@ -303,12 +305,15 @@ export default function Dashboard() {
                       variant="outlined"
                     />
                   </Box>
+                  <Typography variant="body2" sx={{ fontWeight: 600, color: fase.color }}>
+                    Costo: ${fase.costo.toLocaleString()} USD
+                  </Typography>
                 </CardContent>
               </Card>
             ))}
             <Alert severity="warning" sx={{ mt: 2 }}>
               <Typography variant="body2">
-                <strong>Fase 2 (Desarrollo)</strong> concentra el 83% del esfuerzo total
+                <strong>Fase 2 (Desarrollo)</strong> concentra el 83.3% del costo total
               </Typography>
             </Alert>
           </Paper>
@@ -369,7 +374,7 @@ export default function Dashboard() {
                       Rango de Inversión
                     </Typography>
                     <Typography variant="h6" sx={{ fontWeight: 600, color: '#0f3460' }}>
-                      $38k - $53k USD
+                      $23k - $31k USD
                     </Typography>
                     <Typography variant="caption" sx={{ color: '#666' }}>
                       Intervalo de confianza 90%
@@ -395,7 +400,7 @@ export default function Dashboard() {
                   </Typography>
                   <Typography variant="body2">
                     El proyecto tiene un <strong>95% de probabilidad</strong> de completarse entre 
-                    <strong> $38,200 y $53,100 USD</strong>, con una media de <strong>$45,678 USD</strong>.
+                    <strong> $23,160 y $30,888 USD</strong>, con una media de <strong>$27,024 USD</strong>.
                   </Typography>
                 </Alert>
               </Grid>
@@ -405,7 +410,7 @@ export default function Dashboard() {
                     📊 Distribución Concentrada
                   </Typography>
                   <Typography variant="body2">
-                    El <strong>70.5%</strong> de las simulaciones arrojan costos entre $40k-50k USD, 
+                    El <strong>77%</strong> de las simulaciones arrojan costos entre $24k-30k USD, 
                     indicando alta predictibilidad.
                   </Typography>
                 </Alert>
@@ -416,7 +421,7 @@ export default function Dashboard() {
                     ⚠️ Factor de Riesgo Principal
                   </Typography>
                   <Typography variant="body2">
-                    La variación en <strong>sueldos mensuales</strong> ($1,200-$1,800) genera el 92% 
+                    La variación en <strong>sueldos mensuales</strong> ($1,200-$1,800) genera el 99.9% 
                     de la variabilidad total del costo.
                   </Typography>
                 </Alert>
@@ -428,7 +433,7 @@ export default function Dashboard() {
                   </Typography>
                   <Typography variant="body2">
                     Fijar contratos con desarrolladores al <strong>inicio del proyecto</strong> reduce 
-                    la desviación estándar en <strong>~$2,000 USD</strong>.
+                    la desviación estándar en <strong>~40%</strong>.
                   </Typography>
                 </Alert>
               </Grid>

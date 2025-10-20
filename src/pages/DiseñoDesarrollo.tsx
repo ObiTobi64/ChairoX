@@ -920,57 +920,753 @@ export default function DiseñoDesarrollo() {
                 </Box>
               </AccordionSummary>
               <AccordionDetails sx={{ p: 3 }}>
+                <Typography variant="body2" paragraph sx={{ textAlign: 'justify', mb: 3 }}>
+                  La arquitectura del sistema CRM Typica se documenta mediante el modelo C4 (Context, Containers, Components, Code),
+                  que permite visualizar el sistema desde diferentes niveles de abstracción. A continuación se presentan los dos
+                  primeros niveles: Contexto y Contenedores.
+                </Typography>
+
                 <Grid container spacing={3}>
-                  <Paper 
-                  sx={{ 
-                    p: 3, 
-                    bgcolor: 'white',
-                    border: '1px solid #e0e0e0',
-                    borderRadius: 2,
-                    textAlign: 'center'
-                  }}
-                >
-                  <Box
-                    component="img"
-                    src={C4Diagram} // 👈 CAMBIA ESTA RUTA
-                    alt="Diagrama de Ishikawa - Sistema CRM Typica Café"
-                    sx={{
-                      width: '100%',
-                      maxWidth: '100%',
-                      height: 'auto',
-                      borderRadius: 1,
-                    }}
-                  />
-                </Paper>
-                <Paper 
-                  sx={{ 
-                    p: 3, 
-                    bgcolor: 'white',
-                    border: '1px solid #e0e0e0',
-                    borderRadius: 2,
-                    textAlign: 'center'
-                  }}
-                >
-                  <Box
-                    component="img"
-                    src={ContainerDiagram} // 👈 CAMBIA ESTA RUTA
-                    alt="Diagrama de Ishikawa - Sistema CRM Typica Café"
-                    sx={{
-                      width: '100%',
-                      maxWidth: '100%',
-                      height: 'auto',
-                      borderRadius: 1,
-                    }}
-                  />
-                </Paper>
+                  {/* Diagrama de Contexto C4 */}
+                  <Grid item xs={12}>
+                    <Card sx={{ bgcolor: '#f0f7ff', border: '2px solid #2196F3' }}>
+                      <CardContent>
+                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#2196F3' }}>
+                          6.1 Diagrama de Contexto (C4)
+                        </Typography>
+                        
+                        <Paper 
+                          sx={{ 
+                            p: 3, 
+                            bgcolor: 'white',
+                            border: '1px solid #e0e0e0',
+                            borderRadius: 2,
+                            textAlign: 'center',
+                            mb: 3
+                          }}
+                        >
+                          <Box
+                            component="img"
+                            src={C4Diagram}
+                            alt="Diagrama de Contexto C4 - Sistema CRM Typica Café"
+                            sx={{
+                              width: '100%',
+                              maxWidth: '100%',
+                              height: 'auto',
+                              borderRadius: 1,
+                            }}
+                          />
+                        </Paper>
+
+                        <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#1976D2' }}>
+                          📌 Propósito del Diagrama
+                        </Typography>
+                        <Typography variant="body2" paragraph sx={{ textAlign: 'justify' }}>
+                          Posiciona al sistema <strong>Típica CRM</strong> frente a sus actores principales y sistemas externos, 
+                          definiendo el perímetro funcional y los intercambios de información de alto nivel.
+                        </Typography>
+
+                        <Grid container spacing={2} sx={{ mt: 2 }}>
+                          <Grid item xs={12} md={6}>
+                            <Box sx={{ bgcolor: '#e3f2fd', p: 2, borderRadius: 1 }}>
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#2196F3' }}>
+                                👥 Actores del Sistema
+                              </Typography>
+                              <List dense>
+                                <ListItem>
+                                  <ListItemIcon><Person sx={{ fontSize: 18 }} /></ListItemIcon>
+                                  <ListItemText primary="Clientes (consulta perfil/puntos)" />
+                                </ListItem>
+                                <ListItem>
+                                  <ListItemIcon><Engineering sx={{ fontSize: 18 }} /></ListItemIcon>
+                                  <ListItemText primary="Empleados/Administradores (gestión)" />
+                                </ListItem>
+                                <ListItem>
+                                  <ListItemIcon><ShoppingCart sx={{ fontSize: 18 }} /></ListItemIcon>
+                                  <ListItemText primary="Sistema POS (eventos de venta)" />
+                                </ListItem>
+                                <ListItem>
+                                  <ListItemIcon><Storage sx={{ fontSize: 18 }} /></ListItemIcon>
+                                  <ListItemText primary="Base de Datos Corporativa" />
+                                </ListItem>
+                                <ListItem>
+                                  <ListItemIcon><Category sx={{ fontSize: 18 }} /></ListItemIcon>
+                                  <ListItemText primary="Plataformas de mensajería (WhatsApp, Email, Instagram)" />
+                                </ListItem>
+                              </List>
+                            </Box>
+                          </Grid>
+
+                          <Grid item xs={12} md={6}>
+                            <Box sx={{ bgcolor: '#f3e5f5', p: 2, borderRadius: 1 }}>
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#9C27B0' }}>
+                                ⚙️ Capacidades Expuestas
+                              </Typography>
+                              <List dense>
+                                <ListItem>
+                                  <ListItemIcon><CheckCircle sx={{ fontSize: 18, color: '#4CAF50' }} /></ListItemIcon>
+                                  <ListItemText primary="Gestión de clientes y perfiles" />
+                                </ListItem>
+                                <ListItem>
+                                  <ListItemIcon><CheckCircle sx={{ fontSize: 18, color: '#4CAF50' }} /></ListItemIcon>
+                                  <ListItemText primary="Historial de compras y preferencias" />
+                                </ListItem>
+                                <ListItem>
+                                  <ListItemIcon><CheckCircle sx={{ fontSize: 18, color: '#4CAF50' }} /></ListItemIcon>
+                                  <ListItemText primary="Gestión de puntos de fidelización" />
+                                </ListItem>
+                                <ListItem>
+                                  <ListItemIcon><CheckCircle sx={{ fontSize: 18, color: '#4CAF50' }} /></ListItemIcon>
+                                  <ListItemText primary="Catálogo de recompensas" />
+                                </ListItem>
+                                <ListItem>
+                                  <ListItemIcon><CheckCircle sx={{ fontSize: 18, color: '#4CAF50' }} /></ListItemIcon>
+                                  <ListItemText primary="Orquestación de notificaciones" />
+                                </ListItem>
+                              </List>
+                            </Box>
+                          </Grid>
+                        </Grid>
+
+                        <Alert severity="info" sx={{ mt: 2 }}>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                            🔄 Flujos Principales
+                          </Typography>
+                          <List dense>
+                            <ListItem>
+                              <ListItemText 
+                                primary="1. Sincronización de ventas → Actualización automática de puntos de fidelización"
+                                primaryTypographyProps={{ variant: 'body2' }}
+                              />
+                            </ListItem>
+                            <ListItem>
+                              <ListItemText 
+                                primary="2. Acciones del empleado → Modificación de perfiles/recompensas y notificaciones al cliente"
+                                primaryTypographyProps={{ variant: 'body2' }}
+                              />
+                            </ListItem>
+                            <ListItem>
+                              <ListItemText 
+                                primary="3. Envío de promociones/alertas mediante canales externos (WhatsApp, Email, Instagram)"
+                                primaryTypographyProps={{ variant: 'body2' }}
+                              />
+                            </ListItem>
+                          </List>
+                        </Alert>
+
+                        <Alert severity="warning" sx={{ mt: 2 }}>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                            ⚠️ Límites y Supuestos
+                          </Typography>
+                          <Typography variant="body2">
+                            El CRM controla la lógica de fidelización e integraciones, pero <strong>no administra la infraestructura del POS</strong> ni 
+                            garantiza la entrega de terceros. Se asume disponibilidad de APIs externas y se implementan 
+                            <strong> reintentos, colas y mecanismos de consentimiento</strong> para protección de datos.
+                          </Typography>
+                        </Alert>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                  {/* Diagrama de Contenedores */}
+                  <Grid item xs={12}>
+                    <Card sx={{ bgcolor: '#fff3e0', border: '2px solid #FF9800' }}>
+                      <CardContent>
+                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#FF9800' }}>
+                          6.2 Diagrama de Contenedores (C4 - Nivel 2)
+                        </Typography>
+                        
+                        <Paper 
+                          sx={{ 
+                            p: 3, 
+                            bgcolor: 'white',
+                            border: '1px solid #e0e0e0',
+                            borderRadius: 2,
+                            textAlign: 'center',
+                            mb: 3
+                          }}
+                        >
+                          <Box
+                            component="img"
+                            src={ContainerDiagram}
+                            alt="Diagrama de Contenedores - Sistema CRM Typica Café"
+                            sx={{
+                              width: '100%',
+                              maxWidth: '100%',
+                              height: 'auto',
+                              borderRadius: 1,
+                            }}
+                          />
+                        </Paper>
+
+                        <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#F57C00' }}>
+                          📌 Propósito del Diagrama
+                        </Typography>
+                        <Typography variant="body2" paragraph sx={{ textAlign: 'justify' }}>
+                          Detalla los <strong>componentes desplegables</strong> del CRM y sus responsabilidades específicas, 
+                          clarificando los límites de despliegue y las rutas de integración entre capas de la arquitectura.
+                        </Typography>
+
+                        <Grid container spacing={2} sx={{ mt: 2 }}>
+                          <Grid item xs={12} md={4}>
+                            <Box sx={{ bgcolor: '#e3f2fd', p: 2, borderRadius: 1, height: '100%' }}>
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#2196F3', display: 'flex', alignItems: 'center', gap: 1 }}>
+                                <Code /> Frontend Web (React)
+                              </Typography>
+                              <Typography variant="body2">
+                                • Interfaz de empleados/administradores<br/>
+                                • Consume API REST para autenticación<br/>
+                                • Gestión de clientes y consultas de puntos<br/>
+                                • Dashboard analítico y reportes
+                              </Typography>
+                            </Box>
+                          </Grid>
+
+                          <Grid item xs={12} md={4}>
+                            <Box sx={{ bgcolor: '#f1f8e9', p: 2, borderRadius: 1, height: '100%' }}>
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#4CAF50', display: 'flex', alignItems: 'center', gap: 1 }}>
+                                <Engineering /> API Backend (Node.js)
+                              </Typography>
+                              <Typography variant="body2">
+                                • Orquesta lógica de negocio<br/>
+                                • Actualización de historial y puntos<br/>
+                                • Envío a módulos especializados<br/>
+                                • Gestión de fidelización y campañas
+                              </Typography>
+                            </Box>
+                          </Grid>
+
+                          <Grid item xs={12} md={4}>
+                            <Box sx={{ bgcolor: '#fce4ec', p: 2, borderRadius: 1, height: '100%' }}>
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#F44336', display: 'flex', alignItems: 'center', gap: 1 }}>
+                                <ShoppingCart /> Integración POS
+                              </Typography>
+                              <Typography variant="body2">
+                                • Ingresa eventos de venta en tiempo real<br/>
+                                • Dispara actualización automática de puntos<br/>
+                                • Registra transacciones<br/>
+                                • Sincronización bidireccional
+                              </Typography>
+                            </Box>
+                          </Grid>
+
+                          <Grid item xs={12} md={6}>
+                            <Box sx={{ bgcolor: '#f3e5f5', p: 2, borderRadius: 1, height: '100%' }}>
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#9C27B0', display: 'flex', alignItems: 'center', gap: 1 }}>
+                                <Category /> Módulo de Notificaciones
+                              </Typography>
+                              <Typography variant="body2">
+                                • Composición y entrega de mensajes multicanal<br/>
+                                • APIs externas: WhatsApp, Email, Instagram<br/>
+                                • Desacoplamiento de la lógica de negocio<br/>
+                                • Sistema de colas para reintentos
+                              </Typography>
+                            </Box>
+                          </Grid>
+
+                          <Grid item xs={12} md={6}>
+                            <Box sx={{ bgcolor: '#fff9c4', p: 2, borderRadius: 1, height: '100%' }}>
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#F57C00', display: 'flex', alignItems: 'center', gap: 1 }}>
+                                <Assessment /> Seguridad y Auditoría
+                              </Typography>
+                              <Typography variant="body2">
+                                • Autenticación JWT/OAuth2<br/>
+                                • Registros de auditoría para trazabilidad<br/>
+                                • Control de acceso basado en roles<br/>
+                                • Cumplimiento de normativas de datos
+                              </Typography>
+                            </Box>
+                          </Grid>
+
+                          <Grid item xs={12}>
+                            <Box sx={{ bgcolor: '#e0f2f1', p: 2, borderRadius: 1 }}>
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#00796B', display: 'flex', alignItems: 'center', gap: 1 }}>
+                                <Storage /> Persistencia Relacional (PostgreSQL)
+                              </Typography>
+                              <Typography variant="body2">
+                                Centraliza datos de clientes, puntos, transacciones y configuraciones. Diseñada para consultas eficientes 
+                                y sincronización con integridad referencial.
+                              </Typography>
+                            </Box>
+                          </Grid>
+                        </Grid>
+
+                        <Alert severity="success" sx={{ mt: 2 }}>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                            ✅ Consideraciones No Funcionales
+                          </Typography>
+                          <List dense>
+                            <ListItem>
+                              <ListItemText 
+                                primary="Separación de responsabilidades para facilitar escalado independiente de cada contenedor"
+                                primaryTypographyProps={{ variant: 'body2' }}
+                              />
+                            </ListItem>
+                            <ListItem>
+                              <ListItemText 
+                                primary="Tolerancia a consistencia eventual en sincronización de puntos mediante mensajería asíncrona"
+                                primaryTypographyProps={{ variant: 'body2' }}
+                              />
+                            </ListItem>
+                            <ListItem>
+                              <ListItemText 
+                                primary="Control de acceso y auditoría para cumplimiento de seguridad y protección de datos personales"
+                                primaryTypographyProps={{ variant: 'body2' }}
+                              />
+                            </ListItem>
+                            <ListItem>
+                              <ListItemText 
+                                primary="Implementación de reintentos, circuit breakers y health checks para alta disponibilidad"
+                                primaryTypographyProps={{ variant: 'body2' }}
+                              />
+                            </ListItem>
+                          </List>
+                        </Alert>
+                      </CardContent>
+                    </Card>
+                  </Grid>
                 </Grid>
 
                 <Alert severity="info" sx={{ mt: 3 }}>
                   <Typography variant="body2">
-                    <strong>Arquitectura:</strong> El sistema utiliza una arquitectura de tres capas (Presentación, 
-                    Lógica de Negocio, Datos) con patrón RESTful API para la comunicación entre frontend y backend.
+                    <strong>Arquitectura General:</strong> El sistema utiliza una arquitectura de <strong>microservicios desacoplados</strong> con 
+                    patrón RESTful API para la comunicación entre frontend y backend. La separación en contenedores independientes permite 
+                    <strong> escalabilidad horizontal, mantenibilidad</strong> y <strong>despliegue continuo</strong> de cada componente sin afectar 
+                    al resto del sistema.
                   </Typography>
                 </Alert>
+              </AccordionDetails>
+            </Accordion>
+
+            {/* 7. Metodología de Desarrollo */}
+            <Accordion
+              expanded={expanded === 'panel7'}
+              onChange={handleChange('panel7')}
+              sx={{ mb: 2, boxShadow: 2 }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                sx={{
+                  bgcolor: '#673AB7',
+                  color: 'white',
+                  '&:hover': { bgcolor: '#5E35B1' },
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <AccountTree />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    7. Metodología de Desarrollo
+                  </Typography>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 3 }}>
+                {/* 7.1 Introducción */}
+                <Card sx={{ mb: 3, bgcolor: '#f3e5f5', border: '2px solid #673AB7' }}>
+                  <CardContent>
+                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#673AB7' }}>
+                      7.1 Introducción
+                    </Typography>
+                    <Typography variant="body2" sx={{ textAlign: 'justify' }} paragraph>
+                      El desarrollo del sistema CRM Typica – Café & Tostaduría se ejecutará bajo una metodología ágil de tipo 
+                      <strong> Scrumban</strong>, que combina la estructura iterativa de <strong>Scrum</strong> con la flexibilidad 
+                      de <strong>Kanban</strong>.
+                    </Typography>
+                    <Typography variant="body2" sx={{ textAlign: 'justify' }} paragraph>
+                      Este enfoque responde a la naturaleza evolutiva del proyecto, orientado a la entrega continua de valor y 
+                      la adaptación progresiva a los requerimientos funcionales y técnicos del cliente.
+                    </Typography>
+                    <Alert severity="info">
+                      <Typography variant="body2">
+                        <strong>Objetivo estratégico:</strong> Construir un sistema CRM integral que optimice la gestión de clientes, 
+                        la fidelización y la comunicación multicanal, priorizando la calidad, la trazabilidad de los procesos y la 
+                        colaboración efectiva entre las áreas técnicas y de negocio.
+                      </Typography>
+                    </Alert>
+                  </CardContent>
+                </Card>
+
+                {/* 7.2 Justificación Metodológica */}
+                <Card sx={{ mb: 3 }}>
+                  <CardContent>
+                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#673AB7' }}>
+                      7.2 Justificación Metodológica
+                    </Typography>
+                    <Typography variant="body2" sx={{ textAlign: 'justify', mb: 2 }}>
+                      La elección de <strong>Scrumban</strong> se fundamenta en la necesidad de combinar planificación estructurada 
+                      y control visual del flujo de trabajo, lo que permite mantener la cadencia de entregas propias del enfoque Scrum 
+                      sin perder la adaptabilidad operativa de Kanban.
+                    </Typography>
+
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} md={6}>
+                        <Box sx={{ bgcolor: '#e3f2fd', p: 2, borderRadius: 1, height: '100%' }}>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#2196F3' }}>
+                            ✅ Ventajas Clave de Scrumban
+                          </Typography>
+                          <List dense>
+                            <ListItem>
+                              <ListItemIcon>
+                                <CheckCircle sx={{ fontSize: 18, color: '#4CAF50' }} />
+                              </ListItemIcon>
+                              <ListItemText 
+                                primary="Flexibilidad adaptativa"
+                                secondary="Facilita responder a cambios de prioridad o alcance sin romper el ciclo iterativo"
+                                secondaryTypographyProps={{ fontSize: '0.8rem' }}
+                              />
+                            </ListItem>
+                            <ListItem>
+                              <ListItemIcon>
+                                <CheckCircle sx={{ fontSize: 18, color: '#4CAF50' }} />
+                              </ListItemIcon>
+                              <ListItemText 
+                                primary="Flujo continuo de trabajo"
+                                secondary="Gestión de tareas mediante límites WIP (Work In Progress) y políticas de movimiento entre columnas"
+                                secondaryTypographyProps={{ fontSize: '0.8rem' }}
+                              />
+                            </ListItem>
+                          </List>
+                        </Box>
+                      </Grid>
+
+                      <Grid item xs={12} md={6}>
+                        <Box sx={{ bgcolor: '#f1f8e9', p: 2, borderRadius: 1, height: '100%' }}>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#4CAF50' }}>
+                            🎯 Beneficios Operativos
+                          </Typography>
+                          <List dense>
+                            <ListItem>
+                              <ListItemIcon>
+                                <CheckCircle sx={{ fontSize: 18, color: '#FF9800' }} />
+                              </ListItemIcon>
+                              <ListItemText 
+                                primary="Visibilidad y trazabilidad"
+                                secondary="El tablero Kanban actúa como artefacto central para monitorear progreso, bloqueos y estados"
+                                secondaryTypographyProps={{ fontSize: '0.8rem' }}
+                              />
+                            </ListItem>
+                            <ListItem>
+                              <ListItemIcon>
+                                <CheckCircle sx={{ fontSize: 18, color: '#FF9800' }} />
+                              </ListItemIcon>
+                              <ListItemText 
+                                primary="Control del ritmo de desarrollo"
+                                secondary="Reducción de reuniones formales permite enfocar más tiempo en implementación efectiva"
+                                secondaryTypographyProps={{ fontSize: '0.8rem' }}
+                              />
+                            </ListItem>
+                          </List>
+                        </Box>
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                </Card>
+
+                {/* 7.3 Estructura General */}
+                <Card sx={{ mb: 3, bgcolor: '#fff3e0', border: '1px solid #FF9800' }}>
+                  <CardContent>
+                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#FF9800' }}>
+                      7.3 Estructura General de la Metodología
+                    </Typography>
+                    <Typography variant="body2" sx={{ textAlign: 'justify', mb: 2 }}>
+                      El modelo Scrumban combina los principios de planificación incremental con un flujo de tareas continuo y visible. 
+                      Cada ciclo de trabajo incluye las siguientes etapas:
+                    </Typography>
+
+                    <Stack spacing={2}>
+                      <Card sx={{ borderLeft: '4px solid #2196F3' }}>
+                        <CardContent>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                            <Chip label="Etapa 1" sx={{ bgcolor: '#2196F3', color: 'white', fontWeight: 600 }} size="small" />
+                            <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                              Planificación de Iteración
+                            </Typography>
+                          </Box>
+                          <Typography variant="body2">
+                            Revisión del backlog priorizado, definición de objetivos y selección de tareas por desarrollar.
+                          </Typography>
+                        </CardContent>
+                      </Card>
+
+                      <Card sx={{ borderLeft: '4px solid #4CAF50' }}>
+                        <CardContent>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                            <Chip label="Etapa 2" sx={{ bgcolor: '#4CAF50', color: 'white', fontWeight: 600 }} size="small" />
+                            <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                              Desarrollo y Control del Flujo
+                            </Typography>
+                          </Box>
+                          <Typography variant="body2" paragraph>
+                            Seguimiento mediante tablero Kanban <strong>(To Do / In Progress / Review / Done)</strong> y límites WIP 
+                            para evitar sobrecarga.
+                          </Typography>
+                          <Box sx={{ bgcolor: '#f1f8e9', p: 1.5, borderRadius: 1 }}>
+                            <Typography variant="caption" sx={{ fontWeight: 600, display: 'block', mb: 0.5 }}>
+                              Estados del Tablero Kanban:
+                            </Typography>
+                            <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                              <Chip label="📋 To Do" size="small" variant="outlined" />
+                              <Chip label="🔨 In Progress" size="small" variant="outlined" color="primary" />
+                              <Chip label="👀 Review" size="small" variant="outlined" color="warning" />
+                              <Chip label="✅ Done" size="small" variant="outlined" color="success" />
+                            </Box>
+                          </Box>
+                        </CardContent>
+                      </Card>
+
+                      <Card sx={{ borderLeft: '4px solid #9C27B0' }}>
+                        <CardContent>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                            <Chip label="Etapa 3" sx={{ bgcolor: '#9C27B0', color: 'white', fontWeight: 600 }} size="small" />
+                            <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                              Revisión y Ajuste Continuo
+                            </Typography>
+                          </Box>
+                          <Typography variant="body2">
+                            Análisis del avance y redefinición de prioridades conforme al progreso real y a la retroalimentación obtenida.
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Stack>
+
+                    <Alert severity="success" sx={{ mt: 2 }}>
+                      <Typography variant="body2">
+                        La planificación de iteraciones se mantendrá <strong>flexible</strong>, priorizando hitos funcionales en lugar 
+                        de ciclos rígidos de sprint. Las tareas se dividirán en bloques manejables, con criterios de finalización claros 
+                        y verificables.
+                      </Typography>
+                    </Alert>
+                  </CardContent>
+                </Card>
+
+                {/* 7.4 Variación Metodológica */}
+                <Card sx={{ mb: 3, bgcolor: '#fce4ec', border: '2px solid #E91E63' }}>
+                  <CardContent>
+                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#E91E63' }}>
+                      7.4 Variación Metodológica: Daily cada 2 días
+                    </Typography>
+                    <Typography variant="body2" sx={{ textAlign: 'justify', mb: 2 }}>
+                      En este proyecto, la reunión diaria <strong>(Daily)</strong> se realizará <strong>cada dos días</strong>.
+                    </Typography>
+                    <Typography variant="body2" sx={{ textAlign: 'justify', mb: 2 }}>
+                      Esta decisión metodológica responde a una adaptación práctica derivada del tamaño del equipo, la naturaleza 
+                      técnica de las tareas y la necesidad de optimizar tiempos de desarrollo sin perder seguimiento continuo.
+                    </Typography>
+
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} md={6}>
+                        <Box sx={{ bgcolor: '#fff', p: 2, borderRadius: 1, border: '1px solid #E91E63' }}>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#E91E63' }}>
+                            📊 Justificación Técnica
+                          </Typography>
+                          <List dense>
+                            <ListItem>
+                              <ListItemIcon>
+                                <CheckCircle sx={{ fontSize: 18, color: '#E91E63' }} />
+                              </ListItemIcon>
+                              <ListItemText 
+                                primary="Permite un mayor avance tangible entre reuniones, reduciendo la redundancia informativa"
+                                primaryTypographyProps={{ variant: 'body2' }}
+                              />
+                            </ListItem>
+                            <ListItem>
+                              <ListItemIcon>
+                                <CheckCircle sx={{ fontSize: 18, color: '#E91E63' }} />
+                              </ListItemIcon>
+                              <ListItemText 
+                                primary="Equilibra el control operativo con la autonomía técnica del equipo"
+                                primaryTypographyProps={{ variant: 'body2' }}
+                              />
+                            </ListItem>
+                            <ListItem>
+                              <ListItemIcon>
+                                <CheckCircle sx={{ fontSize: 18, color: '#E91E63' }} />
+                              </ListItemIcon>
+                              <ListItemText 
+                                primary="Mantiene visibilidad mediante actualizaciones asincrónicas en el tablero (Taiga)"
+                                primaryTypographyProps={{ variant: 'body2' }}
+                              />
+                            </ListItem>
+                          </List>
+                        </Box>
+                      </Grid>
+
+                      <Grid item xs={12} md={6}>
+                        <Box sx={{ bgcolor: '#fff', p: 2, borderRadius: 1, border: '1px solid #E91E63' }}>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#E91E63' }}>
+                            🎯 Objetivo de las Reuniones
+                          </Typography>
+                          <Typography variant="body2" paragraph>
+                            La reunión mantiene su objetivo original:
+                          </Typography>
+                          <List dense>
+                            <ListItem>
+                              <ListItemIcon>
+                                <Restaurant sx={{ fontSize: 18, color: '#E91E63' }} />
+                              </ListItemIcon>
+                              <ListItemText primary="Sincronizar avances" />
+                            </ListItem>
+                            <ListItem>
+                              <ListItemIcon>
+                                <Restaurant sx={{ fontSize: 18, color: '#E91E63' }} />
+                              </ListItemIcon>
+                              <ListItemText primary="Identificar obstáculos" />
+                            </ListItem>
+                            <ListItem>
+                              <ListItemIcon>
+                                <Restaurant sx={{ fontSize: 18, color: '#E91E63' }} />
+                              </ListItemIcon>
+                              <ListItemText primary="Coordinar dependencias" />
+                            </ListItem>
+                          </List>
+                        </Box>
+                      </Grid>
+                    </Grid>
+
+                    <Alert severity="warning" sx={{ mt: 2 }}>
+                      <Typography variant="body2">
+                        Las actualizaciones diarias se complementarán con <strong>reportes breves en la plataforma de gestión</strong>, 
+                        asegurando continuidad informativa entre sesiones.
+                      </Typography>
+                    </Alert>
+                  </CardContent>
+                </Card>
+
+                {/* 7.5 Artefactos y Herramientas */}
+                <Card sx={{ mb: 3 }}>
+                  <CardContent>
+                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#673AB7' }}>
+                      7.5 Artefactos y Herramientas de Soporte
+                    </Typography>
+                    <Typography variant="body2" sx={{ textAlign: 'justify', mb: 3 }}>
+                      Los artefactos y herramientas seleccionadas fortalecen la trazabilidad, transparencia y comunicación dentro del equipo.
+                    </Typography>
+
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} md={6}>
+                        <Card sx={{ borderLeft: '4px solid #00BCD4', height: '100%' }}>
+                          <CardContent>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+                              <Preview sx={{ color: '#00BCD4', fontSize: 28 }} />
+                              <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                                Tablero Kanban (Taiga)
+                              </Typography>
+                            </Box>
+                            <Typography variant="body2">
+                              Herramienta principal para la gestión de flujo, priorización y control visual del estado de tareas.
+                            </Typography>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+
+                      <Grid item xs={12} md={6}>
+                        <Card sx={{ borderLeft: '4px solid #FF5722', height: '100%' }}>
+                          <CardContent>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+                              <Inventory sx={{ color: '#FF5722', fontSize: 28 }} />
+                              <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                                Backlog del Producto
+                              </Typography>
+                            </Box>
+                            <Typography variant="body2">
+                              Repositorio central de requerimientos, funcionalidades y mejoras planificadas.
+                            </Typography>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+
+                      <Grid item xs={12} md={6}>
+                        <Card sx={{ borderLeft: '4px solid #9C27B0', height: '100%' }}>
+                          <CardContent>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+                              <Code sx={{ color: '#9C27B0', fontSize: 28 }} />
+                              <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                                Control de Versiones (Git)
+                              </Typography>
+                            </Box>
+                            <Typography variant="body2">
+                              Repositorio Git para control de versiones y Notion o equivalente para documentación viva.
+                            </Typography>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+
+                      <Grid item xs={12} md={6}>
+                        <Card sx={{ borderLeft: '4px solid #4CAF50', height: '100%' }}>
+                          <CardContent>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+                              <Engineering sx={{ color: '#4CAF50', fontSize: 28 }} />
+                              <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                                Integración Continua (CI/CD)
+                              </Typography>
+                            </Box>
+                            <Typography variant="body2">
+                              Pipelines automatizados que facilitan el despliegue, pruebas y revisión de calidad.
+                            </Typography>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    </Grid>
+
+                    <Alert severity="info" sx={{ mt: 2 }}>
+                      <Typography variant="body2">
+                        El equipo empleará <strong>revisiones de flujo</strong> y <strong>control de tareas en curso (WIP)</strong> como 
+                        mecanismos de autorregulación y calidad continua.
+                      </Typography>
+                    </Alert>
+                  </CardContent>
+                </Card>
+
+                {/* 7.6 Seguimiento y Mejora Continua */}
+                <Card sx={{ bgcolor: '#e8f5e9', border: '2px solid #4CAF50' }}>
+                  <CardContent>
+                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#4CAF50' }}>
+                      7.6 Enfoque de Seguimiento y Mejora Continua
+                    </Typography>
+                    <Typography variant="body2" sx={{ textAlign: 'justify', mb: 2 }}>
+                      El seguimiento del progreso será <strong>cualitativo y colaborativo</strong>, priorizando la comunicación 
+                      efectiva sobre los indicadores cuantitativos tradicionales.
+                    </Typography>
+                    <Typography variant="body2" sx={{ textAlign: 'justify', mb: 3 }}>
+                      Cada ciclo de revisión permitirá ajustar prioridades, eliminar bloqueos y redefinir las tareas conforme a 
+                      los resultados obtenidos.
+                    </Typography>
+
+                    <Box sx={{ bgcolor: 'white', p: 2, borderRadius: 1 }}>
+                      <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#4CAF50' }}>
+                        🔄 La mejora continua se garantizará mediante:
+                      </Typography>
+                      <List>
+                        <ListItem>
+                          <ListItemIcon>
+                            <CheckCircle sx={{ color: '#4CAF50' }} />
+                          </ListItemIcon>
+                          <ListItemText 
+                            primary="Retroalimentación constante entre las áreas técnicas y funcionales"
+                            primaryTypographyProps={{ fontWeight: 500 }}
+                          />
+                        </ListItem>
+                        <ListItem>
+                          <ListItemIcon>
+                            <CheckCircle sx={{ color: '#4CAF50' }} />
+                          </ListItemIcon>
+                          <ListItemText 
+                            primary="Adaptación de los flujos según la complejidad emergente"
+                            primaryTypographyProps={{ fontWeight: 500 }}
+                          />
+                        </ListItem>
+                        <ListItem>
+                          <ListItemIcon>
+                            <CheckCircle sx={{ color: '#4CAF50' }} />
+                          </ListItemIcon>
+                          <ListItemText 
+                            primary="Documentación progresiva y compartida de las buenas prácticas derivadas de cada iteración"
+                            primaryTypographyProps={{ fontWeight: 500 }}
+                          />
+                        </ListItem>
+                      </List>
+                    </Box>
+                  </CardContent>
+                </Card>
               </AccordionDetails>
             </Accordion>
 
@@ -978,7 +1674,6 @@ export default function DiseñoDesarrollo() {
 
             {/* Footer */}
             <Grid container spacing={3}>
-
               <Grid item xs={12} md={6}>
                 <Card sx={{ p: 3, bgcolor: '#e3f2fd' }}>
                   <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: 'primary.main' }}>
@@ -1009,10 +1704,54 @@ export default function DiseñoDesarrollo() {
                       </ListItemIcon>
                       <ListItemText primary="5 Casos de Uso Principales" />
                     </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <CheckCircle sx={{ color: 'success.main' }} />
+                      </ListItemIcon>
+                      <ListItemText primary="Metodología Scrumban Adaptada" />
+                    </ListItem>
+                  </List>
+                </Card>
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <Card sx={{ p: 3, bgcolor: '#f3e5f5' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#673AB7' }}>
+                    🚀 Metodología Ágil
+                  </Typography>
+                  <List dense>
+                    <ListItem>
+                      <ListItemIcon>
+                        <AccountTree sx={{ color: '#673AB7' }} />
+                      </ListItemIcon>
+                      <ListItemText primary="Scrumban: Scrum + Kanban" />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <Preview sx={{ color: '#00BCD4' }} />
+                      </ListItemIcon>
+                      <ListItemText primary="Tablero Kanban en Taiga" />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <Restaurant sx={{ color: '#E91E63' }} />
+                      </ListItemIcon>
+                      <ListItemText primary="Daily cada 2 días" />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <Engineering sx={{ color: '#4CAF50' }} />
+                      </ListItemIcon>
+                      <ListItemText primary="CI/CD Automatizado" />
+                    </ListItem>
                   </List>
                 </Card>
               </Grid>
             </Grid>
+ 
+
+            <Divider sx={{ my: 4 }} />
+
           </Box>
         </Paper>
       </Container>

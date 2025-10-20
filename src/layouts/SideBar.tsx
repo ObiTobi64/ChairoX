@@ -34,7 +34,7 @@ const menuItems = [
   { text: 'Planificación', icon: <CalendarMonth />, path: '/planificacion' },
   { text: 'Diseño y Desarrollo', icon: <Assessment />, path: '/disenoDesarrollo' },
   { text: 'Herramientas', icon: <BusinessCenter />, path: '/herramientas' },
-  { text: 'Tareas', icon: <Task />, path: '/tasks' },
+  { text: 'Manual del Sistema', icon: <Task />, path: '/manualSistema' },
   { text: 'Seleccion Servidor', icon: <Settings />, path: '/seleccionServidor' },
   { text: 'Evaluación - Feedback', icon: <Assessment />, path: '/evaluacionFeedback' },
   { text: 'Carta de Entrega', icon: <Settings />, path: '/cartaEntrega' },
@@ -64,7 +64,7 @@ export default function Sidebar({ open }: SidebarProps) {
         <Avatar sx={{ bgcolor: '#0f3460' }}>CX</Avatar>
         <Box>
           <Typography variant="h6" sx={{ fontWeight: 600 }}>
-            ChairoX
+            ChairuX
           </Typography>
           <Typography variant="caption" sx={{ color: '#aaa' }}>
             CRM System

@@ -838,13 +838,452 @@ export default function TDR() {
               </AccordionDetails>
             </Accordion>
 
+            {/* 7. Carta de Aceptación */}
+            <Accordion
+              expanded={expanded === 'panel7'}
+              onChange={handleChange('panel7')}
+              sx={{ mb: 2, boxShadow: 2 }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                sx={{
+                  bgcolor: '#1565C0',
+                  color: 'white',
+                  '&:hover': { bgcolor: '#0D47A1' },
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Description />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    7. Carta / Acta de Aceptación e Inicio de Proyecto
+                  </Typography>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 4 }}>
+                <Paper sx={{ p: 4, bgcolor: '#fafafa', border: '2px solid #1565C0' }}>
+                  {/* Encabezado */}
+                  <Box sx={{ textAlign: 'center', mb: 4 }}>
+                    <Typography variant="h4" sx={{ fontWeight: 700, color: '#1565C0', mb: 1 }}>
+                      CARTA / ACTA DE ACEPTACIÓN E INICIO DE PROYECTO
+                    </Typography>
+                    <Typography variant="h6" sx={{ color: '#666' }}>
+                      Proyecto: Sistema de Gestión de Relaciones con Clientes – CRM Typica
+                    </Typography>
+                  </Box>
+
+                  <Divider sx={{ my: 3 }} />
+
+                  {/* Entre las partes */}
+                  <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#1565C0' }}>
+                    ENTRE:
+                  </Typography>
+                  
+                  <Grid container spacing={3} sx={{ mb: 3 }}>
+                    <Grid item xs={12} md={6}>
+                      <Card sx={{ borderLeft: '4px solid #4CAF50', bgcolor: '#f1f8f4' }}>
+                        <CardContent>
+                          <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
+                            LA CONTRATANTE
+                          </Typography>
+                          <Typography variant="body2" paragraph>
+                            <strong>Typica – Café & Tostaduría Especializada</strong>, con domicilio en La Paz, 
+                            Estado Plurinacional de Bolivia.
+                          </Typography>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                            <Business sx={{ fontSize: 20, color: '#4CAF50' }} />
+                            <Typography variant="body2">
+                              <strong>Representante:</strong> María Pérez
+                            </Typography>
+                          </Box>
+                          <Typography variant="body2">
+                            <strong>Cargo:</strong> Gerente General
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <Card sx={{ borderLeft: '4px solid #2196F3', bgcolor: '#f0f7ff' }}>
+                        <CardContent>
+                          <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
+                            LA DESARROLLADORA
+                          </Typography>
+                          <Typography variant="body2" paragraph>
+                            <strong>ChairuX – Desarrollo de Software</strong>, con domicilio en La Paz, 
+                            Estado Plurinacional de Bolivia.
+                          </Typography>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                            <Business sx={{ fontSize: 20, color: '#2196F3' }} />
+                            <Typography variant="body2">
+                              <strong>Representante:</strong> Alexander Cruz
+                            </Typography>
+                          </Box>
+                          <Typography variant="body2">
+                            <strong>Cargo:</strong> Representante Legal
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  </Grid>
+
+                  {/* 1. OBJETO */}
+                  <Card sx={{ mb: 3, bgcolor: '#fff' }}>
+                    <CardContent>
+                      <Typography variant="h6" sx={{ fontWeight: 600, color: '#1565C0', mb: 2 }}>
+                        1. OBJETO
+                      </Typography>
+                      <Typography variant="body2" sx={{ textAlign: 'justify' }}>
+                        El presente documento constituye el acto bilateral y vinculante mediante el cual 
+                        <strong> Typica – Café & Tostaduría Especializada</strong> acepta formalmente la propuesta 
+                        técnica y económica presentada por <strong>ChairuX – Desarrollo de Software</strong>, y ambas 
+                        partes declaran el inicio formal del Proyecto denominado 
+                        <strong> "Sistema de Gestión de Relaciones con Clientes – CRM Typica"</strong>.
+                      </Typography>
+                    </CardContent>
+                  </Card>
+
+                  {/* 2. IDENTIFICACIÓN DE REPRESENTANTES */}
+                  <Card sx={{ mb: 3, bgcolor: '#fff' }}>
+                    <CardContent>
+                      <Typography variant="h6" sx={{ fontWeight: 600, color: '#1565C0', mb: 2 }}>
+                        2. IDENTIFICACIÓN DE REPRESENTANTES Y DECLARACIONES
+                      </Typography>
+                      <Typography variant="body2" sx={{ textAlign: 'justify' }}>
+                        <strong>Typica</strong> declara que la persona que firma, <strong>María Pérez</strong> (nombre 
+                        genérico), actúa en representación de la empresa con las facultades necesarias. 
+                        <strong> ChairuX</strong> declara que <strong>Alexander Curz</strong> es su representante legal. 
+                        Ambas partes declaran haber recibido y revisado los Términos de Referencia, el Cronograma propuesto, 
+                        el Documento de Gestión de Riesgos y los Requerimientos funcionales y no funcionales.
+                      </Typography>
+                    </CardContent>
+                  </Card>
+
+                  {/* 3. VALOR CONTRACTUAL */}
+                  <Card sx={{ mb: 3, bgcolor: '#fff3e0', border: '2px solid #FF9800' }}>
+                    <CardContent>
+                      <Typography variant="h6" sx={{ fontWeight: 600, color: '#FF9800', mb: 2 }}>
+                        3. VALOR CONTRACTUAL Y PLAN DE PAGOS
+                      </Typography>
+                      <Box sx={{ mb: 2 }}>
+                        <Typography variant="h5" sx={{ fontWeight: 700, color: '#FF9800', mb: 1 }}>
+                          USD $27,977.09
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Forma de pago: Transferencias bancarias a la cuenta designada por La Desarrolladora
+                        </Typography>
+                      </Box>
+
+                      <TableContainer component={Paper} sx={{ mt: 2 }}>
+                        <Table size="small">
+                          <TableHead>
+                            <TableRow sx={{ bgcolor: '#FF9800' }}>
+                              <TableCell sx={{ fontWeight: 600, color: 'white' }}>Hito</TableCell>
+                              <TableCell sx={{ fontWeight: 600, color: 'white' }}>%</TableCell>
+                              <TableCell sx={{ fontWeight: 600, color: 'white' }}>Monto (USD)</TableCell>
+                              <TableCell sx={{ fontWeight: 600, color: 'white' }}>Condición de Desembolso</TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            <TableRow>
+                              <TableCell>Hito 1 - Inicio del Proyecto</TableCell>
+                              <TableCell><Chip label="40%" color="warning" size="small" /></TableCell>
+                              <TableCell sx={{ fontWeight: 600 }}>$11,190.84</TableCell>
+                              <TableCell>Presentación y aprobación del Plan de Trabajo y cronograma detallado</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Hito 2 - Especificaciones Técnicas</TableCell>
+                              <TableCell><Chip label="25%" color="info" size="small" /></TableCell>
+                              <TableCell sx={{ fontWeight: 600 }}>$6,994.27</TableCell>
+                              <TableCell>Entrega y validación del documento técnico y diseño UI/UX</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Hito 3 - Sistema CRM Funcional</TableCell>
+                              <TableCell><Chip label="20%" color="success" size="small" /></TableCell>
+                              <TableCell sx={{ fontWeight: 600 }}>$5,595.42</TableCell>
+                              <TableCell>Validación funcional de módulos principales e integración con POS</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Hito 4 - Entrega Final</TableCell>
+                              <TableCell><Chip label="15%" color="primary" size="small" /></TableCell>
+                              <TableCell sx={{ fontWeight: 600 }}>$4,196.56</TableCell>
+                              <TableCell>Aprobación final, entorno productivo, manuales y capacitación completada</TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+
+                      <Alert severity="error" sx={{ mt: 2 }}>
+                        <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                          Cláusula de Protección por Impago
+                        </Typography>
+                        <Typography variant="body2">
+                          Si La Contratante incumple cualquier pago, La Desarrolladora podrá suspender las labores 
+                          relacionadas con el hito impago hasta la regularización. Si el impago se prolonga por más de 
+                          30 días, La Desarrolladora podrá resolver el contrato y exigir indemnización por servicios 
+                          realizados, intereses moratorios y costos de gestión de cobro.
+                        </Typography>
+                      </Alert>
+                    </CardContent>
+                  </Card>
+
+                  {/* 4. CRONOGRAMA */}
+                  <Card sx={{ mb: 3, bgcolor: '#fff' }}>
+                    <CardContent>
+                      <Typography variant="h6" sx={{ fontWeight: 600, color: '#1565C0', mb: 2 }}>
+                        4. CRONOGRAMA (ANEXO I)
+                      </Typography>
+                      <Typography variant="body2" paragraph sx={{ textAlign: 'justify' }}>
+                        El Cronograma propuesto presentado por La Desarrolladora y contenido en el Anexo I se considera 
+                        cronograma oficial propuesto para la ejecución del Proyecto. Las fechas específicas serán ajustadas 
+                        de mutuo acuerdo en un acta complementaria dentro de los cinco (5) días hábiles siguientes a la 
+                        firma del presente documento.
+                      </Typography>
+                      <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>
+                        Resumen de Fases y Duraciones:
+                      </Typography>
+                      <List dense>
+                        <ListItem>
+                          <ListItemIcon><Check sx={{ color: '#2196F3' }} /></ListItemIcon>
+                          <ListItemText primary="Fase 1 – Especificaciones Técnicas y Funcionales: 4 semanas" />
+                        </ListItem>
+                        <ListItem>
+                          <ListItemIcon><Check sx={{ color: '#4CAF50' }} /></ListItemIcon>
+                          <ListItemText primary="Fase 2 – Desarrollo del Sistema CRM Funcional: 8 semanas" />
+                        </ListItem>
+                        <ListItem>
+                          <ListItemIcon><Check sx={{ color: '#FF9800' }} /></ListItemIcon>
+                          <ListItemText primary="Fase 3 – Desarrollo Avanzado y Módulos Complementarios: 6 semanas" />
+                        </ListItem>
+                        <ListItem>
+                          <ListItemIcon><Check sx={{ color: '#9C27B0' }} /></ListItemIcon>
+                          <ListItemText primary="Fase 4 – Documentación, Hosting y Capacitación: 4 semanas" />
+                        </ListItem>
+                        <ListItem>
+                          <ListItemIcon><Check sx={{ color: '#F44336' }} /></ListItemIcon>
+                          <ListItemText primary="Fase 5 – Validación Final y Cierre del Proyecto: 2 semanas" />
+                        </ListItem>
+                      </List>
+                      <Alert severity="info" sx={{ mt: 2 }}>
+                        <Typography variant="body2">
+                          <strong>Duración total estimada:</strong> 6 meses desde la fecha de inicio
+                        </Typography>
+                      </Alert>
+                    </CardContent>
+                  </Card>
+
+                  {/* 5-13. Cláusulas Adicionales */}
+                  <Grid container spacing={2} sx={{ mb: 3 }}>
+                    <Grid item xs={12} md={4}>
+                      <Card sx={{ height: '100%', bgcolor: '#e3f2fd' }}>
+                        <CardContent>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                            5. ALCANCE FUNCIONAL
+                          </Typography>
+                          <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>
+                            Especificaciones técnicas, sistema CRM funcional, manuales, entorno productivo y capacitación. 
+                            Cambios mediante orden de cambio formal.
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <Card sx={{ height: '100%', bgcolor: '#f3e5f5' }}>
+                        <CardContent>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                            6. TECNOLOGÍAS
+                          </Typography>
+                          <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>
+                            Next.js (React + TypeScript), Node.js, PostgreSQL, MongoDB. Integraciones: WhatsApp, Meta, SendGrid, Twilio.
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <Card sx={{ height: '100%', bgcolor: '#fff3e0' }}>
+                        <CardContent>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                            7. GESTIÓN DE RIESGOS
+                          </Typography>
+                          <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>
+                            Backups diarios, cifrado, alta disponibilidad, auditorías mensuales y plan de contingencia.
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <Card sx={{ height: '100%', bgcolor: '#e8f5e9' }}>
+                        <CardContent>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                            8. CONFIDENCIALIDAD
+                          </Typography>
+                          <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>
+                            Obligación de confidencialidad por 5 años tras finalización sobre información técnica y comercial.
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <Card sx={{ height: '100%', bgcolor: '#fce4ec' }}>
+                        <CardContent>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                            9. PROPIEDAD INTELECTUAL
+                          </Typography>
+                          <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>
+                            Titularidad: ChairuX. Licencia perpetua no exclusiva para Typica (uso interno).
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <Card sx={{ height: '100%', bgcolor: '#e0f2f1' }}>
+                        <CardContent>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                            10. PRUEBAS Y ACEPTACIÓN
+                          </Typography>
+                          <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>
+                            Pruebas según planes, aceptación por acta firmada, plazo para subsanar observaciones.
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <Card sx={{ height: '100%', bgcolor: '#fff9c4' }}>
+                        <CardContent>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                            11. GARANTÍAS
+                          </Typography>
+                          <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>
+                            ChairuX garantiza entrega conforme. Typica proporciona recursos y feedback. Sin responsabilidad por daños indirectos.
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <Card sx={{ height: '100%', bgcolor: '#ffebee' }}>
+                        <CardContent>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                            12. RESOLUCIÓN DEL CONTRATO
+                          </Typography>
+                          <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>
+                            Por incumplimiento grave, impago prolongado, insolvencia o fuerza mayor. Con indemnización por daños.
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <Card sx={{ height: '100%', bgcolor: '#e1f5fe' }}>
+                        <CardContent>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                            13. LEGISLACIÓN Y JURISDICCIÓN
+                          </Typography>
+                          <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>
+                            Regulado por leyes del Estado Plurinacional de Bolivia. Jurisdicción: La Paz.
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  </Grid>
+
+                  {/* 14. ENTRADA EN VIGENCIA */}
+                  <Alert severity="success" sx={{ mb: 3 }}>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                      14. ENTRADA EN VIGENCIA
+                    </Typography>
+                    <Typography variant="body2">
+                      El presente documento surtirá efectos desde la fecha de su firma y será considerado como 
+                      <strong> acta de inicio del Proyecto CRM Typica</strong>.
+                    </Typography>
+                  </Alert>
+
+                  {/* 15. ANEXOS */}
+                  <Card sx={{ mb: 3, bgcolor: '#fff' }}>
+                    <CardContent>
+                      <Typography variant="h6" sx={{ fontWeight: 600, color: '#1565C0', mb: 2 }}>
+                        15. ANEXOS
+                      </Typography>
+                      <List dense>
+                        <ListItem>
+                          <ListItemIcon><Folder sx={{ color: '#2196F3' }} /></ListItemIcon>
+                          <ListItemText primary="Anexo I: Cronograma propuesto" />
+                        </ListItem>
+                        <ListItem>
+                          <ListItemIcon><Folder sx={{ color: '#2196F3' }} /></ListItemIcon>
+                          <ListItemText primary="Anexo II: Documento de Gestión de Riesgos" />
+                        </ListItem>
+                        <ListItem>
+                          <ListItemIcon><Folder sx={{ color: '#2196F3' }} /></ListItemIcon>
+                          <ListItemText primary="Anexo III: Especificaciones Técnicas y Funcionales" />
+                        </ListItem>
+                      </List>
+                    </CardContent>
+                  </Card>
+
+                  {/* 16. FIRMAS */}
+                  <Card sx={{ bgcolor: '#f5f5f5', border: '2px dashed #1565C0' }}>
+                    <CardContent>
+                      <Typography variant="h6" sx={{ fontWeight: 600, color: '#1565C0', mb: 3, textAlign: 'center' }}>
+                        16. FIRMAS
+                      </Typography>
+                      <Grid container spacing={4}>
+                        <Grid item xs={12} md={6}>
+                          <Box sx={{ textAlign: 'center', p: 3, bgcolor: 'white', borderRadius: 2 }}>
+                            <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 2 }}>
+                              Por Typica – Café & Tostaduría Especializada
+                            </Typography>
+                            <Divider sx={{ my: 2 }} />
+                            <Box sx={{ my: 3, py: 2, borderBottom: '2px solid #000' }}>
+                              <Typography variant="caption" color="text.secondary">
+                                Firma
+                              </Typography>
+                            </Box>
+                            <Typography variant="body2" sx={{ mb: 1 }}>
+                              <strong>Nombre:</strong> María Pérez
+                            </Typography>
+                            <Typography variant="body2" sx={{ mb: 1 }}>
+                              <strong>Cargo:</strong> Gerente General
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              Lugar y Fecha: La Paz, _____ de ________ de 2025
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                          <Box sx={{ textAlign: 'center', p: 3, bgcolor: 'white', borderRadius: 2 }}>
+                            <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 2 }}>
+                              Por ChairuX – Desarrollo de Software
+                            </Typography>
+                            <Divider sx={{ my: 2 }} />
+                            <Box sx={{ my: 3, py: 2, borderBottom: '2px solid #000' }}>
+                              <Typography variant="caption" color="text.secondary">
+                                Firma
+                              </Typography>
+                            </Box>
+                            <Typography variant="body2" sx={{ mb: 1 }}>
+                              <strong>Nombre:</strong> Alexander Curz
+                            </Typography>
+                            <Typography variant="body2" sx={{ mb: 1 }}>
+                              <strong>Cargo:</strong> Representante Legal
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              Lugar y Fecha: La Paz, _____ de ________ de 2025
+                            </Typography>
+                          </Box>
+                        </Grid>
+                      </Grid>
+                    </CardContent>
+                  </Card>
+                </Paper>
+              </AccordionDetails>
+            </Accordion>
+
             <Divider sx={{ my: 4 }} />
+
 
             {/* Footer */}
             <Grid container spacing={4}>
 
               <Grid item xs={12} md={6}>
-                <Card sx={{ p: 3, bgcolor: '#e3f2fd' }}>
+                <Card sx={{ p: 3, bgcolor: '#e3f2fd', position: 'relative' }}>
                   <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: 'primary.main' }}>
                     📋 Resumen del Proyecto
                   </Typography>
