@@ -1,37 +1,30 @@
-import { Login } from "@mui/icons-material";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { Layout } from "../layouts/Layout";
-import { Cursos } from "../pages/Cursos";
-import { MisCursos } from "../pages/MisCursos";
-import { Perfil } from "../pages/Perfil";
-import { Home } from "../pages/Home";
-import { Herramientas } from "../pages/Herramientas";
-import { Bitacora } from "../pages/Bitacora";
-import { Diagrama } from "../pages/Diagrama";
-import { ManualUsuario } from "../pages/ManualUsuario";
-import { ManualSistema } from "../pages/ManualSistema";
-import { Entrevistas } from "../pages/Entrevistas";
+import { Routes, Route } from 'react-router-dom';
+import Dashboard from '../pages/Dashboard';
+import Layout from '../layouts/Layout';
+import CartaEntrega from '../pages/CartaEntrega';
+import EvaluacionFeedback from '../pages/EvaluacionFeedback';
+import SeleccionServidor from '../pages/SeleccionServidor';
+import Analisis from '../pages/Analisis';
+import TDR from '../pages/TDR';
+import Planificacion from '../pages/Planificacion';
+import DiseñoDesarrollo from '../pages/DiseñoDesarrollo';
+import Herramientas from '../pages/Herramientas';
 
-
-export const AppRoutes = () => {
+export function AppRoutes() {
   return (
-    <BrowserRouter>
+    <Layout>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="home" element={< Home />} />
-          <Route path="cursos" element={<Cursos />} />
-          <Route path="mis-cursos" element={<MisCursos />} />
-          <Route path="perfil" element={<Perfil />} />
-          <Route path="login" element={<Login />} />
-          <Route path="herramientas" element={<Herramientas />} />
-                  
-          <Route path="bitacora" element={<Bitacora/>} />
-          <Route path="diagrama" element={<Diagrama />} />
-          <Route path="entrevistas" element={<Entrevistas />} />
-          <Route path="manual-usuario" element={<ManualUsuario />} />
-          <Route path="manual-sistema" element={<ManualSistema />} />
-        </Route>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/analisis" element={<Analisis />} />
+        <Route path="/tdr" element={<TDR />} />
+        <Route path="/disenoDesarrollo" element={<DiseñoDesarrollo />} />
+        <Route path="/herramientas" element={<Herramientas />} />
+        <Route path="/planificacion" element={<Planificacion />} />
+        <Route path="/cartaEntrega" element={<CartaEntrega />}/>
+        <Route path="/evaluacionFeedback" element={<EvaluacionFeedback />}/>
+        <Route path="/seleccionServidor" element={<SeleccionServidor />} />
+        {/* Agrega más rutas aquí */}
       </Routes>
-    </BrowserRouter>
+    </Layout>
   );
 }

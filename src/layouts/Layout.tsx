@@ -1,48 +1,39 @@
-import { Box, CssBaseline, Toolbar } from "@mui/material";
-import { Outlet } from "react-router-dom";
-import Navbar from "./NavBar";
-import PrismaticBurst from "../components/Background";
-import Iridescence from "../components/Background";
+import { useState } from 'react';
+import { Box, CssBaseline } from '@mui/material';
+import Sidebar from './SideBar';
+import Header from './Header';
 
-export const Layout = () => {
+
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+export default function Layout({ children }: LayoutProps) {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh", position: "relative" }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: '#f5f5f5' }}>
       <CssBaseline />
-      {/* Fondo animado */}
-      {/* <Box
-        sx={{
-          position: "fixed",
-          inset: 0,
-          width: "100vw",
-          height: "100vh",
-          zIndex: 0,
-          pointerEvents: "none",
-        }}
-      >
-        <Iridescence
-          color={[1, 1, 1]}
-          mouseReact={false}
-          amplitude={0.1}
-          speed={1.0}
-        />
-
-      </Box> */}
-      {/* Navbar y contenido */}
-      <Navbar />
+      <Sidebar open={sidebarOpen} onClose={toggleSidebar} />
       <Box
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
-          minHeight: "100vh",
-          position: "relative",
-          zIndex: 1, // Para que el contenido esté encima del fondo
-          background: "transparent", // Fondo transparente para ver el burst
+          display: 'flex',
+          flexDirection: 'column',
+          transition: 'margin 0.3s',
+          marginLeft: sidebarOpen ? '240px' : '0px',
         }}
       >
-        <Toolbar />
-        <Outlet />
+        <Header onMenuClick={toggleSidebar} sidebarOpen={sidebarOpen} />
+        <Box sx={{ flexGrow: 1, p: 3 }}>
+          {children}
+        </Box>
       </Box>
     </Box>
   );
-};
+}
