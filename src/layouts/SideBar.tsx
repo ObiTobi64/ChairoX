@@ -19,6 +19,7 @@ import {
   Assessment,
   Settings,
   TrendingUp,
+  VerifiedUser,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -35,6 +36,7 @@ const menuItems = [
   { text: 'Diseño y Desarrollo', icon: <Assessment />, path: '/disenoDesarrollo' },
   { text: 'Herramientas', icon: <BusinessCenter />, path: '/herramientas' },
   { text: 'Manual del Sistema', icon: <Task />, path: '/manualSistema' },
+  { text: 'Control de Calidad', icon: <VerifiedUser />, path: '/controlCalidad' },
   { text: 'Seleccion Servidor', icon: <Settings />, path: '/seleccionServidor' },
   { text: 'Evaluación - Feedback', icon: <Assessment />, path: '/evaluacionFeedback' },
   { text: 'Carta de Entrega', icon: <Settings />, path: '/cartaEntrega' },

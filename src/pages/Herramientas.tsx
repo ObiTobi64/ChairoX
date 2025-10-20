@@ -442,7 +442,7 @@ export default function Herramientas() {
                 <Grid container spacing={2}>
                   {resumenEjecutivo.map((item, index) => (
                     <Grid item xs={12} key={index}>
-                      <Card sx={{ borderLeft: `5px solid ${item.color}` }}>
+                      <Card sx={{ borderLeft: `5px solid ${item.color}`, position: 'relative', overflow: 'visible' }}>
                         <CardContent>
                           <Grid container spacing={2} alignItems="center">
                             <Grid item xs={12} md={2}>
@@ -453,19 +453,43 @@ export default function Herramientas() {
                                 </Typography>
                               </Box>
                             </Grid>
-                            <Grid item xs={12} md={4}>
-                              <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                            <Grid item xs={12} md={3}>
+                              <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
                                 {item.herramienta}
                               </Typography>
-                              <Chip label={item.version} size="small" variant="outlined" />
+                              <Chip 
+                                label={item.version} 
+                                size="small" 
+                                sx={{ 
+                                  bgcolor: item.color, 
+                                  color: 'white',
+                                  fontWeight: 600,
+                                  fontSize: '0.875rem'
+                                }} 
+                              />
                             </Grid>
-                            <Grid item xs={12} md={6}>
+                            <Grid item xs={12} md={7}>
                               <Typography variant="body2" color="text.secondary">
                                 {item.motivo}
                               </Typography>
                             </Grid>
                           </Grid>
                         </CardContent>
+                        {/* Marcador de versión en la esquina */}
+                        <Chip
+                          label={item.version}
+                          size="small"
+                          sx={{
+                            position: 'absolute',
+                            top: 8,
+                            right: 8,
+                            bgcolor: item.color,
+                            color: 'white',
+                            fontWeight: 700,
+                            fontSize: '0.75rem',
+                            display: { xs: 'none', md: 'flex' }
+                          }}
+                        />
                       </Card>
                     </Grid>
                   ))}
@@ -1165,6 +1189,244 @@ export default function Herramientas() {
             </Accordion>
 
             <Divider sx={{ my: 4 }} />
+
+            {/* Tabla Detallada de Versiones */}
+            <Card sx={{ mb: 4, borderTop: '4px solid #6366F1' }}>
+              <CardContent>
+                <Typography variant="h5" sx={{ fontWeight: 700, mb: 3, color: '#6366F1' }}>
+                  📋 Tabla de Versiones del Stack Tecnológico
+                </Typography>
+                
+                <TableContainer component={Paper} elevation={0} sx={{ border: '1px solid #e0e0e0' }}>
+                  <Table>
+                    <TableHead>
+                      <TableRow sx={{ bgcolor: '#f5f7fa' }}>
+                        <TableCell sx={{ fontWeight: 700, fontSize: '0.95rem' }}>Categoría</TableCell>
+                        <TableCell sx={{ fontWeight: 700, fontSize: '0.95rem' }}>Herramienta/Tecnología</TableCell>
+                        <TableCell sx={{ fontWeight: 700, fontSize: '0.95rem', color: '#6366F1' }}>Versión Requerida</TableCell>
+                        <TableCell sx={{ fontWeight: 700, fontSize: '0.95rem' }}>Estado</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {/* Frontend */}
+                      <TableRow hover>
+                        <TableCell sx={{ fontWeight: 600 }}>Frontend</TableCell>
+                        <TableCell>Next.js (React + TypeScript)</TableCell>
+                        <TableCell>
+                          <Chip 
+                            label="≥ 14.0" 
+                            size="small" 
+                            sx={{ bgcolor: '#61DAFB', color: 'white', fontWeight: 700 }}
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <Chip label="✅ Seleccionado" size="small" color="success" />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow hover sx={{ bgcolor: '#fafafa' }}>
+                        <TableCell></TableCell>
+                        <TableCell sx={{ pl: 4 }}>• React</TableCell>
+                        <TableCell>
+                          <Chip label="≥ 18.x" size="small" variant="outlined" />
+                        </TableCell>
+                        <TableCell>
+                          <Chip label="Incluido" size="small" variant="outlined" />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow hover sx={{ bgcolor: '#fafafa' }}>
+                        <TableCell></TableCell>
+                        <TableCell sx={{ pl: 4 }}>• TypeScript</TableCell>
+                        <TableCell>
+                          <Chip label="≥ 5.x" size="small" variant="outlined" />
+                        </TableCell>
+                        <TableCell>
+                          <Chip label="Incluido" size="small" variant="outlined" />
+                        </TableCell>
+                      </TableRow>
+
+                      {/* Backend */}
+                      <TableRow hover>
+                        <TableCell sx={{ fontWeight: 600 }}>Backend</TableCell>
+                        <TableCell>Node.js</TableCell>
+                        <TableCell>
+                          <Chip 
+                            label="≥ 20.x LTS" 
+                            size="small" 
+                            sx={{ bgcolor: '#68A063', color: 'white', fontWeight: 700 }}
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <Chip label="✅ Seleccionado" size="small" color="success" />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow hover sx={{ bgcolor: '#fafafa' }}>
+                        <TableCell></TableCell>
+                        <TableCell sx={{ pl: 4 }}>• Express.js</TableCell>
+                        <TableCell>
+                          <Chip label="≥ 5.x" size="small" variant="outlined" />
+                        </TableCell>
+                        <TableCell>
+                          <Chip label="✅ Seleccionado" size="small" color="success" />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow hover sx={{ bgcolor: '#fafafa' }}>
+                        <TableCell></TableCell>
+                        <TableCell sx={{ pl: 4 }}>• Prisma ORM</TableCell>
+                        <TableCell>
+                          <Chip label="≥ 5.x" size="small" variant="outlined" />
+                        </TableCell>
+                        <TableCell>
+                          <Chip label="Recomendado" size="small" color="info" />
+                        </TableCell>
+                      </TableRow>
+
+                      {/* Base de Datos */}
+                      <TableRow hover>
+                        <TableCell sx={{ fontWeight: 600 }}>Base de Datos</TableCell>
+                        <TableCell>PostgreSQL</TableCell>
+                        <TableCell>
+                          <Chip 
+                            label="≥ 16.x" 
+                            size="small" 
+                            sx={{ bgcolor: '#336791', color: 'white', fontWeight: 700 }}
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <Chip label="✅ Principal" size="small" color="success" />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow hover sx={{ bgcolor: '#fafafa' }}>
+                        <TableCell></TableCell>
+                        <TableCell>MongoDB</TableCell>
+                        <TableCell>
+                          <Chip 
+                            label="≥ 7.x" 
+                            size="small" 
+                            sx={{ bgcolor: '#47A248', color: 'white', fontWeight: 700 }}
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <Chip label="✅ Complementario" size="small" color="success" />
+                        </TableCell>
+                      </TableRow>
+
+                      {/* Gestor de Proyectos */}
+                      <TableRow hover>
+                        <TableCell sx={{ fontWeight: 600 }}>Gestión</TableCell>
+                        <TableCell>Taiga</TableCell>
+                        <TableCell>
+                          <Chip 
+                            label="Última estable" 
+                            size="small" 
+                            sx={{ bgcolor: '#9C27B0', color: 'white', fontWeight: 700 }}
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <Chip label="✅ Seleccionado" size="small" color="success" />
+                        </TableCell>
+                      </TableRow>
+
+                      {/* APIs Externas */}
+                      <TableRow hover>
+                        <TableCell sx={{ fontWeight: 600 }} rowSpan={5}>APIs Externas</TableCell>
+                        <TableCell>WhatsApp Business API</TableCell>
+                        <TableCell>
+                          <Chip label="Cloud API v2.0+" size="small" variant="outlined" />
+                        </TableCell>
+                        <TableCell>
+                          <Chip label="✅ Integrado" size="small" color="success" />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow hover sx={{ bgcolor: '#fafafa' }}>
+                        <TableCell>Meta Graph API</TableCell>
+                        <TableCell>
+                          <Chip label="v18.0+" size="small" variant="outlined" />
+                        </TableCell>
+                        <TableCell>
+                          <Chip label="✅ Integrado" size="small" color="success" />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow hover>
+                        <TableCell>SendGrid / Mailgun</TableCell>
+                        <TableCell>
+                          <Chip label="API v3+" size="small" variant="outlined" />
+                        </TableCell>
+                        <TableCell>
+                          <Chip label="✅ Integrado" size="small" color="success" />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow hover sx={{ bgcolor: '#fafafa' }}>
+                        <TableCell>Twilio</TableCell>
+                        <TableCell>
+                          <Chip label="API 2010-04-01+" size="small" variant="outlined" />
+                        </TableCell>
+                        <TableCell>
+                          <Chip label="Opcional" size="small" color="warning" />
+                        </TableCell>
+                      </TableRow>
+
+                      {/* Testing */}
+                      <TableRow hover>
+                        <TableCell sx={{ fontWeight: 600 }} rowSpan={3}>Testing</TableCell>
+                        <TableCell>Jest</TableCell>
+                        <TableCell>
+                          <Chip label="≥ 29.x" size="small" variant="outlined" />
+                        </TableCell>
+                        <TableCell>
+                          <Chip label="Recomendado" size="small" color="info" />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow hover sx={{ bgcolor: '#fafafa' }}>
+                        <TableCell>Cypress</TableCell>
+                        <TableCell>
+                          <Chip label="≥ 13.x" size="small" variant="outlined" />
+                        </TableCell>
+                        <TableCell>
+                          <Chip label="Recomendado" size="small" color="info" />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow hover>
+                        <TableCell>k6 (Load Testing)</TableCell>
+                        <TableCell>
+                          <Chip label="≥ 0.48.x" size="small" variant="outlined" />
+                        </TableCell>
+                        <TableCell>
+                          <Chip label="Opcional" size="small" color="warning" />
+                        </TableCell>
+                      </TableRow>
+
+                      {/* Infraestructura */}
+                      <TableRow hover>
+                        <TableCell sx={{ fontWeight: 600 }} rowSpan={2}>Infraestructura</TableCell>
+                        <TableCell>Docker</TableCell>
+                        <TableCell>
+                          <Chip label="≥ 24.x" size="small" variant="outlined" />
+                        </TableCell>
+                        <TableCell>
+                          <Chip label="Recomendado" size="small" color="info" />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow hover sx={{ bgcolor: '#fafafa' }}>
+                        <TableCell>Nginx</TableCell>
+                        <TableCell>
+                          <Chip label="≥ 1.24.x" size="small" variant="outlined" />
+                        </TableCell>
+                        <TableCell>
+                          <Chip label="Recomendado" size="small" color="info" />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+
+                <Alert severity="info" sx={{ mt: 3 }}>
+                  <Typography variant="body2">
+                    <strong>Nota:</strong> Las versiones indicadas son mínimas recomendadas. Se sugiere usar siempre 
+                    las versiones LTS (Long Term Support) disponibles para mayor estabilidad en producción.
+                  </Typography>
+                </Alert>
+              </CardContent>
+            </Card>
 
             {/* Footer */}
             <Grid container spacing={3}>
