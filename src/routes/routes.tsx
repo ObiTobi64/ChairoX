@@ -10,6 +10,7 @@ import Planificacion from '../pages/Planificacion';
 import DiseñoDesarrollo from '../pages/DiseñoDesarrollo';
 import Herramientas from '../pages/Herramientas';
 import { ManualSistema } from '../pages/ManualSistema';
+import ControlCalidad from '../pages/ControlCalidad';
 
 export function AppRoutes() {
   return (
@@ -21,11 +22,11 @@ export function AppRoutes() {
         <Route path="/disenoDesarrollo" element={<DiseñoDesarrollo />} />
         <Route path="/herramientas" element={<Herramientas />} />
         <Route path="/manualSistema" element={<ManualSistema />} />
+        <Route path="/controlCalidad" element={<ControlCalidad />} />
         <Route path="/planificacion" element={<Planificacion />} />
         <Route path="/cartaEntrega" element={<CartaEntrega />}/>
         <Route path="/evaluacionFeedback" element={<EvaluacionFeedback />}/>
         <Route path="/seleccionServidor" element={<SeleccionServidor />} />
-        {/* Agrega más rutas aquí */}
       </Routes>
     </Layout>
   );
