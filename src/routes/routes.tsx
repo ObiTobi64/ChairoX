@@ -11,6 +11,7 @@ import DiseñoDesarrollo from '../pages/DiseñoDesarrollo';
 import Herramientas from '../pages/Herramientas';
 import { ManualSistema } from '../pages/ManualSistema';
 import ControlCalidad from '../pages/ControlCalidad';
+import { Demo } from '../pages/Demo';
 
 export function AppRoutes() {
   return (
@@ -27,6 +28,7 @@ export function AppRoutes() {
         <Route path="/cartaEntrega" element={<CartaEntrega />}/>
         <Route path="/evaluacionFeedback" element={<EvaluacionFeedback />}/>
         <Route path="/seleccionServidor" element={<SeleccionServidor />} />
+        <Route path="/demo" element={<Demo />} />
       </Routes>
     </Layout>
   );

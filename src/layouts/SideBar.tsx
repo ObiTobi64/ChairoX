@@ -40,6 +40,7 @@ const menuItems = [
   { text: 'Seleccion Servidor', icon: <Settings />, path: '/seleccionServidor' },
   { text: 'Evaluación - Feedback', icon: <Assessment />, path: '/evaluacionFeedback' },
   { text: 'Carta de Entrega', icon: <Settings />, path: '/cartaEntrega' },
+  { text: 'Demo', icon: <Settings />, path: '/demo' },
 ];
 
 export default function Sidebar({ open }: SidebarProps) {
