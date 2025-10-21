@@ -31,6 +31,8 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import IshikawaDiagram from '../assets/images/Ishikawa .png'
+import MatrizCoherencia from '../assets/images/CoherenciaDiagrama.png'
+import IDEF0Principal from '../assets/images/Idef0.png'
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -65,172 +67,6 @@ export default function Analisis() {
   const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
-
-  // ... (todo el código IDEF0 anterior se mantiene igual) ...
-  // IDEF0 - Diagrama Principal (A-0)
-  const idef0Nodes: Node[] = [
-    {
-      id: '1',
-      type: 'default',
-      data: { 
-        label: (
-          <Box sx={{ textAlign: 'center', p: 2 }}>
-            <Typography variant="h6" sx={{ fontWeight: 700 }}>
-              Gestionar campaña de marketing
-            </Typography>
-            <Typography variant="h4" sx={{ fontWeight: 700, color: 'primary.main' }}>
-              Typica Café
-            </Typography>
-            <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
-              A-0
-            </Typography>
-          </Box>
-        )
-      },
-      position: { x: 400, y: 250 },
-      style: {
-        background: '#0f3460',
-        color: 'white',
-        border: '3px solid #16C79A',
-        borderRadius: '8px',
-        width: 300,
-        height: 200,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-    },
-  ];
-
-  const idef0Edges: Edge[] = [
-    // Entradas (Input - Izquierda)
-    {
-      id: 'e1-input1',
-      source: 'input1',
-      target: '1',
-      type: 'smoothstep',
-      animated: true,
-      style: { stroke: '#2196F3', strokeWidth: 2 },
-      label: 'Datos comerciales',
-      labelStyle: { fill: '#2196F3', fontWeight: 600 },
-    },
-    {
-      id: 'e1-input2',
-      source: 'input2',
-      target: '1',
-      type: 'smoothstep',
-      animated: true,
-      style: { stroke: '#2196F3', strokeWidth: 2 },
-      label: 'Recursos disponibles',
-      labelStyle: { fill: '#2196F3', fontWeight: 600 },
-    },
-    {
-      id: 'e1-input3',
-      source: 'input3',
-      target: '1',
-      type: 'smoothstep',
-      animated: true,
-      style: { stroke: '#2196F3', strokeWidth: 2 },
-      label: 'Brief de marca ',
-      labelStyle: { fill: '#2196F3', fontWeight: 600 },
-    },
-    // Controles (Control - Arriba)
-    {
-      id: 'e1-control1',
-      source: 'control1',
-      target: '1',
-      type: 'smoothstep',
-      style: { stroke: '#FF9800', strokeWidth: 2 },
-      label: 'Objetivos estrategicos',
-      labelStyle: { fill: '#FF9800', fontWeight: 600 },
-    },
-    {
-      id: 'e1-control2',
-      source: 'control2',
-      target: '1',
-      type: 'smoothstep',
-      style: { stroke: '#FF9800', strokeWidth: 2 },
-      label: 'Normativas Locales',
-      labelStyle: { fill: '#FF9800', fontWeight: 600 },
-    },
-    {
-      id: 'e1-control3',
-      source: 'control3',
-      target: '1',
-      type: 'smoothstep',
-      style: { stroke: '#FF9800', strokeWidth: 2 },
-      label: 'Presupuesto aprobado',
-      labelStyle: { fill: '#FF9800', fontWeight: 600 },
-    },
-    // Salidas (Output - Derecha)
-    {
-      id: 'e1-output1',
-      source: '1',
-      target: 'output1',
-      type: 'smoothstep',
-      animated: true,
-      style: { stroke: '#4CAF50', strokeWidth: 2 },
-      label: 'Reportes KPI',
-      labelStyle: { fill: '#4CAF50', fontWeight: 600 },
-    },
-    {
-      id: 'e1-output2',
-      source: '1',
-      target: 'output2',
-      type: 'smoothstep',
-      animated: true,
-      style: { stroke: '#4CAF50', strokeWidth: 2 },
-      label: 'Campaña',
-      labelStyle: { fill: '#4CAF50', fontWeight: 600 },
-    },
-    // Mecanismos (Mechanism - Abajo)
-    {
-      id: 'e1-mech1',
-      source: 'mech1',
-      target: '1',
-      type: 'smoothstep',
-      style: { stroke: '#9C27B0', strokeWidth: 2 },
-      label: 'Herramientas Digitales',
-      labelStyle: { fill: '#9C27B0', fontWeight: 600 },
-    },
-    {
-      id: 'e1-mech2',
-      source: 'mech2',
-      target: '1',
-      type: 'smoothstep',
-      style: { stroke: '#9C27B0', strokeWidth: 2 },
-      label: 'Agencia Creativa',
-      labelStyle: { fill: '#9C27B0', fontWeight: 600 },
-    },
-    {
-      id: 'e1-mech3',
-      source: 'mech3',
-      target: '1',
-      type: 'smoothstep',
-      style: { stroke: '#9C27B0', strokeWidth: 2 },
-      label: 'Equipo de Marketing',
-      labelStyle: { fill: '#9C27B0', fontWeight: 600 },
-    },
-  ];
-
-  // Nodos auxiliares para IDEF0
-  const auxiliaryNodes: Node[] = [
-    // Inputs (Izquierda)
-    { id: 'input1', data: { label: '' }, position: { x: 100, y: 280 }, style: { opacity: 0 } },
-    { id: 'input2', data: { label: '' }, position: { x: 100, y: 360 }, style: { opacity: 0 } },
-    { id: 'input3', data: { label: '' }, position: { x: 100, y: 440 }, style: { opacity: 0 } },
-    // Controls (Arriba)
-    { id: 'control1', data: { label: '' }, position: { x: 480, y: 80 }, style: { opacity: 0 } },
-    { id: 'control2', data: { label: '' }, position: { x: 600, y: 80 }, style: { opacity: 0 } },
-    { id: 'control3', data: { label: '' }, position: { x: 720, y: 80 }, style: { opacity: 0 } },
-    // Outputs (Derecha)
-    { id: 'output1', data: { label: '' }, position: { x: 900, y: 280 }, style: { opacity: 0 } },
-    { id: 'output2', data: { label: '' }, position: { x: 900, y: 360 }, style: { opacity: 0 } },
-    // Mechanisms (Abajo)
-    { id: 'mech1', data: { label: '' }, position: { x: 480, y: 550 }, style: { opacity: 0 } },
-    { id: 'mech2', data: { label: '' }, position: { x: 600, y: 550 }, style: { opacity: 0 } },
-    { id: 'mech3', data: { label: '' }, position: { x: 720, y: 550 }, style: { opacity: 0 } },
-  ];
 
   // IDEF0 Desglose (A0) - COMPLETO con 8 procesos
   const idef0DesgloseNodes: Node[] = [
@@ -729,18 +565,29 @@ export default function Analisis() {
                       </Typography>
                     </CardContent>
                   </Card>
-                  <Paper sx={{ height: 600, border: '1px solid #e0e0e0' }}>
-                    <ReactFlow
-                      nodes={[...idef0Nodes, ...auxiliaryNodes]}
-                      edges={idef0Edges}
-                      fitView
-                      attributionPosition="bottom-left"
+                  
+                  <Paper 
+                      sx={{ 
+                        p: 3, 
+                        bgcolor: 'white',
+                        border: '1px solid #e0e0e0',
+                        borderRadius: 2,
+                        textAlign: 'center'
+                      }}
                     >
-                      <Background />
-                      <Controls />
-                      <MiniMap />
-                    </ReactFlow>
-                  </Paper>
+                      <Box
+                        component="img"
+                        src={IDEF0Principal} // 👈 Usa tu imagen aquí
+                        alt="Diagrama IDEF0 Principal (A-0) - Sistema CRM Typica Café"
+                        sx={{
+                          width: '100%',
+                          maxWidth: '100%',
+                          height: 'auto',
+                          borderRadius: 1,
+                        }}
+                      />
+                    </Paper>
+
                   <Grid container spacing={2} sx={{ mt: 2 }}>
                     <Grid item xs={6} md={3}>
                       <Card sx={{ borderLeft: '4px solid #2196F3' }}>
@@ -948,7 +795,52 @@ export default function Analisis() {
               </AccordionDetails>
             </Accordion>
 
-            <Divider sx={{ my: 4 }} />
+            <Accordion
+              expanded={expanded === 'panel3'}
+              onChange={handleChange('panel3')}
+              sx={{ mb: 2, boxShadow: 2 }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                sx={{
+                  bgcolor: 'secondary.main',
+                  color: 'white',
+                  '&:hover': { bgcolor: 'secondary.dark' },
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <BubbleChart />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    Matriz de Coherencia
+                  </Typography>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 3 }}>
+                
+                {/* AQUÍ VA TU IMAGEN */}
+                <Paper 
+                  sx={{ 
+                    p: 3, 
+                    bgcolor: 'white',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: 2,
+                    textAlign: 'center'
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={MatrizCoherencia} // 👈 CAMBIA ESTA RUTA
+                    alt="Diagrama de Ishikawa - Sistema CRM Typica Café"
+                    sx={{
+                      width: '100%',
+                      maxWidth: '100%',
+                      height: 'auto',
+                      borderRadius: 1,
+                    }}
+                  />
+                </Paper>
+              </AccordionDetails>
+            </Accordion>
 
             {/* Footer */}
             

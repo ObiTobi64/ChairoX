@@ -1,6 +1,6 @@
 import { Container, Paper, Box, Typography } from '@mui/material';
 import { PlayCircle } from '@mui/icons-material';
-import DemoVideo from '../../public/videos/demo.mp4';
+import DemoVideo from '/videos/demo.mp4';
 
 export const Demo = () => {
   return (

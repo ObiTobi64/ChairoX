@@ -1091,6 +1091,305 @@ export default function Herramientas() {
               </AccordionDetails>
             </Accordion>
 
+            {/* 6. Diseño de Interfaces */}
+            <Accordion
+              expanded={expanded === 'panel6b'}
+              onChange={handleChange('panel6b')}
+              sx={{ mb: 2, boxShadow: 2 }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                sx={{
+                  bgcolor: '#F24E1E',
+                  color: 'white',
+                  '&:hover': { bgcolor: '#D93D0E' },
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Extension />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    6. Diseño de Interfaces
+                  </Typography>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 3 }}>
+                <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: 'primary.main' }}>
+                  6.1. Comparativa de Opciones Analizadas
+                </Typography>
+
+                <TableContainer component={Paper} sx={{ mb: 3, boxShadow: 2 }}>
+                  <Table>
+                    <TableHead>
+                      <TableRow sx={{ bgcolor: '#f5f5f5' }}>
+                        <TableCell sx={{ fontWeight: 600 }}>Criterio</TableCell>
+                        <TableCell sx={{ fontWeight: 600, bgcolor: '#ffe8e0' }}>Figma</TableCell>
+                        <TableCell sx={{ fontWeight: 600 }}>Adobe XD</TableCell>
+                        <TableCell sx={{ fontWeight: 600 }}>Sketch</TableCell>
+                        <TableCell sx={{ fontWeight: 600 }}>Framer</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      <TableRow hover>
+                        <TableCell sx={{ fontWeight: 600 }}>Colaboración en tiempo real</TableCell>
+                        <TableCell sx={{ bgcolor: '#fff5f2' }}>
+                          <Chip label="✅ Excelente" size="small" color="success" />
+                        </TableCell>
+                        <TableCell>Limitada</TableCell>
+                        <TableCell>No (solo plugins)</TableCell>
+                        <TableCell>
+                          <Chip label="✅ Excelente" size="small" color="success" />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow hover>
+                        <TableCell sx={{ fontWeight: 600 }}>Plugins / Ecosistema</TableCell>
+                        <TableCell sx={{ bgcolor: '#fff5f2' }}>Muy amplio</TableCell>
+                        <TableCell>Moderado</TableCell>
+                        <TableCell>Amplio (macOS)</TableCell>
+                        <TableCell>En crecimiento</TableCell>
+                      </TableRow>
+                      <TableRow hover>
+                        <TableCell sx={{ fontWeight: 600 }}>Prototipado avanzado</TableCell>
+                        <TableCell sx={{ bgcolor: '#fff5f2' }}>Muy bueno</TableCell>
+                        <TableCell>Bueno</TableCell>
+                        <TableCell>Bueno</TableCell>
+                        <TableCell>Excelente (animaciones)</TableCell>
+                      </TableRow>
+                      <TableRow hover>
+                        <TableCell sx={{ fontWeight: 600 }}>Handoff a desarrollo</TableCell>
+                        <TableCell sx={{ bgcolor: '#fff5f2' }}>Muy bueno (tokens/plugins)</TableCell>
+                        <TableCell>Bueno</TableCell>
+                        <TableCell>Bueno</TableCell>
+                        <TableCell>Muy bueno</TableCell>
+                      </TableRow>
+                      <TableRow hover>
+                        <TableCell sx={{ fontWeight: 600 }}>Soporte multiplataforma</TableCell>
+                        <TableCell sx={{ bgcolor: '#fff5f2' }}>Web / Mac / Win</TableCell>
+                        <TableCell>Mac / Win</TableCell>
+                        <TableCell>macOS only</TableCell>
+                        <TableCell>Web / Mac</TableCell>
+                      </TableRow>
+                      <TableRow hover>
+                        <TableCell sx={{ fontWeight: 600 }}>Componentes & Variants</TableCell>
+                        <TableCell sx={{ bgcolor: '#fff5f2' }}>
+                          <Chip label="✅ Robusto" size="small" color="success" />
+                        </TableCell>
+                        <TableCell>✅</TableCell>
+                        <TableCell>✅ (symbols)</TableCell>
+                        <TableCell>✅ Modernos</TableCell>
+                      </TableRow>
+                      <TableRow hover>
+                        <TableCell sx={{ fontWeight: 600 }}>Versioning / Branches</TableCell>
+                        <TableCell sx={{ bgcolor: '#fff5f2' }}>
+                          <Chip label="✅ Sí" size="small" color="success" />
+                        </TableCell>
+                        <TableCell>Parcial</TableCell>
+                        <TableCell>Parcial</TableCell>
+                        <TableCell>Parcial</TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+
+                <Alert severity="success" sx={{ mb: 3 }}>
+                  <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
+                    ✅ Elección: Figma
+                  </Typography>
+                  <Typography variant="body2">
+                    <strong>Motivo:</strong> Colaboración en tiempo real, soporte multiplataforma, ecosistema de plugins 
+                    (Figma Tokens, Stark, FigJam) y excelente flujo de handoff con exportación de tokens a JSON y 
+                    sincronización con Tailwind/Chakra.
+                  </Typography>
+                </Alert>
+
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={6}>
+                    <Card sx={{ borderLeft: '5px solid #F24E1E', height: '100%' }}>
+                      <CardContent>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+                          <Box
+                            sx={{
+                              width: 50,
+                              height: 50,
+                              bgcolor: '#F24E1E',
+                              borderRadius: 1,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              color: 'white',
+                            }}
+                          >
+                            <Extension sx={{ fontSize: 30 }} />
+                          </Box>
+                          <Typography variant="h6" sx={{ fontWeight: 600, color: '#F24E1E' }}>
+                            Figma
+                          </Typography>
+                        </Box>
+                        <Typography variant="body2" paragraph>
+                          Herramienta de diseño colaborativo basada en la nube, ideal para equipos distribuidos.
+                        </Typography>
+                        <List dense>
+                          <ListItem>
+                            <ListItemIcon>
+                              <CheckCircle sx={{ color: '#4CAF50', fontSize: 18 }} />
+                            </ListItemIcon>
+                            <ListItemText
+                              primary="Colaboración en tiempo real"
+                              secondary="Múltiples diseñadores trabajando simultáneamente"
+                            />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemIcon>
+                              <CheckCircle sx={{ color: '#4CAF50', fontSize: 18 }} />
+                            </ListItemIcon>
+                            <ListItemText
+                              primary="Sistema de componentes robusto"
+                              secondary="Variants, auto-layout, y design tokens"
+                            />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemIcon>
+                              <CheckCircle sx={{ color: '#4CAF50', fontSize: 18 }} />
+                            </ListItemIcon>
+                            <ListItemText
+                              primary="Plugins extensivos"
+                              secondary="Figma Tokens, Stark (accesibilidad), FigJam"
+                            />
+                          </ListItem>
+                          <ListItem>
+                            <ListItemIcon>
+                              <CheckCircle sx={{ color: '#4CAF50', fontSize: 18 }} />
+                            </ListItemIcon>
+                            <ListItemText
+                              primary="Handoff optimizado"
+                              secondary="Exportación de tokens a JSON para Tailwind/Chakra"
+                            />
+                          </ListItem>
+                        </List>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                  <Grid item xs={12} md={6}>
+                    <Card sx={{ bgcolor: '#f8f9fa', height: '100%' }}>
+                      <CardContent>
+                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#F24E1E' }}>
+                          🎨 Flujo de Trabajo con Figma
+                        </Typography>
+                        <Stack spacing={2}>
+                          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
+                            <Chip label="1" size="small" sx={{ bgcolor: '#F24E1E', color: 'white', fontWeight: 600 }} />
+                            <Box>
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                                Diseño y Prototipado
+                              </Typography>
+                              <Typography variant="body2" color="text.secondary">
+                                Creación de wireframes, mockups y prototipos interactivos
+                              </Typography>
+                            </Box>
+                          </Box>
+
+                          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
+                            <Chip label="2" size="small" sx={{ bgcolor: '#F24E1E', color: 'white', fontWeight: 600 }} />
+                            <Box>
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                                Sistema de Diseño
+                              </Typography>
+                              <Typography variant="body2" color="text.secondary">
+                                Componentes reutilizables, paleta de colores, tipografía
+                              </Typography>
+                            </Box>
+                          </Box>
+
+                          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
+                            <Chip label="3" size="small" sx={{ bgcolor: '#F24E1E', color: 'white', fontWeight: 600 }} />
+                            <Box>
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                                Colaboración
+                              </Typography>
+                              <Typography variant="body2" color="text.secondary">
+                                Comentarios, feedback y aprobaciones en tiempo real
+                              </Typography>
+                            </Box>
+                          </Box>
+
+                          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
+                            <Chip label="4" size="small" sx={{ bgcolor: '#F24E1E', color: 'white', fontWeight: 600 }} />
+                            <Box>
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                                Exportación y Desarrollo
+                              </Typography>
+                              <Typography variant="body2" color="text.secondary">
+                                Design tokens a JSON → Integración con código
+                              </Typography>
+                            </Box>
+                          </Box>
+                        </Stack>
+
+                        <Alert severity="info" sx={{ mt: 3 }}>
+                          <Typography variant="body2">
+                            <strong>Integración con el stack:</strong> Los design tokens de Figma se exportan como 
+                            JSON y se integran directamente con Tailwind CSS o Chakra UI en Next.js.
+                          </Typography>
+                        </Alert>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <Card sx={{ bgcolor: '#e3f2fd' }}>
+                      <CardContent>
+                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+                          🔌 Plugins Recomendados para el Proyecto CRM Typica
+                        </Typography>
+                        <Grid container spacing={2}>
+                          <Grid item xs={12} sm={6} md={3}>
+                            <Box sx={{ textAlign: 'center', p: 2, bgcolor: 'white', borderRadius: 2 }}>
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                                Figma Tokens
+                              </Typography>
+                              <Typography variant="caption" color="text.secondary">
+                                Gestión centralizada de design tokens
+                              </Typography>
+                            </Box>
+                          </Grid>
+                          <Grid item xs={12} sm={6} md={3}>
+                            <Box sx={{ textAlign: 'center', p: 2, bgcolor: 'white', borderRadius: 2 }}>
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                                Stark
+                              </Typography>
+                              <Typography variant="caption" color="text.secondary">
+                                Verificación de accesibilidad (WCAG)
+                              </Typography>
+                            </Box>
+                          </Grid>
+                          <Grid item xs={12} sm={6} md={3}>
+                            <Box sx={{ textAlign: 'center', p: 2, bgcolor: 'white', borderRadius: 2 }}>
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                                FigJam
+                              </Typography>
+                              <Typography variant="caption" color="text.secondary">
+                                Brainstorming y workshops colaborativos
+                              </Typography>
+                            </Box>
+                          </Grid>
+                          <Grid item xs={12} sm={6} md={3}>
+                            <Box sx={{ textAlign: 'center', p: 2, bgcolor: 'white', borderRadius: 2 }}>
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                                Anima
+                              </Typography>
+                              <Typography variant="caption" color="text.secondary">
+                                Exportación a código React/CSS
+                              </Typography>
+                            </Box>
+                          </Grid>
+                        </Grid>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+
             {/* 6. Licencias y Cumplimiento */}
             <Accordion
               expanded={expanded === 'panel7'}
