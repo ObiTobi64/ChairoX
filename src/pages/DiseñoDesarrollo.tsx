@@ -50,6 +50,14 @@ import {
 
 import C4Diagram from '../assets/images/C4.png'
 import ContainerDiagram from '../assets/images/Container.png'
+import Caso1 from '../assets/images/Caso1.png'
+import Caso2 from '../assets/images/Caso2.png'
+import Caso3 from '../assets/images/Caso3.png'
+import Caso4 from '../assets/images/Caso4.png'
+import Caso5 from '../assets/images/Caso5.png'
+import Caso6 from '../assets/images/Caso6.png'
+import Caso7 from '../assets/images/Caso7.png'
+import Caso8 from '../assets/images/Caso8.png'
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -821,80 +829,251 @@ export default function DiseñoDesarrollo() {
                   objetivos específicos.
                 </Typography>
 
-                <Stack spacing={2}>
-                  {casosDeUso.map((caso, index) => (
-                    <Card key={index} sx={{ borderLeft: '4px solid #9C27B0' }}>
-                      <CardContent>
-                        <Grid container spacing={2}>
-                          <Grid item xs={12} md={8}>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                              <Chip
-                                label={caso.codigo}
-                                sx={{ bgcolor: '#9C27B0', color: 'white', fontWeight: 600 }}
-                              />
-                              <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                                {caso.nombre}
-                              </Typography>
-                            </Box>
-                            <Typography variant="body2" color="text.secondary" paragraph>
-                              {caso.descripcion}
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={12} md={4}>
-                            <Box sx={{ bgcolor: '#f3e5f5', p: 2, borderRadius: 1 }}>
-                              <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
-                                Actor Principal:
-                              </Typography>
-                              <Chip
-                                icon={<Person />}
-                                label={caso.actor}
-                                size="small"
-                                color="secondary"
-                              />
-                            </Box>
-                          </Grid>
-                        </Grid>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Preview />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    Caso 1
+                  </Typography>
+                </Box>
 
-                        <Grid container spacing={2} sx={{ mt: 1 }}>
-                          <Grid item xs={12} md={6}>
-                            <Box sx={{ bgcolor: '#e3f2fd', p: 2, borderRadius: 1 }}>
-                              <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#2196F3' }}>
-                                📋 Precondiciones:
-                              </Typography>
-                              <List dense>
-                                {caso.precondiciones.map((pre, idx) => (
-                                  <ListItem key={idx} sx={{ py: 0 }}>
-                                    <ListItemText
-                                      primary={pre}
-                                      primaryTypographyProps={{ variant: 'body2' }}
-                                    />
-                                  </ListItem>
-                                ))}
-                              </List>
-                            </Box>
-                          </Grid>
-                          <Grid item xs={12} md={6}>
-                            <Box sx={{ bgcolor: '#f1f8e9', p: 2, borderRadius: 1 }}>
-                              <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: '#4CAF50' }}>
-                                ✅ Postcondiciones:
-                              </Typography>
-                              <List dense>
-                                {caso.postcondiciones.map((post, idx) => (
-                                  <ListItem key={idx} sx={{ py: 0 }}>
-                                    <ListItemText
-                                      primary={post}
-                                      primaryTypographyProps={{ variant: 'body2' }}
-                                    />
-                                  </ListItem>
-                                ))}
-                              </List>
-                            </Box>
-                          </Grid>
-                        </Grid>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </Stack>
+                <Paper 
+                  sx={{ 
+                    p: 3, 
+                    bgcolor: 'white',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: 2,
+                    textAlign: 'center'
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={Caso1} // 👈 CAMBIA ESTA RUTA
+                    alt="Diagrama de Ishikawa - Sistema CRM Typica Café"
+                    sx={{
+                      width: '100%',
+                      maxWidth: '100%',
+                      height: 'auto',
+                      borderRadius: 1,
+                    }}
+                  />
+                </Paper>
+
+                <Divider sx={{ my: 4 }} />
+
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Preview />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    Caso 2
+                  </Typography>
+                </Box>
+
+                <Paper 
+                  sx={{ 
+                    p: 3, 
+                    bgcolor: 'white',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: 2,
+                    textAlign: 'center'
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={Caso2} // 👈 CAMBIA ESTA RUTA
+                    alt="Diagrama de Ishikawa - Sistema CRM Typica Café"
+                    sx={{
+                      width: '100%',
+                      maxWidth: '100%',
+                      height: 'auto',
+                      borderRadius: 1,
+                    }}
+                  />
+                </Paper>
+
+                <Divider sx={{ my: 4 }} />
+
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Preview />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    Caso 3
+                  </Typography>
+                </Box>
+
+                <Paper 
+                  sx={{ 
+                    p: 3, 
+                    bgcolor: 'white',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: 2,
+                    textAlign: 'center'
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={Caso3} // 👈 CAMBIA ESTA RUTA
+                    alt="Diagrama de Ishikawa - Sistema CRM Typica Café"
+                    sx={{
+                      width: '100%',
+                      maxWidth: '100%',
+                      height: 'auto',
+                      borderRadius: 1,
+                    }}
+                  />
+                </Paper>
+
+                <Divider sx={{ my: 4 }} />
+
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Preview />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    Caso 4
+                  </Typography>
+                </Box>
+
+                <Paper 
+                  sx={{ 
+                    p: 3, 
+                    bgcolor: 'white',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: 2,
+                    textAlign: 'center'
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={Caso4} // 👈 CAMBIA ESTA RUTA
+                    alt="Diagrama de Ishikawa - Sistema CRM Typica Café"
+                    sx={{
+                      width: '100%',
+                      maxWidth: '100%',
+                      height: 'auto',
+                      borderRadius: 1,
+                    }}
+                  />
+                </Paper>
+
+                <Divider sx={{ my: 4 }} />
+
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Preview />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    Caso 5
+                  </Typography>
+                </Box>
+
+                <Paper 
+                  sx={{ 
+                    p: 3, 
+                    bgcolor: 'white',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: 2,
+                    textAlign: 'center'
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={Caso5} // 👈 CAMBIA ESTA RUTA
+                    alt="Diagrama de Ishikawa - Sistema CRM Typica Café"
+                    sx={{
+                      width: '100%',
+                      maxWidth: '100%',
+                      height: 'auto',
+                      borderRadius: 1,
+                    }}
+                  />
+                </Paper>
+
+                <Divider sx={{ my: 4 }} />
+
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Preview />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    Caso 6
+                  </Typography>
+                </Box>
+
+                <Paper 
+                  sx={{ 
+                    p: 3, 
+                    bgcolor: 'white',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: 2,
+                    textAlign: 'center'
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={Caso6} // 👈 CAMBIA ESTA RUTA
+                    alt="Diagrama de Ishikawa - Sistema CRM Typica Café"
+                    sx={{
+                      width: '100%',
+                      maxWidth: '100%',
+                      height: 'auto',
+                      borderRadius: 1,
+                    }}
+                  />
+                </Paper>
+
+                <Divider sx={{ my: 4 }} />
+
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Preview />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    Caso 7
+                  </Typography>
+                </Box>
+
+                <Paper 
+                  sx={{ 
+                    p: 3, 
+                    bgcolor: 'white',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: 2,
+                    textAlign: 'center'
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={Caso7} // 👈 CAMBIA ESTA RUTA
+                    alt="Diagrama de Ishikawa - Sistema CRM Typica Café"
+                    sx={{
+                      width: '100%',
+                      maxWidth: '100%',
+                      height: 'auto',
+                      borderRadius: 1,
+                    }}
+                  />
+                </Paper>
+
+                <Divider sx={{ my: 4 }} />
+
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Preview />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    Caso 8
+                  </Typography>
+                </Box>
+
+                <Paper 
+                  sx={{ 
+                    p: 3, 
+                    bgcolor: 'white',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: 2,
+                    textAlign: 'center'
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={Caso8} // 👈 CAMBIA ESTA RUTA
+                    alt="Diagrama de Ishikawa - Sistema CRM Typica Café"
+                    sx={{
+                      width: '100%',
+                      maxWidth: '100%',
+                      height: 'auto',
+                      borderRadius: 1,
+                    }}
+                  />
+                </Paper>
               </AccordionDetails>
             </Accordion>
 
