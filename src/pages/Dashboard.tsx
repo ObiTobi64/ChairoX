@@ -1,446 +1,426 @@
-import { Grid, Paper, Typography, Box, Card, CardContent, Chip, Alert } from '@mui/material';
 import {
-  TrendingUp,
-  AttachMoney,
-  BusinessCenter,
-  CalendarToday,
+  AppBar,
+  Container,
+  Box,
+  Typography,
+  Stack,
+  GlobalStyles,
+  Grid,
+  Paper,
+  Card,
+  CardContent,
+  Chip,
+  Divider,
+} from '@mui/material';
+import {
+  EmojiObjects,
+  Public as PublicIcon,
+  ThreeDRotation,
+  ChatBubbleOutline,
+  Architecture,
   Engineering,
-  LocalCafe,
-  ShowChart,
-  Timeline as TimelineIcon,
+  TrendingUp,
+  AutoAwesome,
+  Build,
 } from '@mui/icons-material';
-import {
-  LineChart,
-  Line,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-} from 'recharts';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export default function Dashboard() {
-  // Datos de simulación Monte Carlo corregidos
-  // Cálculo: (1 mes × 1 dev) + (3 meses × 5 devs) + (2 meses × 1 dev) = 18 dev-meses
-  // Costo base: 18 dev-meses × $1,500/mes = $27,000 + costos fijos (~$24)
-  const costoEstimado = {
-    media: 27024,
-    mediana: 27000,
-    percentil5: 23160,
-    percentil95: 30888,
-    desviacion: 2200,
-  };
-
-  const fasesProyecto = [
-    { fase: 'Análisis', devs: 1, meses: 1, costo: 1500, color: '#2196F3' },
-    { fase: 'Desarrollo', devs: 5, meses: 3, costo: 22500, color: '#4CAF50' },
-    { fase: 'Revisión', devs: 1, meses: 2, costo: 3000, color: '#FF9800' },
+  const objetivosArea = [
+    { title: 'Tecnológica', desc: 'Modelo SfM y plataforma web', icon: <ThreeDRotation />, color: '#2196F3' },
+    { title: 'Marketing', desc: 'Presentación a familias y constructoras', icon: <TrendingUp />, color: '#4CAF50' },
+    { title: 'Financiera', desc: 'Suscripciones rentables y escalables', icon: <AutoAwesome />, color: '#FF9800' },
+    { title: 'Constructora', desc: 'Pilotos y validación con empresas', icon: <Build />, color: '#9C27B0' },
   ];
 
-  const distribucionCostos = [
-    { rango: '21k-24k', frecuencia: 950, probabilidad: 9.5 },
-    { rango: '24k-27k', frecuencia: 3800, probabilidad: 38 },
-    { rango: '27k-30k', frecuencia: 3900, probabilidad: 39 },
-    { rango: '30k-33k', frecuencia: 1200, probabilidad: 12 },
-    { rango: '33k+', frecuencia: 150, probabilidad: 1.5 },
-  ];
-
-  const desgloseCostos = [
-    { categoria: 'Mano de Obra', valor: 27000, porcentaje: 99.9 },
-    { categoria: 'Hosting & Infra', valor: 15, porcentaje: 0.06 },
-    { categoria: 'Licencias', valor: 8, porcentaje: 0.03 },
-    { categoria: 'Contingencia', valor: 1, porcentaje: 0.01 },
-  ];
-
-  const COLORS = ['#2196F3', '#4CAF50', '#FF9800', '#9C27B0'];
-
-  const evolucionMCMC = [
-    { iter: 0, costo: 30000 },
-    { iter: 2000, costo: 28500 },
-    { iter: 4000, costo: 27800 },
-    { iter: 6000, costo: 27200 },
-    { iter: 8000, costo: 27050 },
-    { iter: 10000, costo: 27024 },
+  const entregables = [
+    'Software SfM para escaneo y modelado 3D',
+    'Biblioteca de muebles personalizables',
+    'IA conversacional para diseño por lenguaje natural',
+    'Prototipos web descargables en editores 3D',
   ];
 
   return (
-    <Box>
-      {/* Header */}
-      <Box sx={{ mb: 4 }}>
-        <Typography variant="h3" sx={{ fontWeight: 700, mb: 1, color: '#0f3460' }}>
-          ChairuX
-        </Typography>
-        <Typography variant="h6" sx={{ color: '#666', mb: 2 }}>
-          Desarrolladora de Soluciones Digitales
-        </Typography>
-        <Typography variant="body1" sx={{ color: '#666', maxWidth: 800 }}>
-          Análisis de viabilidad y estimación de costos para el Sistema CRM de Typica Café 
-          basado en simulación Monte Carlo (10,000 iteraciones)
-        </Typography>
+    <Box sx={{ position: 'relative', minHeight: '100vh', color: '#fff', zIndex: 1 }}>
+      {/* Importa fuente serif para énfasis en itálicas */}
+      <GlobalStyles styles={`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap');`} />
+
+      {/* Video de fondo */}
+      <Box
+        sx={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 0,
+          overflow: 'hidden',
+        }}
+      >
+        {/* IFRAME YouTube como background */}
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            pointerEvents: 'none', // no bloquea clics del contenido
+            overflow: 'hidden',
+          }}
+        >
+          <Box
+            component="iframe"
+            // 16:9 cover hack: width en vw y minWidth en vh
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: '100vw',
+              height: '56.25vw',      // 9/16 = 0.5625
+              minWidth: '177.78vh',    // 16/9 * 100
+              minHeight: '100vh',
+              border: 0,
+            }}
+            src="https://www.youtube.com/embed/1nYfO8jHbKI?autoplay=1&mute=1&controls=0&loop=1&playlist=1nYfO8jHbKI&modestbranding=1&rel=0&showinfo=0&playsinline=1&si=Vi1fd0fv2t75iuzI"
+            title="MAPt3R Background"
+            frameBorder={0}
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowFullScreen
+            referrerPolicy="strict-origin-when-cross-origin"
+          />
+        </Box>
+
+        {/* Capa oscura para contraste del texto */}
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            background:
+              'linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.55) 60%, rgba(0,0,0,.6) 100%)',
+            zIndex: 1,
+            pointerEvents: 'none',
+          }}
+        />
       </Box>
 
-      <Grid container spacing={3}>
-        {/* Tarjetas principales de resumen */}
-        <Grid item xs={12} md={3}>
-          <Card sx={{ height: '100%', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
-            <CardContent>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <AttachMoney sx={{ fontSize: 40, color: 'white' }} />
-              </Box>
-              <Typography variant="h4" sx={{ fontWeight: 700, color: 'white', mb: 1 }}>
-                ${costoEstimado.media.toLocaleString()}
-              </Typography>
-              <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
-                Costo Estimado Medio
-              </Typography>
-              <Chip 
-                label={`σ = $${costoEstimado.desviacion.toLocaleString()}`}
-                size="small"
-                sx={{ mt: 1, bgcolor: 'rgba(255,255,255,0.2)', color: 'white' }}
-              />
-            </CardContent>
-          </Card>
-        </Grid>
+      {/* Navbar transparente */}
+      <AppBar
+        position="fixed"
+        elevation={0}
+        sx={{
+          background: 'transparent',
+          backdropFilter: 'saturate(120%) blur(2px)',
+          boxShadow: 'none',
+          borderBottom: '1px solid rgba(255,255,255,.08)',
+        }}
+      >
+        {/* <Toolbar sx={{ minHeight: 72, px: { xs: 2, md: 24 } }}>
+          <Typography variant="h2" sx={{ fontWeight: 800, letterSpacing: 1 }}>
+            MAPt3R
+          </Typography>
 
-        <Grid item xs={12} md={3}>
-          <Card sx={{ height: '100%', background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' }}>
-            <CardContent>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <CalendarToday sx={{ fontSize: 40, color: 'white' }} />
-              </Box>
-              <Typography variant="h4" sx={{ fontWeight: 700, color: 'white', mb: 1 }}>
-                6 Meses
-              </Typography>
-              <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
-                Duración del Proyecto
-              </Typography>
-              <Chip 
-                label="18 dev-meses"
-                size="small"
-                sx={{ mt: 1, bgcolor: 'rgba(255,255,255,0.2)', color: 'white' }}
-              />
-            </CardContent>
-          </Card>
-        </Grid>
+          <Box sx={{ flexGrow: 1 }} />
 
-        <Grid item xs={12} md={3}>
-          <Card sx={{ height: '100%', background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' }}>
-            <CardContent>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <Engineering sx={{ fontSize: 40, color: 'white' }} />
-              </Box>
-              <Typography variant="h4" sx={{ fontWeight: 700, color: 'white', mb: 1 }}>
-                5 Devs
-              </Typography>
-              <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
-                Equipo Máximo
-              </Typography>
-              <Chip 
-                label="Peak: Mes 2-4"
-                size="small"
-                sx={{ mt: 1, bgcolor: 'rgba(255,255,255,0.2)', color: 'white' }}
-              />
-            </CardContent>
-          </Card>
-        </Grid>
+          <Stack direction="row" spacing={3} sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <Button color="inherit" sx={{ opacity: 0.9 }}>Qué hacemos</Button>
+            <Button color="inherit" sx={{ opacity: 0.9 }}>Trabajo</Button>
+            <Button color="inherit" sx={{ opacity: 0.9 }}>Sobre</Button>
+            <Button color="inherit" sx={{ opacity: 0.9 }}>Blog</Button>
+            <Button color="inherit" sx={{ opacity: 0.9 }}>Contacto</Button>
+          </Stack>
 
-        <Grid item xs={12} md={3}>
-          <Card sx={{ height: '100%', background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' }}>
-            <CardContent>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <TrendingUp sx={{ fontSize: 40, color: 'white' }} />
-              </Box>
-              <Typography variant="h4" sx={{ fontWeight: 700, color: 'white', mb: 1 }}>
-                95%
-              </Typography>
-              <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
-                Intervalo de Confianza
-              </Typography>
-              <Chip 
-                label={`$${costoEstimado.percentil5.toLocaleString()} - $${costoEstimado.percentil95.toLocaleString()}`}
-                size="small"
-                sx={{ mt: 1, bgcolor: 'rgba(255,255,255,0.2)', color: 'white' }}
-              />
-            </CardContent>
-          </Card>
-        </Grid>
+          <Button
+            variant="contained"
+            sx={{
+              ml: 2,
+              bgcolor: '#16C79A',
+              color: '#0b1f2e',
+              fontWeight: 700,
+              '&:hover': { bgcolor: '#11a781' },
+            }}
+          >
+            Get in touch
+          </Button>
+        </Toolbar> */}
+      </AppBar>
 
-        {/* Distribución de Costos - Histograma */}
-        <Grid item xs={12} md={8}>
-          <Paper sx={{ p: 3, height: '100%' }}>
-            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
-              Distribución de Costo Total - Monte Carlo
-            </Typography>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={distribucionCostos}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="rango" />
-                <YAxis />
-                <Tooltip 
-                  formatter={(value: number) => [`${value} simulaciones`, 'Frecuencia']}
-                />
-                <Legend />
-                <Bar dataKey="frecuencia" fill="#69b3a2" name="Frecuencia" />
-              </BarChart>
-            </ResponsiveContainer>
-            <Alert severity="info" sx={{ mt: 2 }}>
-              <Typography variant="body2">
-                <strong>Media:</strong> ${costoEstimado.media.toLocaleString()} USD | 
-                <strong> Mediana:</strong> ${costoEstimado.mediana.toLocaleString()} USD | 
-                <strong> Moda:</strong> $27k-30k (39% de casos)
-              </Typography>
-            </Alert>
-          </Paper>
-        </Grid>
+      {/* Hero */}
+      <Container
+        sx={{
+          pt: { xs: 18, md: 14 },
+          pb: { xs: 10, md: 16 },
+        }}
+      >
+        <Box
+          sx={{
+            position: 'relative',
+            maxWidth: 980,
+            mx: { xs: 2, md: 'auto' },
+            textAlign: { xs: 'center', md: 'left' },
+          }}
+        >
+          {/* Halo suave detrás del texto */}
+          <Box
+            sx={{
+              position: 'absolute',
+              zIndex: 0,
+              left: { xs: '50%', md: 0 },
+              top: { xs: 6, md: -16 },
+              transform: { xs: 'translateX(-50%)', md: 'none' },
+              width: { xs: '92%', md: '70%' },
+              height: { xs: 220, md: 260 },
+              background:
+                'radial-gradient(60% 60% at 35% 50%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 100%)',
+              filter: 'blur(12px)',
+              pointerEvents: 'none',
+            }}
+          />
 
-        {/* Desglose de Costos - Pie Chart */}
-        <Grid item xs={12} md={4}>
-          <Paper sx={{ p: 3, height: '100%' }}>
-            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
-              Desglose de Costos
-            </Typography>
-            <ResponsiveContainer width="100%" height={250}>
-              <PieChart>
-                <Pie
-                  data={desgloseCostos}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={({ porcentaje }) => `${porcentaje}%`}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="valor"
-                >
-                  {desgloseCostos.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip formatter={(value: number) => `$${value.toLocaleString()}`} />
-              </PieChart>
-            </ResponsiveContainer>
-            <Box sx={{ mt: 2 }}>
-              {desgloseCostos.map((item, index) => (
-                <Box key={index} sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                  <Box 
-                    sx={{ 
-                      width: 12, 
-                      height: 12, 
-                      bgcolor: COLORS[index], 
-                      borderRadius: '50%', 
-                      mr: 1 
-                    }} 
-                  />
-                  <Typography variant="body2">
-                    {item.categoria}: ${item.valor.toLocaleString()}
-                  </Typography>
+          <Typography
+            component="h1"
+            sx={{
+              position: 'relative',
+              zIndex: 1,
+              fontWeight: 900,
+              letterSpacing: 1,
+              lineHeight: 1.05,
+              fontSize: { xs: 'clamp(36px, 8vw, 64px)', md: 'clamp(54px, 6vw, 84px)' },
+              background:
+                'linear-gradient(90deg, #70f0c8 0%, #16C79A 50%, #9be7ff 100%)',
+              WebkitBackgroundClip: 'text',
+              color: 'transparent',
+              textShadow: '0 6px 24px rgba(0,0,0,.35)',
+            }}
+          >
+            MAPt3R
+          </Typography>
+
+          <Typography
+            variant="h4"
+            sx={{
+              position: 'relative',
+              zIndex: 1,
+              mt: 1.5,
+              fontWeight: 800,
+              color: 'white',
+              lineHeight: 1.2,
+              fontSize: { xs: 20, md: 28 },
+              textShadow: '0 3px 16px rgba(0,0,0,.35)',
+            }}
+          >
+            Escaneamos el mundo. <Box component="span" sx={{ opacity: 0.95 }}>Imprimimos hogares.</Box>
+          </Typography>
+
+          <Box
+            sx={{
+              mt: 2,
+              mb: 1.5,
+              height: 4,
+              width: { xs: 120, md: 160 },
+              background: 'linear-gradient(90deg, #16C79A, transparent)',
+            }}
+          />
+
+          <Typography
+            variant="h5"
+            sx={{
+              position: 'relative',
+              zIndex: 1,
+              color: 'rgba(255,255,255,0.9)',
+              maxWidth: 640,
+              textShadow: '0 2px 12px rgba(0,0,0,.35)',
+            }}
+          >
+            SfM + SLAM + Impresión 3D para vivienda inteligente.
+          </Typography>
+        </Box>
+      </Container>
+
+      {/* === NUEVAS SECCIONES EMPRESA === */}
+      <Container maxWidth="lg" sx={{ py: { xs: 6, md: 1 }, position: 'relative', zIndex: 2 }}>
+        {/* Misión y Visión */}
+        <Grid container spacing={3} sx={{ mb: 4 }}>
+          <Grid item xs={12} md={6}>
+            <Paper
+              elevation={0}
+              sx={{
+                p: 4,
+                height: '100%',
+                bgcolor: 'rgba(255,255,255,0.94)',
+                borderRadius: 3,
+                border: '1px solid rgba(22,199,154,0.25)',
+                color: '#0f3460',
+              }}
+            >
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
+                <Box sx={{ bgcolor: '#16C79A', color: '#0b1f2e', p: 1, borderRadius: 1 }}>
+                  <EmojiObjects />
                 </Box>
-              ))}
-            </Box>
-          </Paper>
-        </Grid>
-
-        {/* Evolución MCMC */}
-        <Grid item xs={12} md={8}>
-          <Paper sx={{ p: 3 }}>
-            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
-              Convergencia del Algoritmo MCMC
-            </Typography>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={evolucionMCMC}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="iter" label={{ value: 'Iteraciones', position: 'insideBottom', offset: -5 }} />
-                <YAxis label={{ value: 'Costo (USD)', angle: -90, position: 'insideLeft' }} />
-                <Tooltip formatter={(value: number) => `$${value.toLocaleString()}`} />
-                <Legend />
-                <Line 
-                  type="monotone" 
-                  dataKey="costo" 
-                  stroke="#2b7" 
-                  strokeWidth={2} 
-                  name="Costo estimado"
-                  dot={{ r: 4 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-            <Alert severity="success" sx={{ mt: 2 }}>
-              <Typography variant="body2">
-                El algoritmo convergió después de ~8,000 iteraciones. 
-                Estabilidad alcanzada en <strong>${costoEstimado.media.toLocaleString()} ± ${costoEstimado.desviacion.toLocaleString()}</strong>
+                <Typography variant="h4" sx={{ fontWeight: 800 }}>Misión</Typography>
+              </Box>
+              <Typography variant="h5" sx={{ color: '#455a64', lineHeight: 1.8, textAlign: 'justify' }}>
+                Desarrollar soluciones integradas de <strong>SfM</strong> para diseño, modelado y construcción 3D de
+                viviendas accesibles y personalizadas, escaneando entornos reales y permitiendo diseñar con
+                <strong> lenguaje natural</strong>. Impulsamos hogares sostenibles y eficientes mediante robótica accesible.
               </Typography>
-            </Alert>
-          </Paper>
-        </Grid>
-
-        {/* Fases del Proyecto */}
-        <Grid item xs={12} md={4}>
-          <Paper sx={{ p: 3 }}>
-            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
-              Fases del Proyecto
-            </Typography>
-            {fasesProyecto.map((fase, index) => (
-              <Card key={index} sx={{ mb: 2, borderLeft: `4px solid ${fase.color}` }}>
-                <CardContent>
-                  <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
-                    {fase.fase}
-                  </Typography>
-                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 1 }}>
-                    <Chip 
-                      icon={<Engineering />}
-                      label={`${fase.devs} dev${fase.devs > 1 ? 's' : ''}`}
-                      size="small"
-                      color="primary"
-                      variant="outlined"
-                    />
-                    <Chip 
-                      icon={<CalendarToday />}
-                      label={`${fase.meses} mes${fase.meses > 1 ? 'es' : ''}`}
-                      size="small"
-                      color="secondary"
-                      variant="outlined"
-                    />
-                  </Box>
-                  <Typography variant="body2" sx={{ fontWeight: 600, color: fase.color }}>
-                    Costo: ${fase.costo.toLocaleString()} USD
-                  </Typography>
-                </CardContent>
-              </Card>
-            ))}
-            <Alert severity="warning" sx={{ mt: 2 }}>
-              <Typography variant="body2">
-                <strong>Fase 2 (Desarrollo)</strong> concentra el 83.3% del costo total
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Paper
+              elevation={0}
+              sx={{
+                p: 4,
+                height: '100%',
+                bgcolor: 'rgba(255,255,255,0.94)',
+                borderRadius: 3,
+                border: '1px solid rgba(22,199,154,0.25)',
+                color: '#0f3460',
+              }}
+            >
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
+                <Box sx={{ bgcolor: '#16C79A', color: '#0b1f2e', p: 1, borderRadius: 1 }}>
+                  <PublicIcon />
+                </Box>
+                <Typography variant="h4" sx={{ fontWeight: 800 }}>Visión</Typography>
+              </Box>
+              <Typography variant="h5" sx={{ color: '#455a64', lineHeight: 1.8, textAlign: 'justify' }}>
+                Ser líderes globales en construcción inteligente con <strong>SfM</strong>, donde cada casa se diseña casi
+                en tiempo real desde un escaneo inicial. En 10 años, democratizar vivienda personalizada, reducir impacto
+                ambiental y escalar a <strong>edificios, puentes y arquitecturas complejas</strong>.
               </Typography>
-            </Alert>
-          </Paper>
+            </Paper>
+          </Grid>
         </Grid>
 
-        {/* Cliente: Typica */}
-        <Grid item xs={12}>
-          <Paper sx={{ p: 3, background: 'linear-gradient(135deg, #0f3460 0%, #16C79A 100%)' }}>
-            <Grid container spacing={3} alignItems="center">
-              <Grid item xs={12} md={2}>
+        {/* Quiénes Somos */}
+        <Paper
+          elevation={0}
+          sx={{
+            p: 4,
+            mb: 4,
+            bgcolor: 'rgba(15,52,96,0.92)',
+            borderRadius: 3,
+            border: '1px solid rgba(255,255,255,0.18)',
+          }}
+        >
+          <Typography variant="h4" sx={{ fontWeight: 800, color: '#16C79A', mb: 2 }}>
+            Quiénes Somos
+          </Typography>
+          <Typography variant="h5" sx={{ color: 'white', lineHeight: 1.9, textAlign: 'justify' }}>
+            Equipo de <strong>Ingenieros de Software</strong> enfocado en <strong>SfM</strong> para diseño y construcción 3D accesible.
+            Generamos viviendas, interiores y muebles personalizados vía <strong>IA conversacional</strong>, empoderando
+            a constructoras y familias con soluciones sostenibles y eficientes.
+          </Typography>
+          <Divider sx={{ my: 2, borderColor: 'rgba(255,255,255,0.2)' }} />
+          <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+            <Chip icon={<Engineering />} label="Ingeniería de Software" sx={{ bgcolor: 'rgba(22,199,154,0.2)', color: '#16C79A', fontWeight: 700 }} />
+            <Chip icon={<ThreeDRotation />} label="Modelado 3D + SLAM" sx={{ bgcolor: 'rgba(22,199,154,0.2)', color: '#16C79A', fontWeight: 700 }} />
+            <Chip icon={<ChatBubbleOutline />} label="IA Conversacional" sx={{ bgcolor: 'rgba(22,199,154,0.2)', color: '#16C79A', fontWeight: 700 }} />
+            <Chip icon={<Architecture />} label="Construcción Inteligente" sx={{ bgcolor: 'rgba(22,199,154,0.2)', color: '#16C79A', fontWeight: 700 }} />
+          </Stack>
+        </Paper>
+
+        {/* Alcances y Objetivos */}
+        <Grid container spacing={3} sx={{ mb: 4 }}>
+          <Grid item xs={12} md={7}>
+            <Card
+              sx={{
+                height: '100%',
+                bgcolor: 'rgba(255,255,255,0.94)',
+                border: '1px solid rgba(22,199,154,0.25)',
+                borderRadius: 3,
+              }}
+            >
+              <CardContent>
+                <Typography variant="h4" sx={{ fontWeight: 800, color: '#0f3460', mb: 1 }}>
+                  Alcance del Emprendimiento
+                </Typography>
+                <Typography variant="h5" sx={{ color: '#546e7a', lineHeight: 1.8, mb: 2, textAlign: 'justify' }}>
+                  Inicio en mercado residencial y expansión a edificaciones e infraestructuras. Ofrecemos software
+                  <strong> SfM</strong>, biblioteca de muebles, plataforma de <strong>IA</strong> y prototipos descargables.
+                  Meta a 10 años: liderazgo global, reducción del <strong>30% de desperdicios</strong> y construcción tipo “impresión”.
+                </Typography>
+                <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                  {entregables.map((e) => (
+                    <Chip key={e} label={e} sx={{ bgcolor: 'rgba(15,52,96,0.06)', border: '1px solid rgba(15,52,96,0.15)' }} />
+                  ))}
+                </Stack>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid container spacing={3} sx={{ mb: 4 }}>
+            <Card
+              sx={{
+                height: '100%',
+                bgcolor: 'rgba(255,255,255,0.94)',
+                border: '1px solid rgba(22,199,154,0.25)',
+                borderRadius: 3,
+              }}
+            >
+              <CardContent>
+                <Typography variant="h4" sx={{ fontWeight: 800, color: '#2a466aff', mb: 1 }}>
+                  Objetivos Generales
+                </Typography>
+                <Stack spacing={1.2} sx={{ color: '#546e7a' }}>
+                  <Typography variant="h5">• Lanzar software <strong>SfM</strong> de escaneo residencial.</Typography>
+                  <Typography variant="h5">• Biblioteca de muebles <strong>3D</strong> personalizables.</Typography>
+                  <Typography variant="h5">• Rentabilidad mediante <strong>suscripciones</strong>.</Typography>
+                  <Typography variant="h5">• Reducir <strong>30%</strong> de desperdicios en construcción.</Typography>
+                </Stack>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+
+        {/* Alcance por área */}
+        <Paper
+          elevation={0}
+          sx={{
+            p: 4,
+            bgcolor: 'transparent',
+            borderRadius: 3,
+            border: '1px solid rgba(22,199,154,0.25)',
+          }}
+        >
+          <Typography variant="h4" sx={{ fontWeight: 800, color: '#ffffffff', textAlign: 'center', mb: 3 }}>
+            Alcance por Área
+          </Typography>
+          <Grid container spacing={5}>
+            {objetivosArea.map((o) => (
+              <Grid key={o.title} item xs={12} sm={6} md={3}>
                 <Box
                   sx={{
-                    width: 100,
-                    height: 100,
-                    bgcolor: 'white',
+                    p: 2.5,
+                    height: '100%',
                     borderRadius: 2,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    p: 1,
-                    mx: 'auto',
+                    borderLeft: `15px solid ${o.color}`,
+                    bgcolor: 'rgba(245,245,245,0.85)',
+                    '&:hover': { transform: 'translateY(-6px)', transition: 'all .25s ease' },
                   }}
                 >
-                  <LocalCafe sx={{ fontSize: 60, color: '#0f3460' }} />
+                  <Box sx={{ display: 'flex', alignItems: 'right', gap: 3, mb: 1.2, color: o.color }}>
+                    {o.icon}
+                    <Typography variant="h5" sx={{ fontWeight: 800 }}>{o.title}</Typography>
+                  </Box>
+                  <Typography variant="h6" sx={{ color: '#546e7a' }}>{o.desc}</Typography>
                 </Box>
               </Grid>
-              <Grid item xs={12} md={7}>
-                <Typography variant="h5" sx={{ fontWeight: 700, color: 'white', mb: 1 }}>
-                  Proyecto: Sistema CRM para Typica Café
-                </Typography>
-                <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)', mb: 2 }}>
-                  Plataforma integral de gestión de clientes, fidelización y comunicación multicanal 
-                  para fortalecer la experiencia del cliente en todas las sucursales.
-                </Typography>
-                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                  <Chip 
-                    label="React + TypeScript"
-                    sx={{ bgcolor: 'rgba(255,255,255,0.2)', color: 'white' }}
-                  />
-                  <Chip 
-                    label="Node.js + Express"
-                    sx={{ bgcolor: 'rgba(255,255,255,0.2)', color: 'white' }}
-                  />
-                  <Chip 
-                    label="PostgreSQL"
-                    sx={{ bgcolor: 'rgba(255,255,255,0.2)', color: 'white' }}
-                  />
-                  <Chip 
-                    label="APIs Multicanal"
-                    sx={{ bgcolor: 'rgba(255,255,255,0.2)', color: 'white' }}
-                  />
-                </Box>
-              </Grid>
-              <Grid item xs={12} md={3}>
-                <Card>
-                  <CardContent>
-                    <Typography variant="overline" sx={{ color: '#666' }}>
-                      Rango de Inversión
-                    </Typography>
-                    <Typography variant="h6" sx={{ fontWeight: 600, color: '#0f3460' }}>
-                      $23k - $31k USD
-                    </Typography>
-                    <Typography variant="caption" sx={{ color: '#666' }}>
-                      Intervalo de confianza 90%
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-          </Paper>
-        </Grid>
+            ))}
+          </Grid>
+        </Paper>
+      </Container>
+      {/* === FIN NUEVAS SECCIONES === */}
 
-        {/* Conclusiones */}
-        <Grid item xs={12}>
-          <Paper sx={{ p: 3 }}>
-            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 1 }}>
-              <ShowChart /> Conclusiones del Análisis Monte Carlo
-            </Typography>
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={6}>
-                <Alert severity="success" sx={{ mb: 2 }}>
-                  <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
-                    ✅ Viabilidad Confirmada
-                  </Typography>
-                  <Typography variant="body2">
-                    El proyecto tiene un <strong>95% de probabilidad</strong> de completarse entre 
-                    <strong> $23,160 y $30,888 USD</strong>, con una media de <strong>$27,024 USD</strong>.
-                  </Typography>
-                </Alert>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Alert severity="info" sx={{ mb: 2 }}>
-                  <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
-                    📊 Distribución Concentrada
-                  </Typography>
-                  <Typography variant="body2">
-                    El <strong>77%</strong> de las simulaciones arrojan costos entre $24k-30k USD, 
-                    indicando alta predictibilidad.
-                  </Typography>
-                </Alert>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Alert severity="warning">
-                  <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
-                    ⚠️ Factor de Riesgo Principal
-                  </Typography>
-                  <Typography variant="body2">
-                    La variación en <strong>sueldos mensuales</strong> ($1,200-$1,800) genera el 99.9% 
-                    de la variabilidad total del costo.
-                  </Typography>
-                </Alert>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Alert severity="error">
-                  <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
-                    🎯 Recomendación Estratégica
-                  </Typography>
-                  <Typography variant="body2">
-                    Fijar contratos con desarrolladores al <strong>inicio del proyecto</strong> reduce 
-                    la desviación estándar en <strong>~40%</strong>.
-                  </Typography>
-                </Alert>
-              </Grid>
-            </Grid>
-          </Paper>
-        </Grid>
-      </Grid>
+      {/* Indicador de scroll */}
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: 16,
+          left: 0,
+          right: 0,
+          display: 'flex',
+          justifyContent: 'center',
+          opacity: 0.9,
+        }}
+      >
+        <KeyboardArrowDownIcon sx={{ fontSize: 36 }} />
+      </Box>
     </Box>
   );
 }

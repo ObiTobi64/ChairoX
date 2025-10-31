@@ -30,17 +30,17 @@ interface SidebarProps {
 
 const menuItems = [
   { text: 'Dashboard', icon: <Dashboard />, path: '/' },
-  { text: 'Analisis', icon: <People />, path: '/analisis' },
-  { text: 'TDR', icon: <TrendingUp />, path: '/tdr' },
-  { text: 'Planificación', icon: <CalendarMonth />, path: '/planificacion' },
-  { text: 'Diseño y Desarrollo', icon: <Assessment />, path: '/disenoDesarrollo' },
+  { text: 'Planificación', icon: <People />, path: '/analisis' },
+  { text: 'Diseño y Desarrollo', icon: <TrendingUp />, path: '/tdr' },
+  { text: 'Control de Calidad y Evaluación de Costos', icon: <CalendarMonth />, path: '/planificacion' },
+  { text: 'Cierre', icon: <Assessment />, path: '/disenoDesarrollo' },
   { text: 'Herramientas', icon: <BusinessCenter />, path: '/herramientas' },
-  { text: 'Manual del Sistema', icon: <Task />, path: '/manualSistema' },
-  { text: 'Control de Calidad', icon: <VerifiedUser />, path: '/controlCalidad' },
-  { text: 'Seleccion Servidor', icon: <Settings />, path: '/seleccionServidor' },
-  { text: 'Evaluación - Feedback', icon: <Assessment />, path: '/evaluacionFeedback' },
-  { text: 'Carta de Entrega', icon: <Settings />, path: '/cartaEntrega' },
-  { text: 'Demo', icon: <Settings />, path: '/demo' },
+  // { text: 'Manual del Sistema', icon: <Task />, path: '/manualSistema' },
+  // { text: 'Control de Calidad', icon: <VerifiedUser />, path: '/controlCalidad' },
+  // { text: 'Seleccion Servidor', icon: <Settings />, path: '/seleccionServidor' },
+  // { text: 'Evaluación - Feedback', icon: <Assessment />, path: '/evaluacionFeedback' },
+  // { text: 'Carta de Entrega', icon: <Settings />, path: '/cartaEntrega' },
+  // { text: 'Demo', icon: <Settings />, path: '/demo' },
 ];
 
 export default function Sidebar({ open }: SidebarProps) {
@@ -58,13 +58,13 @@ export default function Sidebar({ open }: SidebarProps) {
         '& .MuiDrawer-paper': {
           width: 240,
           boxSizing: 'border-box',
-          bgcolor: '#1a1a2e',
+          bgcolor: '#255f50ff',
           color: 'white',
         },
       }}
     >
       <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Avatar sx={{ bgcolor: '#0f3460' }}>CX</Avatar>
+        <Avatar sx={{ bgcolor: '#0f603aff' }}>CX</Avatar>
         <Box>
           <Typography variant="h6" sx={{ fontWeight: 600 }}>
             ChairuX
@@ -75,10 +75,10 @@ export default function Sidebar({ open }: SidebarProps) {
         </Box>
       </Box>
 
-      <Divider sx={{ bgcolor: '#0f3460' }} />
+      <Divider sx={{ bgcolor: '#0f6044ff' }} />
 
       <List sx={{ px: 1, mt: 2 }}>
-        {menuItems.map((item) => {
+        {menuItems.map((item) => {  
           const isActive = location.pathname === item.path;
           return (
             <ListItem key={item.text} disablePadding sx={{ mb: 0.5 }}>
@@ -86,9 +86,9 @@ export default function Sidebar({ open }: SidebarProps) {
                 onClick={() => navigate(item.path)}
                 sx={{
                   borderRadius: 2,
-                  bgcolor: isActive ? '#0f3460' : 'transparent',
+                  bgcolor: isActive ? '#0f603dff' : 'transparent',
                   '&:hover': {
-                    bgcolor: isActive ? '#0f3460' : 'rgba(255,255,255,0.08)',
+                    bgcolor: isActive ? '#0f6051ff' : 'rgba(124, 28, 116, 0.08)',
                   },
                 }}
               >

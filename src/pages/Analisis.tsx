@@ -7,441 +7,418 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Divider,
   Chip,
   Grid,
   Card,
   CardContent,
-  Tabs,
-  Tab,
 } from '@mui/material';
 import {
   ExpandMore,
   AccountTree,
   Business,
   CalendarToday,
-  BubbleChart, // Para el diagrama Ishikawa
+  Description,
+  Checklist,
+  WarningAmber,
+  PictureAsPdf,
+  OpenInNew,
 } from '@mui/icons-material';
-import ReactFlow, {
-  type Node,
-  type Edge,
-  Background,
-  Controls,
-  MiniMap,
-} from 'reactflow';
-import 'reactflow/dist/style.css';
-import IshikawaDiagram from '../assets/images/Ishikawa .png'
-import MatrizCoherencia from '../assets/images/CoherenciaDiagrama.png'
-import IDEF0Principal from '../assets/images/Idef0.png'
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
+// QUITA estas importaciones de ReactFlow y el css
+// import ReactFlow, { type Node, type Edge, Background, Controls, MiniMap } from 'reactflow';
+// import 'reactflow/dist/style.css';
 
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`diagram-tabpanel-${index}`}
-      aria-labelledby={`diagram-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box sx={{ pt: 3 }}>{children}</Box>}
-    </div>
-  );
-}
+// AGREGA la imagen del organigrama
+import DiagramaJerarquico from '../assets/images/diagramaJerarquico.png';
 
 export default function Analisis() {
-  const [expanded, setExpanded] = useState<string | false>('panel1');
-  const [tabValue, setTabValue] = useState(0);
+  const [expanded, setExpanded] = useState<string | false>('panelOrg');
 
   const handleChange = (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
-    setTabValue(newValue);
-  };
+  // elimina orgNodes y orgEdges (ya no se usan con imagen)
 
-  // IDEF0 Desglose (A0) - COMPLETO con 8 procesos
-  const idef0DesgloseNodes: Node[] = [
-    // A1: Análisis y diagnóstico
+  // Manuales de funciones
+  const funciones = [
     {
-      id: 'a1',
-      type: 'default',
-      data: { 
-        label: (
-          <Box sx={{ textAlign: 'center', p: 1 }}>
-            <Typography variant="body2" sx={{ fontWeight: 600, fontSize: 11 }}>
-              Análisis y
-            </Typography>
-            <Typography variant="body2" sx={{ fontWeight: 600, fontSize: 11 }}>
-              diagnóstico
-            </Typography>
-            <Typography variant="caption" sx={{ display: 'block', mt: 0.5, fontSize: 10 }}>
-              A1
-            </Typography>
-          </Box>
-        )
-      },
-      position: { x: 50, y: 100 },
-      style: {
-        background: '#2196F3',
-        color: 'white',
-        border: '2px solid #1976D2',
-        borderRadius: '6px',
-        width: 140,
-        height: 100,
-      },
+      rol: 'CTO',
+      area: 'Tecnología',
+      funciones: ['Definir arquitectura SfM/SLAM', 'Liderar roadmap técnico', 'Asegurar calidad y performance'],
+      indicadores: ['Disponibilidad plataforma', 'Velocidad de releases', 'Precisión reconstrucción 3D'],
     },
-    // A2: Definición de campaña
     {
-      id: 'a2',
-      type: 'default',
-      data: { 
-        label: (
-          <Box sx={{ textAlign: 'center', p: 1 }}>
-            <Typography variant="body2" sx={{ fontWeight: 600, fontSize: 11 }}>
-              Definición de
-            </Typography>
-            <Typography variant="body2" sx={{ fontWeight: 600, fontSize: 11 }}>
-              campaña
-            </Typography>
-            <Typography variant="caption" sx={{ display: 'block', mt: 0.5, fontSize: 10 }}>
-              A2
-            </Typography>
-          </Box>
-        )
-      },
-      position: { x: 250, y: 250 },
-      style: {
-        background: '#4CAF50',
-        color: 'white',
-        border: '2px solid #388E3C',
-        borderRadius: '6px',
-        width: 140,
-        height: 100,
-      },
+      rol: 'Lead Operaciones',
+      area: 'Operaciones',
+      funciones: ['Planificar despliegues', 'Coordinar impresión 3D', 'Monitorear SLAs'],
+      indicadores: ['Tiempo de puesta en marcha', 'Órdenes cumplidas', 'SLA >= 99%'],
     },
-    // A3: Desarrollo del concepto creativo
     {
-      id: 'a3',
-      type: 'default',
-      data: { 
-        label: (
-          <Box sx={{ textAlign: 'center', p: 1 }}>
-            <Typography variant="body2" sx={{ fontWeight: 600, fontSize: 10 }}>
-              Desarrollo del
-            </Typography>
-            <Typography variant="body2" sx={{ fontWeight: 600, fontSize: 10 }}>
-              concepto creativo
-            </Typography>
-            <Typography variant="caption" sx={{ display: 'block', mt: 0.5, fontSize: 10 }}>
-              A3
-            </Typography>
-          </Box>
-        )
-      },
-      position: { x: 450, y: 400 },
-      style: {
-        background: '#FF9800',
-        color: 'white',
-        border: '2px solid #F57C00',
-        borderRadius: '6px',
-        width: 140,
-        height: 100,
-      },
-    },
-    // A4: Selección de canales y medios
-    {
-      id: 'a4',
-      type: 'default',
-      data: { 
-        label: (
-          <Box sx={{ textAlign: 'center', p: 1 }}>
-            <Typography variant="body2" sx={{ fontWeight: 600, fontSize: 10 }}>
-              Selección de
-            </Typography>
-            <Typography variant="body2" sx={{ fontWeight: 600, fontSize: 10 }}>
-              canales y medios
-            </Typography>
-            <Typography variant="caption" sx={{ display: 'block', mt: 0.5, fontSize: 10 }}>
-              A4
-            </Typography>
-          </Box>
-        )
-      },
-      position: { x: 650, y: 550 },
-      style: {
-        background: '#9C27B0',
-        color: 'white',
-        border: '2px solid #7B1FA2',
-        borderRadius: '6px',
-        width: 140,
-        height: 100,
-      },
-    },
-    // A5: Planificación de cronograma y presupuesto
-    {
-      id: 'a5',
-      type: 'default',
-      data: { 
-        label: (
-          <Box sx={{ textAlign: 'center', p: 1 }}>
-            <Typography variant="body2" sx={{ fontWeight: 600, fontSize: 9 }}>
-              Planificación de
-            </Typography>
-            <Typography variant="body2" sx={{ fontWeight: 600, fontSize: 9 }}>
-              cronograma y
-            </Typography>
-            <Typography variant="body2" sx={{ fontWeight: 600, fontSize: 9 }}>
-              presupuesto
-            </Typography>
-            <Typography variant="caption" sx={{ display: 'block', mt: 0.5, fontSize: 10 }}>
-              A5
-            </Typography>
-          </Box>
-        )
-      },
-      position: { x: 850, y: 700 },
-      style: {
-        background: '#F44336',
-        color: 'white',
-        border: '2px solid #D32F2F',
-        borderRadius: '6px',
-        width: 140,
-        height: 100,
-      },
-    },
-    // A6: Producción de contenidos y materiales
-    {
-      id: 'a6',
-      type: 'default',
-      data: { 
-        label: (
-          <Box sx={{ textAlign: 'center', p: 1 }}>
-            <Typography variant="body2" sx={{ fontWeight: 600, fontSize: 9 }}>
-              Producción de
-            </Typography>
-            <Typography variant="body2" sx={{ fontWeight: 600, fontSize: 9 }}>
-              contenidos y
-            </Typography>
-            <Typography variant="body2" sx={{ fontWeight: 600, fontSize: 9 }}>
-              materiales
-            </Typography>
-            <Typography variant="caption" sx={{ display: 'block', mt: 0.5, fontSize: 10 }}>
-              A6
-            </Typography>
-          </Box>
-        )
-      },
-      position: { x: 1050, y: 850 },
-      style: {
-        background: '#00BCD4',
-        color: 'white',
-        border: '2px solid #0097A7',
-        borderRadius: '6px',
-        width: 140,
-        height: 100,
-      },
-    },
-    // A7: Ejecución y monitoreo
-    {
-      id: 'a7',
-      type: 'default',
-      data: { 
-        label: (
-          <Box sx={{ textAlign: 'center', p: 1 }}>
-            <Typography variant="body2" sx={{ fontWeight: 600, fontSize: 11 }}>
-              Ejecución y
-            </Typography>
-            <Typography variant="body2" sx={{ fontWeight: 600, fontSize: 11 }}>
-              monitoreo
-            </Typography>
-            <Typography variant="caption" sx={{ display: 'block', mt: 0.5, fontSize: 10 }}>
-              A7
-            </Typography>
-          </Box>
-        )
-      },
-      position: { x: 1250, y: 1000 },
-      style: {
-        background: '#795548',
-        color: 'white',
-        border: '2px solid #5D4037',
-        borderRadius: '6px',
-        width: 140,
-        height: 100,
-      },
-    },
-    // A8: Fidelización
-    {
-      id: 'a8',
-      type: 'default',
-      data: { 
-        label: (
-          <Box sx={{ textAlign: 'center', p: 1 }}>
-            <Typography variant="body2" sx={{ fontWeight: 600, fontSize: 11 }}>
-              Fidelización
-            </Typography>
-            <Typography variant="caption" sx={{ display: 'block', mt: 0.5, fontSize: 10 }}>
-              A8
-            </Typography>
-          </Box>
-        )
-      },
-      position: { x: 1450, y: 1150 },
-      style: {
-        background: '#607D8B',
-        color: 'white',
-        border: '2px solid #455A64',
-        borderRadius: '6px',
-        width: 140,
-        height: 100,
-      },
+      rol: 'Head Growth',
+      area: 'Comercial',
+      funciones: ['Estrategia GTM', 'Funnels y partnerships', 'Pricing y retención'],
+      indicadores: ['MRR', 'CAC/LTV', 'Tasa de retención'],
     },
   ];
 
-  const idef0DesgloseEdges: Edge[] = [
-    // Flujo A1 -> A2
-    { 
-      id: 'e-a1-a2', 
-      source: 'a1', 
-      target: 'a2', 
-      animated: true, 
-      label: 'Insights',
-      style: { stroke: '#2196F3', strokeWidth: 2 },
-      labelStyle: { fill: '#2196F3', fontWeight: 600, fontSize: 11 },
+  // Manuales de actividades (procedimientos clave)
+  const actividades = [
+    {
+      titulo: 'Flujo de escaneo → modelo 3D',
+      pasos: [
+        'Captura con dispositivo (SLAM) del sitio',
+        'Procesamiento SfM (nube de puntos y malla)',
+        'Generación de modelo optimizado',
+        'Exportación glTF/OBJ y publicación en plataforma',
+      ],
     },
-    // Flujo A2 -> A3
-    { 
-      id: 'e-a2-a3', 
-      source: 'a2', 
-      target: 'a3', 
-      animated: true, 
-      label: 'Brief',
-      style: { stroke: '#4CAF50', strokeWidth: 2 },
-      labelStyle: { fill: '#4CAF50', fontWeight: 600, fontSize: 11 },
+    {
+      titulo: 'Diseño por IA conversacional',
+      pasos: [
+        'Prompt del cliente (lenguaje natural)',
+        'Validación de restricciones y normas',
+        'Aplicación de layout, mobiliario y materiales',
+        'Previsualización y ajustes iterativos',
+      ],
     },
-    // Flujo A3 -> A4
-    { 
-      id: 'e-a3-a4', 
-      source: 'a3', 
-      target: 'a4', 
-      animated: true, 
-      label: 'Concepto',
-      style: { stroke: '#FF9800', strokeWidth: 2 },
-      labelStyle: { fill: '#FF9800', fontWeight: 600, fontSize: 11 },
+    {
+      titulo: 'Impresión 3D de vivienda',
+      pasos: [
+        'Segmentación por capas',
+        'Generación de G-code/paths',
+        'Ejecución y monitoreo',
+        'QA post-impresión y reporte',
+      ],
     },
-    // Flujo A4 -> A5
-    { 
-      id: 'e-a4-a5', 
-      source: 'a4', 
-      target: 'a5', 
-      animated: true, 
-      label: 'Plan medios',
-      style: { stroke: '#9C27B0', strokeWidth: 2 },
-      labelStyle: { fill: '#9C27B0', fontWeight: 600, fontSize: 11 },
+  ];
+
+  // Gestión de riesgos
+  const riesgos = [
+    {
+      nombre: 'Precisión del modelo insuficiente',
+      impacto: 'Alto',
+      prob: 'Media',
+      mitigacion: 'Validación con dataset de referencia, pruebas en obra, ajuste de parámetros SfM.',
+      color: '#e53935',
     },
-    // Flujo A5 -> A6
-    { 
-      id: 'e-a5-a6', 
-      source: 'a5', 
-      target: 'a6', 
-      animated: true, 
-      label: 'Cronograma',
-      style: { stroke: '#F44336', strokeWidth: 2 },
-      labelStyle: { fill: '#F44336', fontWeight: 600, fontSize: 11 },
+    {
+      nombre: 'Fallas en impresión 3D',
+      impacto: 'Alto',
+      prob: 'Baja',
+      mitigacion: 'Redundancia en equipos, mantenimiento preventivo, simulación previa.',
+      color: '#fb8c00',
     },
-    // Flujo A6 -> A7
-    { 
-      id: 'e-a6-a7', 
-      source: 'a6', 
-      target: 'a7', 
-      animated: true, 
-      label: 'Materiales',
-      style: { stroke: '#00BCD4', strokeWidth: 2 },
-      labelStyle: { fill: '#00BCD4', fontWeight: 600, fontSize: 11 },
+    {
+      nombre: 'Adopción lenta del mercado',
+      impacto: 'Media',
+      prob: 'Media',
+      mitigacion: 'Pilotos con constructoras, casos de éxito, pricing escalonado.',
+      color: '#fdd835',
     },
-    // Flujo A7 -> A8
-    { 
-      id: 'e-a7-a8', 
-      source: 'a7', 
-      target: 'a8', 
-      animated: true, 
-      label: 'Campaña activa',
-      style: { stroke: '#795548', strokeWidth: 2 },
-      labelStyle: { fill: '#795548', fontWeight: 600, fontSize: 11 },
+    {
+      nombre: 'Cumplimiento normativo',
+      impacto: 'Alto',
+      prob: 'Baja',
+      mitigacion: 'Asesoría legal, mapeo de normativa por país, certificaciones.',
+      color: '#8e24aa',
     },
-    // Conexiones adicionales según diagrama
-    { 
-      id: 'e-a2-a4', 
-      source: 'a2', 
-      target: 'a4', 
-      type: 'smoothstep',
-      style: { stroke: '#CC0000', strokeWidth: 1, strokeDasharray: '5,5' },
-      label: 'Objetivos',
-      labelStyle: { fill: '#CC0000', fontSize: 10 },
+  ];
+
+  // NUEVO: rutas de manuales (PDFs en /public)
+  const manualesFunciones = [
+    { id: 'ceo',  titulo: 'Manual de funciones — CEO',  src: '/pdfs/manuales/ceo.pdf'  },
+    { id: 'cfo',  titulo: 'Manual de funciones — CFO',  src: '/pdfs/manuales/cfo.pdf'  },
+    { id: 'chro', titulo: 'Manual de funciones — CHRO', src: '/pdfs/manuales/chro.pdf' },
+    { id: 'cmo',  titulo: 'Manual de funciones — CMO',  src: '/pdfs/manuales/cmo.pdf'  },
+  ];
+
+  // Documento de Gestión de Riesgos (contenido completo)
+  const riesgosIntro = {
+    titulo: 'Documento de Identificación y Mitigación de Riesgos — Proyecto MAPt3R',
+    parrafos: [
+      'El presente documento tiene por finalidad identificar, clasificar y proponer estrategias de mitigación y contingencia ante los riesgos asociados al diseño, desarrollo e implementación del Servicio MAPt3R.',
+      'El enfoque adoptado responde a una perspectiva técnico‑consultiva, orientada a garantizar la continuidad operativa, la seguridad de la información y la calidad del producto final durante todas las fases del proyecto.',
+      'La identificación de riesgos se basa en los componentes críticos del sistema, considerando variables técnicas y organizacionales. Cada riesgo se presenta categorizado y acompañado de un plan de mitigación (acciones preventivas) y un plan de contingencia (acciones correctivas).',
+    ],
+  };
+
+  type RiesgoItem = {
+    titulo: string;
+    descripcion?: string;
+    mitigacion: string;
+    contingencia: string;
+  };
+
+  const riesgosCategorias: { nombre: string; items: RiesgoItem[] }[] = [
+    {
+      nombre: '1. Infraestructura',
+      items: [
+        {
+          titulo: '1.1 Fallo de hardware GPU/servidores',
+          descripcion: 'Fallo de componentes físicos (GPU, discos, placas) por envejecimiento o sobrecarga térmica.',
+          mitigacion:
+            'Inventario HW con garantías; contratos de mantenimiento; monitorización SMART y de temperatura; rotación preventiva de componentes; pruebas de estrés periódicas.',
+          contingencia:
+            'Failover a nodos de reserva; reprogramar jobs; activar colocation/cloud temporal y reemplazo físico urgente.',
+        },
+        {
+          titulo: '1.2 Interrupción eléctrica prolongada',
+          descripcion: 'Cortes de suministro o UPS/generador insuficiente que afectan operación.',
+          mitigacion:
+            'UPS dimensionado y generador con mantenimiento; pruebas periódicas de conmutación; políticas de ahorro energético para picos.',
+          contingencia:
+            'Encendido de generador; migración de cargas críticas a sitio secundario; apagado controlado de servicios no esenciales.',
+        },
+        {
+          titulo: '1.3 Fallas por sobrecalentamiento / refrigeración',
+          descripcion: 'Ineficiente HVAC o flujo de aire que provoca temperaturas fuera de rango.',
+          mitigacion:
+            'Diseño HVAC adecuado, sensorización ambiental por rack, mantenimiento preventivo y alertas tempranas.',
+          contingencia:
+            'Reducir carga en racks afectados; trasladar cargas críticas; reparación inmediata del sistema de refrigeración.',
+        },
+      ],
     },
-    { 
-      id: 'e-a2-a6', 
-      source: 'a2', 
-      target: 'a6', 
-      type: 'smoothstep',
-      style: { stroke: '#3333FF', strokeWidth: 1, strokeDasharray: '5,5' },
-      label: 'Directrices',
-      labelStyle: { fill: '#3333FF', fontSize: 10 },
+    {
+      nombre: '2. Red y Conectividad',
+      items: [
+        {
+          titulo: '2.1 Corte de enlace a Internet o ISP',
+          descripcion: 'Interrupción del servicio por fallo o saturación del proveedor.',
+          mitigacion: 'Doble ISP, enlaces redundantes, BGP si aplica, monitor de latencia y ancho de banda.',
+          contingencia:
+            'Reenrutamiento por ISP alterno; acceso administrativo por enlace celular/backup; notificar clientes y activar SLAs alternos.',
+        },
+      ],
     },
-    { 
-      id: 'e-a3-a6', 
-      source: 'a3', 
-      target: 'a6', 
-      type: 'smoothstep',
-      style: { stroke: '#001DBC', strokeWidth: 1, strokeDasharray: '5,5' },
-      label: 'Creatividad',
-      labelStyle: { fill: '#001DBC', fontSize: 10 },
+    {
+      nombre: '3. Seguridad',
+      items: [
+        {
+          titulo: '3.1 Acceso físico no autorizado a servidores',
+          mitigacion:
+            'Control de acceso (tarjetas/biometría), CCTV, registro de visitas, políticas de seguridad física.',
+          contingencia:
+            'Aislar el rack afectado, auditoría forense, revocar credenciales y notificar según política.',
+        },
+        {
+          titulo: '3.2 Robo o fuga de modelos y/o datos (IP)',
+          mitigacion:
+            'RBAC estricto, cifrado en reposo y tránsito, KMS/HSM, DLP y segmentación de redes.',
+          contingencia:
+            'Revocar accesos comprometidos, rotación de claves, restaurar desde backups y notificar stakeholders/legal.',
+        },
+      ],
     },
-    { 
-      id: 'e-a2-a7', 
-      source: 'a2', 
-      target: 'a7', 
-      type: 'smoothstep',
-      style: { stroke: '#66FF66', strokeWidth: 1, strokeDasharray: '5,5' },
-      label: 'KPIs',
-      labelStyle: { fill: '#66FF66', fontSize: 10 },
+    {
+      nombre: '4. Seguridad (IA)',
+      items: [
+        {
+          titulo: '4.1 Filtración de datos sensibles en modelos',
+          descripcion:
+            'Los modelos reproducen PII u otros datos sensibles aprendidos del entrenamiento.',
+          mitigacion:
+            'Anonimización y limpieza de datos; aplicar differential privacy y pruebas de extracción antes de producción.',
+          contingencia:
+            'Retirar modelo de producción, reentrenar con dataset saneado y notificar afectados según regulación.',
+        },
+      ],
     },
-    { 
-      id: 'e-a1-a4', 
-      source: 'a1', 
-      target: 'a4', 
-      type: 'smoothstep',
-      style: { stroke: '#66FF66', strokeWidth: 1, strokeDasharray: '5,5' },
-      label: 'Segmentación',
-      labelStyle: { fill: '#66FF66', fontSize: 10 },
+    {
+      nombre: '5. Legal & Compliance',
+      items: [
+        {
+          titulo: '5.1 Infracción de derechos de autor por datos de entrenamiento',
+          descripcion: 'Uso de assets 3D/texturas/licencias sin autorización clara.',
+          mitigacion:
+            'Auditoría de orígenes, preferir datasets con licencias claras, contratos de cesión y trazabilidad.',
+          contingencia:
+            'Retirar modelos implicados, negociar licencias o recompilar dataset, coordinar respuesta legal.',
+        },
+        {
+          titulo: '5.2 Regulaciones de export control / uso dual',
+          mitigacion: 'Evaluación legal temprana, clasificación de uso y restricciones por país/usuario.',
+          contingencia:
+            'Bloquear acceso a usuarios/países afectados y aplicar controles de licenciamiento.',
+        },
+      ],
+    },
+    {
+      nombre: '6. Calidad de salida',
+      items: [
+        {
+          titulo: '6.1 Modelos 3D con errores estructurales/inseguros',
+          descripcion:
+            'Outputs con topología incorrecta, escalas erradas o no aptos para uso.',
+          mitigacion:
+            'Pipelines de QA automático (watertightness, escala, topología), datasets de calidad y métricas de validación.',
+          contingencia:
+            'Rechazo automático de outputs; re‑entrenamiento o post‑proceso; comunicar incidencia al cliente.',
+        },
+      ],
+    },
+    {
+      nombre: '7. Operacional',
+      items: [
+        {
+          titulo: '7.1 Escalabilidad y picos de demanda',
+          descripcion: 'Capacidad GPU/infra insuficiente ante picos, causando latencia y errores.',
+          mitigacion:
+            'Dimensionamiento con headroom, colas de trabajo, optimización (quantization, caching) y plan de bursting.',
+          contingencia:
+            'Priorizar clientes, habilitar bursting a cloud, provisionar nodos adicionales y comunicarse con clientes.',
+        },
+      ],
+    },
+    {
+      nombre: '8. Costos',
+      items: [
+        {
+          titulo: '8.1 Costos operativos elevados por entrenamiento/inferencia',
+          descripcion: 'Consumo energético y de recursos que incrementan costos operativos.',
+          mitigacion:
+            'Optimización de entrenamiento (mixed precision), planificación de jobs nocturnos, monitor de consumo y negociación de tarifas.',
+          contingencia:
+            'Pausar trabajos no críticos, replanificar entrenamientos y offload temporal a cloud.',
+        },
+      ],
+    },
+    {
+      nombre: '9. Backup & DR',
+      items: [
+        {
+          titulo: '9.1 Pérdida de datos por backup incompleto o corrupto',
+          descripcion: 'Políticas de backup insuficientes o backups no verificables.',
+          mitigacion: 'Política 3‑2‑1, verificaciones periódicas y pruebas de restauración regulares.',
+          contingencia: 'Restaurar desde copia offsite, activar sitio DR y comunicar impacto a stakeholders.',
+        },
+      ],
+    },
+    {
+      nombre: '10. Desarrollo',
+      items: [
+        {
+          titulo: '10.1 Integración con pipelines CI/CD fallida',
+          descripcion: 'Despliegues con errores por configuración o exposición de secretos.',
+          mitigacion: 'Infra como código, pipelines reproducibles, secretos en vault y revisión de PRs.',
+          contingencia: 'Revertir a versión estable, rollback controlado y reparación en entorno aislado.',
+        },
+      ],
+    },
+    {
+      nombre: '11. Dependencias',
+      items: [
+        {
+          titulo: '11.1 Vulnerabilidades en librerías ML o motores 3D',
+          descripcion:
+            'Dependencias con CVEs o fallos de seguridad que comprometen la plataforma.',
+          mitigacion: 'Escaneo SCA, políticas de actualización, pruebas en sandbox y alternativas seguras.',
+          contingencia: 'Aplicar parches/hotfixes, aislar servicio vulnerable y notificar plan de mitigación.',
+        },
+      ],
+    },
+    {
+      nombre: '12. Privacidad',
+      items: [
+        {
+          titulo: '12.1 Incumplimiento de regulaciones (consentimiento, LOPD/GDPR)',
+          descripcion:
+            'Procesamiento de datos sin permisos o sin bases legales claras.',
+          mitigacion:
+            'Políticas de privacidad claras, consentimientos explícitos, minimización de datos y registro de actividades.',
+          contingencia:
+            'Suspender procesos cuestionados, cooperar con autoridades y notificar brechas según normativa.',
+        },
+      ],
+    },
+    {
+      nombre: '13. Continuidad',
+      items: [
+        {
+          titulo: '13.1 Dependencia de una sola persona (key‑person risk)',
+          descripcion: 'Conocimiento centralizado en un individuo clave del proyecto.',
+          mitigacion:
+            'Documentación, pair programming, rotación de conocimiento y on‑call distribuido.',
+          contingencia:
+            'Activar plan de sustitución, contratar temporalmente y transferir conocimiento urgente.',
+        },
+      ],
+    },
+    {
+      nombre: '14. Ética / Uso indebido',
+      items: [
+        {
+          titulo: '14.1 Uso malintencionado de modelos (deepfakes, falsificaciones)',
+          descripcion: 'Abuso de la plataforma para actividades ilícitas o dañinas.',
+          mitigacion: 'AUP, límites por cuenta, verificación KYC para empresas y logging forense.',
+          contingencia:
+            'Bloquear cuentas abusivas, auditoría forense y cooperación legal.',
+        },
+      ],
+    },
+    {
+      nombre: '15. Licencias SW',
+      items: [
+        {
+          titulo: '15.1 Conflicto por licencias de software abierto (OSS)',
+          descripcion:
+            'Uso de OSS con cláusulas copyleft que afecta distribución comercial.',
+          mitigacion:
+            'Revisión legal de licencias, preferencia por dependencias compatibles y acuerdos CLA.',
+          contingencia:
+            'Reempaquetar con alternativas, negociar licencias o refactor para eliminar dependencia.',
+        },
+      ],
+    },
+    {
+      nombre: '16. Integración API',
+      items: [
+        {
+          titulo: '16.1 Cambios en APIs de terceros (formatos, rate limits)',
+          descripcion:
+            'Dependencia de proveedores externos que cambian contratos o formatos.',
+          mitigacion: 'Versionado, timeouts, retries, circuit breaker y caching.',
+          contingencia:
+            'Fallback local, comunicación con proveedor y adaptación/patch rápido.',
+        },
+      ],
+    },
+    {
+      nombre: '17. Mantenimiento',
+      items: [
+        {
+          titulo: '17.1 Degradación por deuda técnica (tech debt)',
+          descripcion:
+            'Acumulación de código y arquitectura que reduce velocidad de entrega.',
+          mitigacion:
+            'Registro de deuda técnica, code quality gates y sprints dedicados a refactor.',
+          contingencia:
+            'Programar sprint de mantenimiento, congelar features mayores temporalmente.',
+        },
+      ],
+    },
+    {
+      nombre: '18. Medio ambiente',
+      items: [
+        {
+          titulo: '18.1 Riesgos por condiciones ambientales en el datacenter',
+          descripcion:
+            'Incendios, inundaciones o condiciones extremas que afectan la infraestructura local.',
+          mitigacion:
+            'Sensores ambientales, detectores de humo, sistema de supresión, evaluación de riesgo ubicacional.',
+          contingencia:
+            'Evacuación segura, activación de DR offsite y restauración desde copias fuera de sitio.',
+        },
+      ],
     },
   ];
 
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        bgcolor: '#f5f7fa',
-        py: 4,
-      }}
-    >
+    <Box sx={{ minHeight: '100vh', bgcolor: '#f5f7fa', py: 4 }}>
+      {/* Video de fondo ... (ya presente) */}
       <Container maxWidth="xl">
-        <Paper
-          elevation={3}
-          sx={{
-            borderRadius: 3,
-            overflow: 'hidden',
-          }}
-        >
+        <Paper elevation={3} sx={{ borderRadius: 3, overflow: 'hidden' }}>
           {/* Header */}
           <Box
             sx={{
@@ -467,10 +444,10 @@ export default function Analisis() {
               <Grid container spacing={3} alignItems="center">
                 <Grid item xs={12} md={8}>
                   <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
-                    Análisis del Sistema
+                    Documentación Organizacional
                   </Typography>
                   <Typography variant="h6" sx={{ mb: 2, opacity: 0.9 }}>
-                    Diagramas IDEF0 e Ishikawa - Sistema CRM Typica Café
+                    Diagrama jerárquico, manuales y gestión de riesgos
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
                     <Chip
@@ -480,41 +457,9 @@ export default function Analisis() {
                     />
                     <Chip
                       icon={<Business />}
-                      label="La Paz, Bolivia"
+                      label="MAPt3R"
                       sx={{ bgcolor: 'rgba(255,255,255,0.2)', color: 'white' }}
                     />
-                  </Box>
-                </Grid>
-                <Grid item xs={12} md={4}>
-                  <Box sx={{ textAlign: 'center' }}>
-                    <Box
-                      sx={{
-                        width: 120,
-                        height: 120,
-                        bgcolor: 'white',
-                        borderRadius: 2,
-                        mx: 'auto',
-                        mb: 1,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        p: 1,
-                        boxShadow: 3,
-                      }}
-                    >
-                      <img
-                        src="https://www.soysucre.info/wp-content/uploads/2022/03/Typica-Logo.jpg"
-                        alt="Typica Café Logo"
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'contain',
-                        }}
-                      />
-                    </Box>
-                    <Typography variant="h5" sx={{ fontWeight: 600 }}>
-                      Typica Café
-                    </Typography>
                   </Box>
                 </Grid>
               </Grid>
@@ -523,267 +468,125 @@ export default function Analisis() {
 
           {/* Content */}
           <Box sx={{ p: 4 }}>
-            {/* Diagramas IDEF0 */}
-            <Accordion
-              expanded={expanded === 'panel1'}
-              onChange={handleChange('panel1')}
-              defaultExpanded
-              sx={{ mb: 2, boxShadow: 2 }}
-            >
+            {/* 1) Diagrama Jerárquico */}
+            <Accordion expanded={expanded === 'panelOrg'} onChange={handleChange('panelOrg')} sx={{ mb: 2, boxShadow: 2 }}>
               <AccordionSummary
                 expandIcon={<ExpandMore />}
-                sx={{
-                  bgcolor: 'primary.main',
-                  color: 'white',
-                  '&:hover': { bgcolor: 'primary.dark' },
-                }}
+                sx={{ bgcolor: 'primary.main', color: 'white', '&:hover': { bgcolor: 'primary.dark' } }}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <AccountTree />
                   <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                    Diagramas IDEF0
+                    Diagrama Jerárquico
                   </Typography>
                 </Box>
               </AccordionSummary>
               <AccordionDetails sx={{ p: 3 }}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 2 }}>
-                  <Tabs value={tabValue} onChange={handleTabChange}>
-                    <Tab label="IDEF0 Principal (A-0)" />
-                    <Tab label="IDEF0 Desglose (A0)" />
-                  </Tabs>
-                </Box>
-
-                {/* IDEF0 Principal */}
-                <TabPanel value={tabValue} index={0}>
-                  <Card sx={{ bgcolor: '#f8f9fa', mb: 3 }}>
-                    <CardContent>
-                      <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
-                        Diagrama de Contexto (A-0)
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Vista general del Sistema CRM mostrando las entradas, salidas, controles y mecanismos principales.
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                  
-                  <Paper 
-                      sx={{ 
-                        p: 3, 
-                        bgcolor: 'white',
-                        border: '1px solid #e0e0e0',
-                        borderRadius: 2,
-                        textAlign: 'center'
-                      }}
-                    >
-                      <Box
-                        component="img"
-                        src={IDEF0Principal} // 👈 Usa tu imagen aquí
-                        alt="Diagrama IDEF0 Principal (A-0) - Sistema CRM Typica Café"
-                        sx={{
-                          width: '100%',
-                          maxWidth: '100%',
-                          height: 'auto',
-                          borderRadius: 1,
-                        }}
-                      />
-                    </Paper>
-
-                  <Grid container spacing={2} sx={{ mt: 2 }}>
-                    <Grid item xs={6} md={3}>
-                      <Card sx={{ borderLeft: '4px solid #2196F3' }}>
-                        <CardContent>
-                          <Typography variant="subtitle2" sx={{ fontWeight: 600, color: '#2196F3' }}>
-                            Entradas (Input)
-                          </Typography>
-                          <Typography variant="caption">
-                            Datos e información que ingresan al sistema
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
-                      <Card sx={{ borderLeft: '4px solid #FF9800' }}>
-                        <CardContent>
-                          <Typography variant="subtitle2" sx={{ fontWeight: 600, color: '#FF9800' }}>
-                            Controles (Control)
-                          </Typography>
-                          <Typography variant="caption">
-                            Reglas y normativas que guían el proceso
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
-                      <Card sx={{ borderLeft: '4px solid #4CAF50' }}>
-                        <CardContent>
-                          <Typography variant="subtitle2" sx={{ fontWeight: 600, color: '#4CAF50' }}>
-                            Salidas (Output)
-                          </Typography>
-                          <Typography variant="caption">
-                            Resultados generados por el sistema
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
-                      <Card sx={{ borderLeft: '4px solid #9C27B0' }}>
-                        <CardContent>
-                          <Typography variant="subtitle2" sx={{ fontWeight: 600, color: '#9C27B0' }}>
-                            Mecanismos (Mechanism)
-                          </Typography>
-                          <Typography variant="caption">
-                            Recursos que ejecutan el proceso
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                  </Grid>
-                </TabPanel>
-
-                {/* IDEF0 Desglose */}
-                <TabPanel value={tabValue} index={1}>
-                  <Card sx={{ bgcolor: '#f8f9fa', mb: 3 }}>
-                    <CardContent>
-                      <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
-                        Diagrama Desglosado (A0)
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Descomposición del sistema en 8 procesos principales y sus interrelaciones.
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                  <Paper sx={{ height: 900, border: '1px solid #e0e0e0' }}>
-                    <ReactFlow
-                      nodes={idef0DesgloseNodes}
-                      edges={idef0DesgloseEdges}
-                      fitView
-                      attributionPosition="bottom-left"
-                    >
-                      <Background />
-                      <Controls />
-                      <MiniMap />
-                    </ReactFlow>
-                  </Paper>
-                  <Grid container spacing={2} sx={{ mt: 2 }}>
-                    {[
-                      { id: 'A1', name: 'Análisis y diagnóstico', color: '#2196F3', desc: 'Identificación de necesidades y análisis de mercado' },
-                      { id: 'A2', name: 'Definición de campaña', color: '#4CAF50', desc: 'Establecimiento de objetivos y alcance' },
-                      { id: 'A3', name: 'Desarrollo del concepto creativo', color: '#FF9800', desc: 'Creación de mensajes y diseño visual' },
-                      { id: 'A4', name: 'Selección de canales y medios', color: '#9C27B0', desc: 'Definición de estrategia de medios' },
-                      { id: 'A5', name: 'Planificación de cronograma y presupuesto', color: '#F44336', desc: 'Asignación de recursos y tiempos' },
-                      { id: 'A6', name: 'Producción de contenidos y materiales', color: '#00BCD4', desc: 'Desarrollo de piezas publicitarias' },
-                      { id: 'A7', name: 'Ejecución y monitoreo', color: '#795548', desc: 'Lanzamiento y seguimiento de campaña' },
-                      { id: 'A8', name: 'Fidelización', color: '#607D8B', desc: 'Programa de lealtad y retención de clientes' },
-                    ].map((proceso) => (
-                      <Grid item xs={12} md={3} key={proceso.id}>
-                        <Card sx={{ borderLeft: `4px solid ${proceso.color}`, height: '100%' }}>
-                          <CardContent>
-                            <Typography variant="subtitle2" sx={{ fontWeight: 600, color: proceso.color, mb: 0.5 }}>
-                              {proceso.id} - {proceso.name}
-                            </Typography>
-                            <Typography variant="caption" color="text.secondary">
-                              {proceso.desc}
-                            </Typography>
-                          </CardContent>
-                        </Card>
-                      </Grid>
-                    ))}
-                  </Grid>
-                </TabPanel>
+                <Paper sx={{ height: 500, border: '1px solid #e0e0e0' }}>
+                  {/* <ReactFlow nodes={orgNodes} edges={orgEdges} fitView attributionPosition="bottom-left">
+                    <Background />
+                    <Controls />
+                    <MiniMap />
+                  </ReactFlow> */}
+                  <img src={DiagramaJerarquico} alt="Diagrama Jerárquico" style={{ width: '65%', height: 'auto', justifyContent: 'center' }} />
+                </Paper>
               </AccordionDetails>
             </Accordion>
 
-            {/* NUEVO: Diagrama Ishikawa */}
-            <Accordion
-              expanded={expanded === 'panel2'}
-              onChange={handleChange('panel2')}
-              sx={{ mb: 2, boxShadow: 2 }}
-            >
+            {/* 2) Manuales de funciones */}
+            <Accordion expanded={expanded === 'panelFunciones'} onChange={handleChange('panelFunciones')} sx={{ mb: 2, boxShadow: 2 }}>
               <AccordionSummary
                 expandIcon={<ExpandMore />}
-                sx={{
-                  bgcolor: 'secondary.main',
-                  color: 'white',
-                  '&:hover': { bgcolor: 'secondary.dark' },
-                }}
+                sx={{ bgcolor: 'secondary.main', color: 'white', '&:hover': { bgcolor: 'secondary.dark' } }}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <BubbleChart />
+                  <Description />
                   <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                    Diagrama de Ishikawa (Causa-Efecto)
+                    Manuales de funciones
+                  </Typography>
+                </Box>
+              </AccordionSummary>
+
+              <AccordionDetails sx={{ p: 3 }}>
+                <Grid container spacing={2}>
+                  {manualesFunciones.map((m) => (
+                    <Grid key={m.id} item xs={12} md={6}>
+                      <Accordion disableGutters sx={{ border: '1px solid #e0e0e0', borderRadius: 2, overflow: 'hidden' }}>
+                        <AccordionSummary expandIcon={<ExpandMore />}>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexGrow: 1 }}>
+                            <PictureAsPdf sx={{ color: '#e53935' }} />
+                            <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#0f3460' }}>
+                              {m.titulo}
+                            </Typography>
+                          </Box>
+                          <Box
+                            component="a"
+                            href={m.src}
+                            target="_blank"
+                            rel="noopener"
+                            onClick={(e) => e.stopPropagation()}
+                            sx={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: 0.5,
+                              px: 1,
+                              py: 0.5,
+                              borderRadius: 1,
+                              color: '#0f3460',
+                              border: '1px solid rgba(15,52,96,.2)',
+                              '&:hover': { bgcolor: 'rgba(15,52,96,.05)' },
+                            }}
+                            title="Abrir en nueva pestaña"
+                          >
+                            <OpenInNew fontSize="small" />
+                            <Typography variant="caption">Abrir PDF</Typography>
+                          </Box>
+                        </AccordionSummary>
+
+                        {/* Visor embebido opcional */}
+                        <AccordionDetails>
+                          <Box sx={{ height: 560, borderRadius: 1, overflow: 'hidden' }}>
+                            <Box
+                              component="iframe"
+                              src={`${m.src}#toolbar=1&navpanes=0&view=FitH`}
+                              sx={{ width: '100%', height: '100%', border: 0 }}
+                              title={m.titulo}
+                            />
+                          </Box>
+                        </AccordionDetails>
+                      </Accordion>
+                    </Grid>
+                  ))}
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+
+            {/* 3) Manuales de actividades */}
+            <Accordion expanded={expanded === 'panelActividades'} onChange={handleChange('panelActividades')} sx={{ mb: 2, boxShadow: 2 }}>
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                sx={{ bgcolor: 'secondary.main', color: 'white', '&:hover': { bgcolor: 'secondary.dark' } }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Checklist />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    Manuales de actividades
                   </Typography>
                 </Box>
               </AccordionSummary>
               <AccordionDetails sx={{ p: 3 }}>
-                <Card sx={{ bgcolor: '#f8f9fa', mb: 3 }}>
-                  <CardContent>
-                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
-                      Análisis de Causas Raíz
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Diagrama de espina de pescado para identificar las causas potenciales de problemas 
-                      en la implementación y operación del sistema CRM.
-                    </Typography>
-                  </CardContent>
-                </Card>
-                
-                {/* AQUÍ VA TU IMAGEN */}
-                <Paper 
-                  sx={{ 
-                    p: 3, 
-                    bgcolor: 'white',
-                    border: '1px solid #e0e0e0',
-                    borderRadius: 2,
-                    textAlign: 'center'
-                  }}
-                >
-                  <Box
-                    component="img"
-                    src={IshikawaDiagram} // 👈 CAMBIA ESTA RUTA
-                    alt="Diagrama de Ishikawa - Sistema CRM Typica Café"
-                    sx={{
-                      width: '100%',
-                      maxWidth: '100%',
-                      height: 'auto',
-                      borderRadius: 1,
-                    }}
-                  />
-                </Paper>
-
-                {/* Categorías explicativas */}
-                <Grid container spacing={2} sx={{ mt: 3 }}>
-                  {[
-                    { 
-                      categoria: 'Personal', 
-                      color: '#2196F3', 
-                      causas: ['Falta de capacitación', 'Resistencia al cambio', 'Escaso conocimiento técnico'] 
-                    },
-                    { 
-                      categoria: 'Procesos', 
-                      color: '#4CAF50', 
-                      causas: ['Procesos no documentados', 'Flujos de trabajo inadecuados', 'Falta de estandarización'] 
-                    },
-                    { 
-                      categoria: 'Tecnología', 
-                      color: '#FF9800', 
-                      causas: ['Infraestructura limitada', 'Problemas de integración', 'Falta de mantenimiento'] 
-                    },
-                    { 
-                      categoria: 'Datos', 
-                      color: '#9C27B0', 
-                      causas: ['Datos incompletos', 'Información desactualizada', 'Falta de calidad de datos'] 
-                    },
-                  ].map((item, index) => (
-                    <Grid item xs={12} md={6} key={index}>
-                      <Card sx={{ borderLeft: `4px solid ${item.color}`, height: '100%' }}>
+                <Grid container spacing={2}>
+                  {actividades.map((a) => (
+                    <Grid key={a.titulo} item xs={12} md={4}>
+                      <Card sx={{ height: '100%', borderLeft: '4px solid #0f3460' }}>
                         <CardContent>
-                          <Typography variant="h6" sx={{ fontWeight: 600, color: item.color, mb: 1 }}>
-                            {item.categoria}
+                          <Typography variant="subtitle1" sx={{ fontWeight: 800, color: '#0f3460', mb: 1 }}>
+                            {a.titulo}
                           </Typography>
-                          <Box component="ul" sx={{ m: 0, pl: 2 }}>
-                            {item.causas.map((causa, idx) => (
-                              <Typography component="li" variant="body2" key={idx} sx={{ mb: 0.5 }}>
-                                {causa}
+                          <Box component="ol" sx={{ m: 0, pl: 2 }}>
+                            {a.pasos.map((p, i) => (
+                              <Typography key={i} component="li" variant="body2" sx={{ mb: 0.5 }}>
+                                {p}
                               </Typography>
                             ))}
                           </Box>
@@ -795,55 +598,80 @@ export default function Analisis() {
               </AccordionDetails>
             </Accordion>
 
-            <Accordion
-              expanded={expanded === 'panel3'}
-              onChange={handleChange('panel3')}
-              sx={{ mb: 2, boxShadow: 2 }}
-            >
+            {/* 4) Gestión de riesgos */}
+            <Accordion expanded={expanded === 'panelRiesgos'} onChange={handleChange('panelRiesgos')} sx={{ mb: 2, boxShadow: 2 }}>
               <AccordionSummary
                 expandIcon={<ExpandMore />}
-                sx={{
-                  bgcolor: 'secondary.main',
-                  color: 'white',
-                  '&:hover': { bgcolor: 'secondary.dark' },
-                }}
+                sx={{ bgcolor: 'error.main', color: 'white', '&:hover': { bgcolor: 'error.dark' } }}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <BubbleChart />
+                  <WarningAmber />
                   <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                    Matriz de Coherencia
+                    Gestión de riesgos
                   </Typography>
                 </Box>
               </AccordionSummary>
               <AccordionDetails sx={{ p: 3 }}>
-                
-                {/* AQUÍ VA TU IMAGEN */}
-                <Paper 
-                  sx={{ 
-                    p: 3, 
-                    bgcolor: 'white',
-                    border: '1px solid #e0e0e0',
-                    borderRadius: 2,
-                    textAlign: 'center'
-                  }}
-                >
-                  <Box
-                    component="img"
-                    src={MatrizCoherencia} // 👈 CAMBIA ESTA RUTA
-                    alt="Diagrama de Ishikawa - Sistema CRM Typica Café"
-                    sx={{
-                      width: '100%',
-                      maxWidth: '100%',
-                      height: 'auto',
-                      borderRadius: 1,
-                    }}
-                  />
-                </Paper>
+                {/* Introducción del documento */}
+                <Typography variant="h6" sx={{ fontWeight: 800, color: '#0f3460', mb: 1 }}>
+                  {riesgosIntro.titulo}
+                </Typography>
+                {riesgosIntro.parrafos.map((t, i) => (
+                  <Typography key={i} variant="body2" sx={{ color: 'text.secondary', mb: 1.2, textAlign: 'justify' }}>
+                    {t}
+                  </Typography>
+                ))}
+
+                {/* Categorías y riesgos */}
+                {riesgosCategorias.map((cat) => (
+                  <Accordion key={cat.nombre} disableGutters sx={{ mt: 2, border: '1px solid #e0e0e0', borderRadius: 2, overflow: 'hidden' }}>
+                    <AccordionSummary expandIcon={<ExpandMore />}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 800, color: '#0f3460' }}>
+                        {cat.nombre}
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Grid container spacing={2}>
+                        {cat.items.map((r) => (
+                          <Grid key={r.titulo} item xs={12}>
+                            <Card sx={{ borderLeft: '5px solid #ef5350' }}>
+                              <CardContent>
+                                <Typography variant="subtitle1" sx={{ fontWeight: 800, mb: 0.5 }}>
+                                  {r.titulo}
+                                </Typography>
+                                {r.descripcion && (
+                                  <Typography variant="body2" sx={{ color: 'text.secondary', mb: 1 }}>
+                                    {r.descripcion}
+                                  </Typography>
+                                )}
+                                <Grid container spacing={2}>
+                                  <Grid item xs={12} md={6}>
+                                    <Box sx={{ p: 1.5, bgcolor: '#fff3e0', borderRadius: 1 }}>
+                                      <Typography variant="subtitle2" sx={{ fontWeight: 800, color: '#e65100', mb: 0.5 }}>
+                                        Plan de Mitigación
+                                      </Typography>
+                                      <Typography variant="body2">{r.mitigacion}</Typography>
+                                    </Box>
+                                  </Grid>
+                                  <Grid item xs={12} md={6}>
+                                    <Box sx={{ p: 1.5, bgcolor: '#e3f2fd', borderRadius: 1 }}>
+                                      <Typography variant="subtitle2" sx={{ fontWeight: 800, color: '#0d47a1', mb: 0.5 }}>
+                                        Plan de Contingencia
+                                      </Typography>
+                                      <Typography variant="body2">{r.contingencia}</Typography>
+                                    </Box>
+                                  </Grid>
+                                </Grid>
+                              </CardContent>
+                            </Card>
+                          </Grid>
+                        ))}
+                      </Grid>
+                    </AccordionDetails>
+                  </Accordion>
+                ))}
               </AccordionDetails>
             </Accordion>
-
-            {/* Footer */}
-            
           </Box>
         </Paper>
       </Container>
